@@ -13,7 +13,7 @@ script:
   - grunt karma:unit
 
 after_script:
-  - cat test/coverage/*/lcov.info | codeclimate
+  - cat reports/coverage/*/lcov.info | codeclimate
 
 addons:
   code_climate:
