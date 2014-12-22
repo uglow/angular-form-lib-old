@@ -18,12 +18,14 @@
   "private": true,
   "ignore": [
     "**/.*",
-    "bower_components",
-    "config",
-    "dev",
-    "docs",
-    "node_modules",
-    "src"
+    "Gruntfile.js",
+    "/bower_components",
+    "/config",
+    "/dev",
+    "/docs",
+    "/node_modules",
+    "/reports",
+    "/src"
   ],
   "dependencies": {
     "angular": "1.2.x",

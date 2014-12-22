@@ -1,4 +1,4 @@
-# Angular Form Library
+# [Angular Form Library](https://github.com/uglow/angular-form-lib)
 
 ## <a name="download"></a> Download
 ```
