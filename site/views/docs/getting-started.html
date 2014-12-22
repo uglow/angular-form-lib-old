@@ -1,0 +1,85 @@
+<div class="bs-docs-section">
+
+  <div class="page-header">
+    <h1 id="gettingStarted">Getting started <a class="small" href="//github.com/uglow/angular-form-lib/blob/master/README.md" target="_blank">readme.md</a>
+    </h1>
+    <code>ngFormLib</code>
+  </div>
+
+  <div class="callout callout-info">
+    <h4 id="project-history">About the project</h4>
+    <p>Angular Form Policy is a set of native directives that allow you to change how form validation works, plus a set of accessibility-aware input controls
+    that are easy to integrate into your AngularJS 1.2 application.</p>
+    <p>Designed with Bootstrap CSS styles, Angular Form Policy is designed to make your forms more accessible and easier to change.</p>
+  </div>
+
+  <h2 id="project-quickstart">Quick Start</h2>
+  <p>Install and manage Angular Form Policy with <a href="http://bower.io">Bower</a>.
+    <!--<small>You can also use <a href="https://www.nuget.org/packages/angular-form-lib">NuGet</a>.</small> -->
+    <!--A <a href="http://cdnjs.com/libraries/angular-form-lib">CDN</a> is also provided by cdnjs.com.-->
+  </p>
+  <div class="highlight">
+    <pre>
+      <code class="bash" highlight-block>
+        $ bower install angular-form-lib --save
+      </code>
+    </pre>
+  </div>
+
+  <p>Load the required javascript libraries (Bootstrap scripts files are not needed).</p>
+  <div class="highlight">
+    <pre>
+      <code class="html" highlight-block>
+        &lt;script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.0/angular.min.js"&gt;&lt;/script&gt;
+      </code>
+    </pre>
+  </div>
+  <p>Inject the
+    <code>ngFormLib</code>module into your application.</p>
+  <div class="highlight">
+    <pre>
+      <code class="javascript" highlight-block>
+        angular.module('myApp', ['ngFormLib']);
+      </code>
+    </pre>
+  </div>
+
+  <!--<div class="callout callout-info">-->
+    <!--<h4>Why are there two angular-strap files?</h4>-->
+    <!--<p>AngularStrap provides two different files:</p>-->
+    <!--<ul>-->
+      <!--<li>angular-strap.js: library javascript code</li>-->
+      <!--<li>angular-strap.tpl.js: default HTML inline templates used by the directives</li>-->
+    <!--</ul>-->
+    <!--<p>By keeping the HTML template definitions in a separate file, it makes it easier to customize the templates used by the directives by creating a custom copy of the file or by overriding some of the templates.</p>-->
+  <!--</div>-->
+
+  <div class="callout callout-info">
+    <h4>Custom builds</h4>
+    <p>Angular Form Policy provides independently built modules that can be loaded separately</p>
+    <div class="highlight">
+      <pre>
+        <code class="javascript" highlight-block>
+          angular.module('myApp', [ 'ngFormLib.policy', 'ngFormLib.controls.formInput']);
+        </code>
+      </pre>
+    </div>
+  </div>
+
+  <h2 id="project-contribute">Contribute</h2>
+  <p>Build and work on Angular Form Policy with <a href="http://gruntjs.com">Grunt</a>.</p>
+  <div class="highlight">
+    <pre>
+      <code class="bash" highlight-block>
+        // Serve and watch docs, ideal to develop
+        $ grunt dev
+        // Continuous integration
+        $ grunt test
+        // Build Angular Form Policy
+        $ grunt build
+      </code>
+    </pre>
+  </div>
+
+
+</div>

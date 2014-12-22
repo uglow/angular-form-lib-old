@@ -1,0 +1,91 @@
+<div class="bs-docs-section" ng-controller="FormCheckboxDemoController as ctrl">
+
+  <div class="page-header">
+    <h1 id="formCheckbox">Form Checkbox <a class="small" href="//github.com/uglow/angular-form-lib/blob/master/src/modules/ngFormLib/controls/formCheckbox/FormCheckbox.js" target="_blank">FormCheckbox.js</a>
+    </h1>
+    <code>ngFormLib.controls.formCheckbox</code>
+  </div>
+
+  <p>The Form Checkbox directive acts like a macro in that it expands into a <code>&lt;label&gt;</code>,<code>&lt;input type="checkbox"&gt;</code> and some auxillary HTML elements, but does change the <code>$scope</code> of those elements.</p>
+
+  <p>It works this way because the elements are inter-related. For example, when the <code>required</code> attribute is set to <code>true</code>
+    the <code>&lt;label&gt;</code> element is changed so that a required-indicator-CSS-class is applied to the element.
+  </p>
+
+  <div class="callout callout-danger">
+    <h4>Plugin dependency</h4>
+    <p>FormCheckbox requires the <a ahref="#formControlsService">form controls service module</a>, the <a ahref="#fieldErrorController">field error controller module</a>
+      , the <a ahref="#errorMessageContainer">error message container module</a> and the <a href="//github.com/uglow/angular-form-lib/blob/master/src/controls/formCheckbox/template/FormCheckboxTemplate.html" target="_blank">FormCheckboxTemplate.html</a> template to be loaded.</p>
+    <!--<p>These docs currently use <a href="//github.com/mgcrea/bootstrap-additions/blob/master/src/datepicker/datepicker.less" target="_blank">bootstrap-additions</a> for styling purposes.</p>-->
+  </div>
+
+  <h2 id="formCheckboxExamples">Examples</h2>
+  <p>Use <code>form-checkbox</code> to create a complete HTML structure containing a <code>label</code> and <code>input type="checkbox"</code> element that reacts to the error state of the field.</p>
+
+  <h3>Live demo</h3>
+
+  <div class="bs-example" style="padding-bottom: 24px;" append-source>
+
+    <!-- Example of directive on the form element. Any "submit" button will activate it -->
+    <form name="formCheckbox1" class="form" novalidate form-submit>
+
+      <div form-checkbox uid="formCheckbox1_fld1" name="formCheckbox1_fld1" required="true"
+        ff-ng-model="ctrl.data.fld1"
+        field-errors="{required: 'You must agree'}"
+        >You are required to agree to this</div>
+
+      <div form-checkbox uid="formCheckbox1_fld2" name="formCheckbox1_fld2"
+         ff-ng-model="ctrl.data.fld2" ff-ng-true-value="'dog'" ff-ng-false-value="'cat'"
+        >Optional Checkbox with value: {{ctrl.data.fld2}}</div>
+
+      <div form-checkbox uid="formCheckbox1_fld3" name="formCheckbox1_fld3" class="image-checkbox"
+           ff-ng-model="ctrl.data.fld3">Styled accessible checkbox</div>
+
+      <div form-checkbox uid="formCheckbox1_fld4" name="formCheckbox1_fld4" class="image-checkbox"
+           ff-ng-disabled="ctrl.data.fld3"
+           ff-ng-model="ctrl.data.fld4">Occassionally disabled checkbox</div>
+
+      <button type="submit" class="btn btn-primary">Submit button</button>
+    </form>
+
+  </div>
+
+  <h2 id="formCheckboxUsage">Usage</h2>
+  <p>Add the <code>form-check</code> directive to an element, and supply a label as the content of the element (see example above).</p>
+
+  <h3>Options</h3>
+  <p>Options can be passed via attributes on the directive.</p>
+  <div class="table-responsive">
+    <table class="table table-bordered table-striped">
+      <thead>
+        <tr>
+          <th style="width: 100px;">Name</th>
+          <th style="width: 100px;">Type</th>
+          <th style="width: 50px;">Default</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>ff-ng-true-value</td>
+          <td>expression</td>
+          <td></td>
+          <td>The value to use in the model-value when the checkbox is checked.</td>
+        </tr>
+        <tr>
+          <td>ff-ng-false-value</td>
+          <td>expression</td>
+          <td></td>
+          <td>The value to use in the model-value when the checkbox is not checked.</td>
+        </tr>
+        <tr>
+          <td>template</td>
+          <td>URL</td>
+          <td>See <a ahref="#formControlsServiceOptions">Form Controls Service options</a></td>
+          <td>The HTML template to use for the control. The default value can be overridden on the element, or globally by setting the default value in the <a ahref="#formControlsService">Form Controls Service</a></td>
+        </tr>
+      </tbody>
+      <tbody ng-include="'views/ngFormLib/controls/common/docs/formControlsCommonProperties.docs.html'"></tbody>
+    </table>
+  </div>
+</div>

@@ -1,0 +1,94 @@
+<div class="bs-docs-section" ng-controller="FormRadioButtonDemoController as ctrl">
+
+  <div class="page-header">
+    <h1 id="formRadioButton">Form RadioButton <a class="small" href="//github.com/uglow/angular-form-lib/blob/master/src/modules/ngFormLib/controls/formRadioButton/FormRadioButton.js" target="_blank">FormRadioButton.js</a>
+    </h1>
+    <code>ngFormLib.controls.formRadioButton</code>
+  </div>
+
+  <p>Form RadioButton is a directive that is a wrapper for a <code>label</code>,<code>input type="radio"</code> and some auxillary HTML elements, designed to work within Bootstrap form-structures.</p>
+
+  <p>It works this way because the <code>label</code>,<code>input type="radio"</code> and error-display elements are inter-related.
+    For example, when the <code>required</code> attribute is set to <code>true</code>
+    the <code>&lt;label&gt;</code> element is changed so that a required-indicator-CSS-class is applied to the element.
+  </p>
+
+  <div class="callout callout-danger">
+    <h4>Plugin dependency</h4>
+    <p>Form RadioButton requires the <a ahref="#formControlsService">form controls service module</a>, the <a ahref="#fieldErrorController">field error controller module</a>
+      , the <a ahref="#errorMessageContainer">error message container module</a> and the
+      <a href="//github.com/uglow/angular-form-lib/blob/master/src/controls/formRadioButton/template/formRadioButtonTemplate.html" target="_blank">FormRadioButtonTemplate.html</a> template to be loaded.</p>
+  </div>
+
+  <h2 id="formRadioButtonExamples">Examples</h2>
+  <p>Use <code>form-radio-button</code> to create a complete HTML structure containing a <code>label</code> and <code>input type="radio"</code> element that reacts to the state of the field.</p>
+
+  <h3>Live demo</h3>
+
+  <div class="bs-example" style="padding-bottom: 24px;" append-source>
+
+    <!-- Example of directive on the form element. Any "submit" button will activate it -->
+    <form name="formRadio1" class="form" novalidate form-submit>
+
+      <!-- Example of a radio-group that has no initial-selection. Note the radio buttons are required
+       but hide-required-indicator="true", and field-errors are specified on the error-container,
+       NOT on the radio button -->
+      <fieldset form-group>
+        <div ng-repeat="item in ctrl.titleData">
+          <div form-radio-button uid="formRadio1_fld{{$index}}" name="formRadio1_group1"
+            ff-ng-model="ctrl.data1.radioVal1" ff-ng-value="$index" required="true" hide-required-indicator
+            >{{item.label}}</div>
+        </div>
+        <div error-container field-name="formRadio1_group1" field-errors="{required: 'Please select one of the above options'}"></div>
+      </fieldset>
+
+      <p>Selected value: {{ctrl.data1.radioVal1}}</p>
+
+      <!-- To avoid the complexity with required radio-buttons, you typically make one of them initially-selected -->
+      <fieldset form-group>
+        <div ng-repeat="item in ctrl.titleData">
+          <div form-radio-button uid="formRadio1_fld2{{$index}}" name="formRadio1_group2"
+               ff-ng-model="ctrl.data1.radioVal2" ff-ng-value="$index"
+              >{{item.label}}</div>
+        </div>
+      </fieldset>
+
+      <button type="submit" class="btn btn-primary">Submit</button>
+      <button type="button" class="btn" form-reset="ctrl.data1">Reset</button>
+    </form>
+
+  </div>
+
+  <h2 id="formRadioButtonUsage">Usage</h2>
+  <p>Add the <code>form-radio-button</code> directive to an element, and supply a label as the content of the element (see example above).</p>
+
+  <h3>Options</h3>
+  <p>Options can be passed via attributes on the directive.</p>
+  <div class="table-responsive">
+    <table class="table table-bordered table-striped">
+      <thead>
+      <tr>
+        <th style="width: 100px;">Name</th>
+        <th style="width: 100px;">Type</th>
+        <th style="width: 50px;">Default</th>
+        <th>Description</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td>ff-ng-value</td>
+        <td>expression</td>
+        <td></td>
+        <td>The value to use in the model-value when the radio-button is selected.</td>
+      </tr>
+      <tr>
+        <td>template</td>
+        <td>URL</td>
+        <td>See <a ahref="#formControlsServiceOptions">Form Controls Service options</a></td>
+        <td>The HTML template to use for the control. The default value can be overridden on the element, or globally by setting the default value in the <a ahref="#formControlsService">Form Controls Service</a></td>
+      </tr>
+      </tbody>
+      <tbody ng-include="'views/ngFormLib/controls/common/docs/formControlsCommonProperties.docs.html'"></tbody>
+    </table>
+  </div>
+</div>
