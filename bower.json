@@ -25,7 +25,7 @@
     "/docs",
     "/node_modules",
     "/reports",
-    "/src"
+    "/src/"
   ],
   "dependencies": {
     "angular": "1.2.x",

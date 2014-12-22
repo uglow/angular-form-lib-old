@@ -49,7 +49,7 @@ module.exports = function(config) {
     coverageReporter: {
       reporters: [
         { type: 'html' },
-        { type: 'cobertura' },
+        { type: 'lcov' },
         { type: 'text' },         // Needed for grunt-istanbul-coverage task
         { type: 'json' }          // Needed for grunt-istanbul-coverage task
       ],
