@@ -1,0 +1,41 @@
+{
+  "name": "angular-form-lib",
+  "version": "0.0.1",
+  "authors": [
+    "Brett Uglow <buglow@odecee.com.au>"
+  ],
+  "description": "Angular Form Library is a form component library that makes it simple to create forms with built-in validation and BootStrap styling.",
+  "main": "lib/dist/ng-form-lib.js",
+  "moduleType": [
+    "globals"
+  ],
+  "keywords": [
+    "angular",
+    "forms",
+    "bootstrap"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "bower_components",
+    "config",
+    "dev",
+    "docs",
+    "node_modules",
+    "src"
+  ],
+  "dependencies": {
+    "angular": "1.2.x",
+    "angular-translate": "~2.2.0",
+    "angular-translate-loader-static-files": "~2.2.0"
+  },
+  "devDependencies": {
+    "angular-animate": "1.2.x",
+    "angular-mocks": "1.2.x",
+    "angular-scroll": "~0.6.2",
+    "angular-strap": "~2.1.4",
+    "bootstrap-stylus": "~3.3.1",
+    "highlightjs": "~8.3.0"
+  }
+}
