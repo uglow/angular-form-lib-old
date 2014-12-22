@@ -1,0 +1,65 @@
+.aside
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  z-index: 1049;
+  overflow: auto;
+  min-width: 320px;
+  background: #fff;
+
+  &.left
+    right: auto
+    left: 0
+
+  &.bs-docs-aside
+    .aside-header
+      background: $brand-primary
+
+    .nav
+      margin: 0px
+
+
+  .aside-dialog
+    .aside-header
+      border-bottom: 1px solid #e5e5e5;
+      min-height: 16.43px;
+      padding: 6px 15px;
+      background: #428bca;
+      color: #fff;
+
+      .close
+        margin-right: -8px;
+        padding: 4px 8px;
+        color: #fff;
+        font-size: 25px;
+        opacity: .8;
+
+    .aside-body
+      position: relative;
+      padding: 20px;
+
+
+@media (max-width: 991px)
+  .aside
+    min-width: 240px;
+
+.bs-docs-aside
+  min-width: 200px
+
+
+
+// Backdrop for when the aside is open
+.aside-backdrop.am-fade, .modal-backdrop.am-fade {
+  background: rgba(0,0,0,.5);
+  -webkit-animation-duration: .15s;
+  animation-duration: .15s;
+}
+.aside-backdrop {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1040;
+  background-color: #000;
+}

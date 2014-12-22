@@ -1,0 +1,46 @@
+
+
+//utility functions (mixins)
+focus($color = $input-border-focus)
+  $color-rgba = rgba(red($color), green($color), blue($color), .6)
+  border-color $color
+  outline 0
+  box-shadow inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px $color-rgba
+  text-decoration: none;
+
+active()
+  background: $ocean-blue;
+  color:#fff;
+  outline:0;
+  text-decoration: none;
+
+checked()
+  background: $deep-current;
+  color:#fff;
+  text-decoration: none;
+
+disabled() //try use bootstrap overrides
+  color: $disabled;
+  border: 1px dashed $disabled;
+  background-color: transparent;
+
+valign($pos)
+  display: table;
+  > *
+    display: table-cell;
+    vertical-align: $pos;
+
+absolute-zero()
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+// Don't outline components that should not be focussed
+[tabindex="-1"], .btn[bs-select]
+  outline: 0;
+
+// All clickable anchors should have pointers
+a[ng-click]
+  cursor: pointer

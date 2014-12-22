@@ -1,0 +1,42 @@
+// Main navigation
+$navbar-height = 50px;
+
+.bs-docs-nav {
+  border-color: darken($brand-primary, 6%);
+  background-color: $brand-primary;
+  box-shadow: 0 1px 0 rgba(255,255,255,.1);
+  text-shadow: 0 -1px 0 rgba(0,0,0,.15);
+}
+.bs-docs-nav .navbar-collapse {
+  border-color: darken($brand-primary, 6%);
+}
+.bs-docs-nav .navbar-brand {
+  color: #fff;
+}
+.bs-docs-nav .navbar-nav > li > a {
+  color: lighten($brand-primary, 46%);
+}
+.bs-docs-nav .navbar-nav > li > a:hover {
+  color: #fff;
+}
+.bs-docs-nav .navbar-nav > .active > a,
+.bs-docs-nav .navbar-nav > .active > a:hover {
+  background-color: darken($brand-primary, 6%);
+  color: #fff;
+}
+.bs-docs-nav .navbar-toggle {
+  border-color: $brand-primary;
+}
+.bs-docs-nav .navbar-toggle:hover {
+  border-color: darken($brand-primary, 6%);
+  background-color: darken($brand-primary, 6%);
+}
+
+
+.navbar-toggle {
+  @media (max-width: $screen-sm-max) {
+    margin-left: 15px;
+    display: block !important;
+    float: left;
+  }
+}

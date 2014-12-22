@@ -1,0 +1,105 @@
+@require "_accessiblePatterns";
+@require "../../../../../bower_components/bootstrap-stylus/stylus/mixins";
+
+// Checkbox BOX
+$CheckBox_Size = 18px
+$Checkbox_Border_Padding = 0px
+$Checkbox_Border_Top_Inline_Padding = 1px
+$Checkbox_Icon_Padding = 2px
+
+/* Draw a checkbox for inline checkboxes and for checkbox lists */
+checkbox-label-with-custom-skin()
+  position: relative
+  padding-left: $CheckBox_Size * 1.5
+  cursor: pointer
+  padding-top: 0
+
+  &:before, &:after
+    position: absolute
+    width: $CheckBox_Size
+    height: $CheckBox_Size
+    text-align: left		// This helps us to anchor the tick-icon to the left edge (which is useful when the box is positioned on the right)
+
+  // This is the checkbox's border box
+  &:before
+    content: '' /*unchecked - this is the border box*/
+    font-size: $CheckBox_Size - $Checkbox_Icon_Padding		// does nothing?
+    border: 1px solid $input-border
+    border-radius: 5px
+    background-color: $input-bg
+    top: 0
+    left: $Checkbox_Border_Padding
+
+  &:after
+    content: '' // Could use an icon here if you want...
+    background: $brand-primary;
+    max-width: 0
+    overflow: hidden
+    opacity: 0.5
+
+    /*CSS3 transitions for animated effect*/
+    transition: all 0.35s
+    font-size: $CheckBox_Size - ($Checkbox_Icon_Padding*2)
+    top: $Checkbox_Icon_Padding
+    left: $Checkbox_Icon_Padding + $Checkbox_Border_Padding
+
+
+/* When the user checks the checkbox the checked icon will animate in */
+checkbox-label-with-custom-skin-checked-state()
+   &:after
+     max-width: $CheckBox_Size
+     opacity: 1
+
+   &:before
+     border-color: $input-border
+
+
+
+// Accessible version - make the checkbox item as-large-as the checkbox button
+.image-checkbox
+  position: relative		// Needed to make the checkbox control accessible (contains the checkbox control to the size of the container
+
+  input[type="checkbox"]
+    accessible-control-matches-container-size-and-is-still-clickable()
+
+
+/* Draw a checkbox for inline checkboxes and for checkbox lists */
+.image-checkbox label
+  checkbox-label-with-custom-skin()
+
+  // For inline checkboxes, move the top of the checkbox down slightly
+  padding-right: 10px
+
+  &:before
+    top: $Checkbox_Border_Top_Inline_Padding
+
+  &:after
+    top: $Checkbox_Icon_Padding + $Checkbox_Border_Top_Inline_Padding
+    // For the purposes of this demo, make our checkbox a little smaller
+    width: $CheckBox_Size - 4
+    height: $CheckBox_Size - 4
+    border-radius: 4px
+
+
+
+.image-checkbox
+
+  // Disabled checkboxes
+  input[type="checkbox"][disabled] + label
+    cursor: $cursor-disabled
+    &:before
+      border-color: $input-border
+
+    &:after
+      background-color: $input-bg-disabled
+
+  /* When the user checks the checkbox the checked icon will animate in */
+  .checked + label
+    checkbox-label-with-custom-skin-checked-state()
+
+  // Focus style
+  input[type="checkbox"]:focus + label:before
+    // Copy of _forms.styl form-control-focus(), but we can't use due to the :focus selector block that it returns
+    border-color: $input-border-focus
+    outline: 0
+    box-shadow inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(red($input-border-focus), green($input-border-focus), blue($input-border-focus), .6)

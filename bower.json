@@ -5,7 +5,7 @@
     "Brett Uglow <buglow@odecee.com.au>"
   ],
   "description": "Angular Form Library is a form component library that makes it simple to create forms with built-in validation and BootStrap styling.",
-  "main": "lib/dist/ng-form-lib.js",
+  "main": "dist/ng-form-lib.js",
   "moduleType": [
     "globals"
   ],
@@ -25,7 +25,7 @@
     "/docs",
     "/node_modules",
     "/reports",
-    "/src/"
+    "/site"
   ],
   "dependencies": {
     "angular": "1.2.x",

@@ -1,0 +1,15 @@
+<ul class="nav bs-sidenav">
+  <li bs-scrollspy data-target="#gettingStarted">
+    <a ahref="#gettingStarted" use-hash="true" scroll-offset="50">Getting started</a>
+  </li>
+
+  <hr style="margin: 2px 0;">
+
+  <li ng-repeat="menuItem in mainCtrl.DOC_CONFIG.sitemap" bs-scrollspy data-target="{{menuItem.href}}" data-offset="50">
+    <a ahref="{{menuItem.href}}" use-hash="true" scroll-offset="50">{{menuItem.title}}</a>
+    <ul class="nav">
+      <li ng-repeat="subMenuItem in menuItem.subSection" bs-scrollspy data-target="{{subMenuItem.href}}" data-offset="50"><a ahref="{{subMenuItem.href}}" use-hash="true" scroll-offset="50">{{subMenuItem.title}}</a></li>
+    </ul>
+    <hr ng-if="menuItem.separateAfter" style="margin: 2px 0">
+  </li>
+</ul>

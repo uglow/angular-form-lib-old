@@ -1,0 +1,92 @@
+<div class="bs-docs-section" ng-controller="RequiredMarkerDemoController as ctrl">
+
+  <div class="page-header">
+    <h1 id="requiredMarker">Required Marker <a class="small" href="{{mainCtrl.REPO}}src/modules/ngFormLib/controls/requiredMarker/RequiredMarker.js" target="_blank">RequiredMarker.js</a>
+    </h1>
+    <code>ngFormLib.controls.requiredMarker</code>
+  </div>
+
+  <p>Required Marker is a small directive which emits HTML which can be styled to display a symbol/content to indicate that a form-field is required.
+    The default template makes the marker accessible by hiding the element from a screen reader and reading out 'required' instead.</p>
+
+  <div class="callout callout-danger">
+    <h4>Plugin dependency</h4>
+    <p>Required Marker requires the <a href="#formControlsService">form controls service module</a> template to be loaded.</p>
+  </div>
+
+  <h2 id="requiredMarkerExamples">Examples</h2>
+  <p>Use <code>required-marker</code> to add an indicator inside a <code>label</code> element.</p>
+
+  <h3>Live demo</h3>
+
+  <div class="bs-example" style="padding-bottom: 24px;" append-source>
+
+    <!-- Example of directive on the form element. Any "submit" button will activate it -->
+    <form name="formRequiredMarker" class="form" novalidate form-submit>
+
+      <!-- Normal usage -->
+      <div class="form-group">
+        <label for="formRequiredMarker_fldTitle">My field<span required-marker></span></label>
+        <div class="control-row">
+          <select uid="formRequiredMarker_fldTitle" name="formRequiredMarker_fldTitle" ng-model="ctrl.data.title" ng-options="item.label for item in ctrl.titleData" class="form-control"
+                  ng-required="true" field-error-controller></select>
+        </div>
+        <div error-container field-name="formRequiredMarker_fldTitle" field-errors="{required: 'Please select a title'}"></div>
+      </div>
+
+
+      <!-- Optionally hide the marker, and show it next to the field-->
+      <div class="form-group">
+        <label for="formRequiredMarker_fldTitle2">Optionally required field</label>
+        <div class="control-row">
+          <select uid="formRequiredMarker_fldTitle2" name="formRequiredMarker_fldTitle2" ng-model="ctrl.data.title2" ng-options="item.label for item in ctrl.titleData" class="form-control"
+                  ng-required="ctrl.data.title.label !== 'Mr'" field-error-controller></select>
+          <span required-marker hide="ctrl.data.title.label === 'Mr'"></span>
+        </div>
+        <div error-container field-name="formRequiredMarker_fldTitle2" field-errors="{required: 'Please select a title'}"></div>
+      </div>
+
+
+      <!-- The required-marker directive is used by all the form control directives through the "required" attribute -->
+      <div form-input uid="formRequiredMarker_fldName" name="formRequiredMarker_fldName" label="Name" required="true"
+        input-type="text" ff-ng-model="ctrl.formInput.demo1"
+        field-errors="{required: 'Name is required'}"
+        ></div>
+
+      <button type="submit" class="btn btn-primary">Submit button</button>
+    </form>
+
+  </div>
+
+  <h2 id="requiredMarkerUsage">Usage</h2>
+  <p>Add the <code>required-marker</code> directive to an element.</p>
+
+  <h3>Options</h3>
+  <p>Options can be passed via attributes on the directive.</p>
+  <div class="table-responsive">
+    <table class="table table-bordered table-striped">
+      <thead>
+      <tr>
+        <th style="width: 100px;">Name</th>
+        <th style="width: 100px;">Type</th>
+        <th style="width: 50px;">Default</th>
+        <th>Description</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td>hide</td>
+        <td>expression</td>
+        <td>false</td>
+        <td>A scope-expression which causes the required marker to appear (false) or disappear (true)</td>
+      </tr>
+      <tr>
+        <td>template</td>
+        <td>URL</td>
+        <td>ngFormLib/controls/requiredMarker/template/RequiredMarkerTemplate.html</td>
+        <td>The HTML template to use for the control. The default value can be overridden on the element, or globally by setting the default value in the <a href="#formControlsService">formControlsService</a></td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -1,0 +1,111 @@
+@require "_colours";
+
+// We have to @extend some grid classes, so need to import (and repeat myself, but this would not be required in a production system - it is convenient here)
+@require "../../../../bower_components/bootstrap-stylus/stylus/variables";
+@require "../../../../bower_components/bootstrap-stylus/stylus/mixins";
+@require "../../../../bower_components/bootstrap-stylus/stylus/utilities";
+@require "../../../../bower_components/bootstrap-stylus/stylus/grid";
+
+
+// Validatation..
+.control-row
+  position: relative;
+
+/*.form-submit-attempted,*/
+.has-error
+  border-color: $brand-danger
+  border-radius: 5px 5px 0 0
+
+.container-error
+  display: block
+  border-radius: 0 0 5px 5px
+  background-color: $brand-danger
+  color: #fff
+  font-size: 14px
+
+  // For whatever reason, this does not work in FireFox. Works in Chrome (OSX) and Safari (OSX)
+  //Tried lots of CSS things, couldn't make it work. Suspect it is is due to the HTML. Need a minimal test case.
+  transition: all 0.35s ease-out
+
+  // Things to animate
+  opacity: 0
+  top: -25px
+  padding: 0
+  height: 0
+
+  .has-error &
+    padding: 10px
+    position: relative
+    opacity: 1
+    top: 0
+    height: 42px
+
+
+  > div
+    valign(middle)
+    min-height: 42px;
+
+.text-error
+  display: table-cell;
+  vertical-align: middle;
+
+
+// Required indicator
+label > .required:after, .required:after{
+  color: $brand-danger;
+  content: "^";
+  padding-left: 5px;
+}
+
+
+// Style for "normal" checkboxes
+.radio input[type="radio"], .radio-inline input[type="radio"], .checkbox input[type="checkbox"], .checkbox-inline input[type="checkbox"]
+  margin-left: 0px
+
+
+// Horizontal Form styles - automatically overload the control-label and control-row classes wo make them into columns
+$default-horiz-label-cols = 3
+$default-horiz-control-cols = 12 - $default-horiz-label-cols
+
+.form-horizontal *:not(.form-inline)
+  .control-label
+    @extend .col-sm-{$default-horiz-label-cols}
+
+  .control-row
+    @extend .col-sm-{$default-horiz-control-cols}
+
+  // For checkboxes, we want to style the containing <div>, as it doesn't have a control-row or label, but has a form-group directive(attribute)
+  [form-group], .button-row
+    @extend .col-sm-offset-{$default-horiz-label-cols}
+    @extend .col-sm-{$default-horiz-control-cols}
+    margin-bottom: 15px   // Overrides .form-group
+    padding-left: 0    // Overrides .form-group
+    padding-right: 0    // Overrides .form-group
+
+    @media (min-width: 768px)
+      padding-left: 7px     // Overrides .form-group
+
+
+// Checkboxes inside inline forms:
+.form-inline
+  .form-group, [form-group], [form-radio-button]
+    margin-right: 5px
+
+  @media (min-width: 768px)
+    [form-group]
+      display: inline-block
+      vertical-align: middle
+
+  .checkbox, .radio
+    margin: 7px 0   // Add margin so that checkbox/radio is as tall as input controls
+
+  @media (min-width: 768px)
+    .checkbox label, .radio label
+      padding-left: 5px
+
+  .radio, [form-radio-button]
+    display: inline-block
+
+
+// Image Checkbox
+@require "_imageCheckbox";

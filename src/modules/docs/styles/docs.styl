@@ -1,0 +1,46 @@
+@require "_utils";
+@require "_colours";
+@require "../../../../bower_components/bootstrap-stylus/stylus/bootstrap.styl";
+
+@require "_aside";
+@require "_header";
+@require "_footer";
+@require "_highlight";
+@require "_navbar";
+@require "_sidebar";
+@require "_codeExamples";
+@require "_callouts";
+
+
+
+body {
+  position: relative; /* For scrollyspy */
+  padding-top: $navbar-height; /* Account for fixed navbar */
+}
+
+
+.bs-docs-social {
+  max-height: 200px;
+  ul {
+    list-style: none;
+    padding: 1em 0 0 0;
+    li {
+      height: 30px;
+      @media (max-width: $screen-sm-max) {
+        display: inline-block;
+      }
+    }
+  }
+}
+
+
+
+// Twitter
+.twitter-follow-button {
+  position:relative;
+  top: 5px;
+  margin-left: 10px;
+}
+
+
+// Example styles
