@@ -1,6 +1,6 @@
 {
   "name": "angular-form-lib",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "authors": [
     "Brett Uglow <buglow@odecee.com.au>"
   ],
@@ -25,7 +25,8 @@
     "/docs",
     "/node_modules",
     "/reports",
-    "/site"
+    "/site",
+    "/src/**"
   ],
   "dependencies": {
     "angular": "1.2.x",
