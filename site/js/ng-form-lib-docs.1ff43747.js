@@ -35,7 +35,8 @@
     // Fetch the documentation config and store it on the rootScope (for laughs :)
     $http.get('assets/config/docsConfig.json').then(function (result) {
       vm.DOC_CONFIG = result.data;
-      vm.REPO = result.data.repository.host + result.data.repository.branch;
+      vm.REPO_HOST = result.data.repository.host;
+      vm.REPO = vm.REPO_HOST + result.data.repository.branch;
       vm.VERSION = result.data.version;
     });
   }]);
