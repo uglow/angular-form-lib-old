@@ -15,7 +15,7 @@
     "bootstrap"
   ],
   "license": "MIT",
-  "private": true,
+  "private": false,
   "ignore": [
     "**/.*",
     "Gruntfile.js",
