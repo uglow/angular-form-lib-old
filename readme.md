@@ -1,4 +1,4 @@
-# [Angular Form Library](https://github.com/uglow/angular-form-lib)
+# [Angular Form Library](https://github.com/uglow/angular-form-lib) [![Build Status](http://img.shields.io/travis/uglow/angular-form-lib/master.svg?style=flat)](http://travis-ci.org/uglow/angular-form-lib)  [![Coverage Status](http://img.shields.io/codeclimate/coverage/github/uglow/angular-form-lib.svg?style=flat)](https://codeclimate.com/github/uglow/angular-form-lib)
 
 ## <a name="download"></a> Download
 ```

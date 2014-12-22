@@ -5,9 +5,16 @@ node_js:
 before_script:
   - export DISPLAY=:99.0
   - sh -e /etc/init.d/xvfb start
-  - npm install --quiet -g grunt-cli karma bower
+  - npm install --quiet -g grunt-cli karma bower codeclimate-test-reporter
   - npm install
-  - bower install
+  - bower install --dev --config.interactive=0
 
 script:
   - grunt karma:unit
+
+after_script:
+  - cat test/coverage/*/lcov.info | codeclimate
+
+addons:
+  code_climate:
+    repo_token: be767b0acb3e69195c64f779602383f71ac672ce8b49606f5b221ef59eedbd24
