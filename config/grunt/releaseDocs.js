@@ -1,10 +1,6 @@
 module.exports = function(grunt) {
   'use strict';
 
-  var colors = require('colors'); /* jshint ignore:line */
-
-  var config = grunt.config.get('paths.release');
-
   grunt.extendConfig({
 
     // Documentation tasks
@@ -51,7 +47,12 @@ module.exports = function(grunt) {
     }
   });
 
-  grunt.registerTask('releaseDocs', ['gitcheckout:documentation', 'copy:docsToSite', 'gitadd:documentation', 'gitcommit:documentation',
-                                     'gitcheckout:master']);
+  grunt.registerTask('releaseDocs', [
+    'gitcheckout:documentation',
+    'copy:docsToSite',
+    'gitadd:documentation',
+    'gitcommit:documentation',
+    'gitcheckout:master'
+  ]);
 
 };

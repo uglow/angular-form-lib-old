@@ -137,6 +137,29 @@ describe('Utility', function () {
       formattedDate = DateUtil.getToday();
       expect(formattedDate).toMatch(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/);
     }));
+
+
+    it('should be able to call monthsBetween() and get a valid response', inject(function (DateUtil) {
+      var testData = [
+        {input: '2015-01-31', input2: '2015-02-01', expectedOutput: 1},
+        {input: '2014-01-31', input2: '2015-01-01', expectedOutput: 12},
+        {input: '2014-01-01', input2: '2015-01-31', expectedOutput: 12},
+        {input: '2015-01-01', input2: '2014-01-31', expectedOutput: -12},
+        {input: '2012-02-28', input2: '2012-02-29', expectedOutput: 0},
+        {input: '2013-02-28', input2: '2013-02-29', expectedOutput: NaN},
+        {input: '2000-02-28', input2: '2000-02-29', expectedOutput: 0},
+        {input: '1976-07-01', input2: '1976-12-25', expectedOutput: 5}
+      ];
+
+      for (var i = 0; i < testData.length; i++) {
+        var result = DateUtil.monthsBetween(new Date(testData[i].input), new Date(testData[i].input2));
+        if (isNaN(testData[i].expectedOutput)) {
+          expect(isNaN(result)).toEqual(true);
+        } else {
+          expect(result).toEqual(testData[i].expectedOutput);
+        }
+      }
+    }));
   });
 
 
@@ -149,6 +172,20 @@ describe('Utility', function () {
 
       var nextId = ObjectUtil.getUniqueId();
       expect(id).not.toEqual(nextId);
+    }));
+
+
+    it('should be able to call toArray() on an object and get a valid response', inject(function (ObjectUtil) {
+      var testData = [
+        {input: {key: 'val'}, expectedOutput: [{key: 'key', value: 'val'}]},
+        {input: {some: 12, thing: {orOther: true}}, expectedOutput: [{key: 'some', value: 12}, {key: 'thing', value: {orOther: true}}]},
+        {input: {}, expectedOutput: []}
+      ];
+
+      for (var i = 0; i < testData.length; i++) {
+        var result = ObjectUtil.toArray(testData[i].input);
+        expect(result).toEqual(testData[i].expectedOutput);
+      }
     }));
   });
 });

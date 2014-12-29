@@ -15,7 +15,7 @@
   // Workaround for bug #1404
   // https://github.com/angular/angular.js/issues/1404
   // Source: http://plnkr.co/edit/hSMzWC?p=preview
-  // Not so great for IE8, but necesary for using radio buttons inside of dynamic forms (ng-repeat)
+  // Not so great for IE8, but neccessary for using radio buttons inside of dynamic forms (ng-repeat)
   mod.config(['$provide', function($provide) {
     $provide.decorator('ngModelDirective', ['$delegate', function($delegate) {
       var ngModel = $delegate[0], controller = ngModel.controller;
