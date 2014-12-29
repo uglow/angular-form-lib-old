@@ -59,7 +59,7 @@
       }
       return new Date(dateStr);
     },
-    monthsBetween: function(date1, date2) {//move to date utils
+    monthsBetween: function(date1, date2) {
       return date2.getMonth() - date1.getMonth() + (12 * (date2.getFullYear() - date1.getFullYear()));
     }
   });

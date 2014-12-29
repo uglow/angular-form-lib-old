@@ -106,7 +106,8 @@
 
               // Clean up special attributes (to make HTML look nicer
               tElement.removeAttr('uid').removeAttr('name').removeAttr('label').removeAttr('required').removeAttr('field-hint')
-                .removeAttr('input-type').removeAttr('hide-label').removeAttr('label-class').removeAttr('field-errors').removeAttr('text-errors');
+                .removeAttr('input-type').removeAttr('hide-label').removeAttr('hideRequiredIndicator')
+                .removeAttr('label-class').removeAttr('field-errors').removeAttr('text-errors');
             }
           };
 
