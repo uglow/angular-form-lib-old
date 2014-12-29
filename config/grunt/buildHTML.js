@@ -5,45 +5,22 @@ module.exports = function(grunt) {
 
   grunt.extendConfig({
     copy: {
-      html: paths.copyHTML,
-      globalAssets: {
-        files: [
-          {expand:true, flatten:false, cwd: paths.globalAssets.srcDir, src: paths.globalAssets.files, dest: paths.globalAssets.destDir}
-        ]
-      },
-      moduleAssets: {
-        files: [
-          {
-            expand: true,
-            flatten: false,
-            cwd: paths.moduleAssets.srcDir,
-            src: paths.moduleAssets.files,
-            dest: paths.moduleAssets.destDir,
-            rename: paths.moduleAssets.renameFunc
-          }
-        ]
-      }
+      html: paths.html.copy,
+      moduleAssets: paths.moduleAssets.copy
     },
 
     targethtml: {
-      unoptimised: {
-        files: [{src: paths.html.rootFilesDestDir + paths.html.rootFiles, dest: paths.html.rootFilesDestDir}]
-        // There's some extra config here to generate the vendor scripts
-      }
+      unoptimised: paths.html.filesWithTemplateTags
+      // There's some extra config here to generate the vendor scripts
     },
-
 
     watch: {
       html: {
-        files: paths.watchHTMLFiles,
+        files: paths.html.watch,
         tasks: ['copy:html', 'targethtml:unoptimised']
       },
-      globalAssets: {
-        files: [paths.globalAssets.srcFiles],
-        tasks: ['copy:globalAssets']
-      },
       moduleAssets: {
-        files: [paths.moduleAssets.srcDir + paths.moduleAssets.files],
+        files: paths.moduleAssets.watch,
         tasks: ['copy:moduleAssets']
       }
     }
@@ -69,5 +46,5 @@ module.exports = function(grunt) {
 
 
 
-  grunt.registerTask('_buildHTML', 'PRIVATE - do not use', ['copy:html', 'copy:moduleAssets', 'copy:globalAssets', 'targethtml:unoptimised']);
+  grunt.registerTask('_buildHTML', 'PRIVATE - do not use', ['copy:html', 'copy:moduleAssets', 'targethtml:unoptimised']);
 };

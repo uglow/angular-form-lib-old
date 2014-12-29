@@ -32,9 +32,7 @@ module.exports = function(grunt) {
     },
 
     copy: {
-      dist: {
-        files: paths.copy.files
-      },
+      dist: paths.copy,
       htmlPreOptimised: {
         files: [
           {expand: true, cwd: paths.src.dir, src: paths.src.htmlFiles, dest: paths.dest.dir},

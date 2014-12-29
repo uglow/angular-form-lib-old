@@ -44,10 +44,6 @@ module.exports = function(grunt) {
             '**/styles/sampleFormStyle.styl'
           ]
         },
-        globalAssets: {
-          dir: '<%= paths.src.dir %>',
-          files: ['**/language/*']
-        },
         js: {
           dir: '<%= paths.src.modules.dir %>',
           files: ['<%= paths.src.js.dir %>**/_*.js', '<%= paths.src.js.dir %>**/*.js', '!<%= paths.test.specs %>']
@@ -142,43 +138,47 @@ module.exports = function(grunt) {
       },
 
       buildHTML: {
-        // This object (copyHTML) is much more natural and easier to maintain than injecting variables into buildHTML.js
-        copyHTML: {
-          files: [
-            {expand: true, flatten: false, cwd: '<%= paths.src.html.dir %>', src: '<%= paths.src.html.files %>', dest: '<%= paths.buildHTML.html.destDir %>'},
-            {expand: true, flatten: true, cwd: '<%= paths.src.dir %>', src: '*.html', dest: '<%= paths.build.dev.dir %>'},
-            {expand: true, flatten: false, cwd: '<%= paths.src.dir %>', src: 'partials/*', dest: '<%= paths.buildHTML.html.destDir %>'}
-          ]
-        },
-        watchHTMLFiles: [
-          '<%= paths.src.html.dir %><%= paths.src.html.files %>',
-          '<%= paths.src.dir %>*.html',
-          '<%= paths.src.dir %>partials/*'
-        ],
         html: {
-          rootFiles: '*.html',
-          rootFilesSrcDir: '<%= paths.src.dir %>',
-          rootFilesDestDir: '<%= paths.build.dev.dir %>',
-          srcDir: '<%= paths.src.html.dir %>',
-          files: ['<%= paths.src.html.files %>', '<%= paths.src.dir %>partials/*'],
-          destDir: '<%= paths.build.dev.dir %>views/'
-        },
-        globalAssets: {
-          srcDir: '<%= paths.src.globalAssets.dir %>',
-          files: ['<%= paths.src.globalAssets.files %>'],
-          srcFiles: ['<%= paths.src.globalAssets.dir %>**/language/*'],    // This is a flawed implementation. We really want to bind the cwd to each file elemen
-          destDir: '<%= paths.build.dev.dir %>assets/'
-        },
-        moduleAssets: {
-          srcDir: '<%= paths.src.assets.dir %>',
-          files: '<%= paths.src.assets.files %>',
-          destDir: '<%= paths.build.dev.dir %>assets/',
-          renameFunc: function(dest, src) {
-            grunt.log.writeln('Copy: ' + src + ', ' + dest);
-            // Remove the 'prefix/assets/ portion of the path
-            var newPath = src.substr(src.indexOf('/assets/') + 8);
-            return dest + newPath;
+          copy: {
+            files: [
+              {expand: true, flatten: false, cwd: '<%= paths.src.html.dir %>', src: '<%= paths.src.html.files %>', dest: '<%= paths.build.dev.dir %>views/'},
+              {expand: true, flatten: true, cwd: '<%= paths.src.dir %>', src: '*.html', dest: '<%= paths.build.dev.dir %>'},
+              {expand: true, flatten: false, cwd: '<%= paths.src.dir %>', src: 'partials/*', dest: '<%= paths.build.dev.dir %>views/'}
+            ]
+          },
+          watch: [
+            '<%= paths.src.html.dir %><%= paths.src.html.files %>',
+            '<%= paths.src.dir %>*.html',
+            '<%= paths.src.dir %>partials/*'
+          ],
+          filesWithTemplateTags: {
+            files: [
+              {src: '<%= paths.build.dev.dir %>*.html', dest: '<%= paths.build.dev.dir %>'}
+            ]
           }
+        },
+
+        moduleAssets: {
+          copy: {
+            files:[
+              {
+                expand: true,
+                flatten: false,
+                cwd: '<%= paths.src.assets.dir %>',
+                src: '<%= paths.src.assets.files %>',
+                dest: '<%= paths.build.dev.dir %>assets/',
+                rename: function(dest, src) {
+                  grunt.log.writeln('Copy: ' + src + ', ' + dest);
+                  // Remove the 'prefix/assets/ portion of the path
+                  var moduleName = src.substr(0, src.indexOf('/assets/'));
+                  //grunt.log.ok('module name = ' + moduleName);
+                  var newPath = src.substr(src.indexOf('/assets/') + 8);
+                  return dest + '/' + moduleName + '/' + newPath;
+                }
+              }
+            ]
+          },
+          watch: ['<%= paths.src.assets.dir %>' + '<%= paths.src.assets.files %>']
         },
         vendorJSFiles: '<%= paths.src.jsLib.compilableFiles %>',
         externalJSFiles: '<%= paths.src.jsLib.externalFiles %>'
@@ -210,7 +210,7 @@ module.exports = function(grunt) {
           files: [
             {expand: true, cwd: '<%= paths.optimise.src.dir %>', src: '<%= paths.optimise.src.optimisedAssetFiles %>', dest: '<%= paths.optimise.dest.dir %>'},
             {expand: true, cwd: '<%= paths.library.dest.dir %>', src: '<%= paths.library.dest.libFileName %>', dest: '<%= paths.optimise.dest.dir %>js/'},
-            {expand: true, cwd: '<%= paths.optimise.src.dir %>assets/', src: '{config,modules}/**/*', dest: '<%= paths.optimise.dest.dir %>assets/'},
+            {expand: true, cwd: '<%= paths.optimise.src.dir %>assets/', src: '*/{config,language}/**/*', dest: '<%= paths.optimise.dest.dir %>assets/'},
             {expand: true, cwd: '<%= paths.optimise.src.dir %>', src: 'vendor/**/*', dest: '<%= paths.optimise.dest.dir %>'}
           ]
         },

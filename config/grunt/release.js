@@ -57,8 +57,6 @@ module.exports = function(grunt) {
     grunt.log.ok('old version = ' + grunt.config.get('changelog.options.from'));
   });
 
-  grunt.registerTask('releaseDocs', ['gitcheckout:documentation', 'copy:docsToSite']);
-
   // Note: Do NOT call release until you have committed all your changes already.
   grunt.registerTask('release', 'Releases a new version (update version, changelog, commit)', function (versionChange) {
     var target = versionChange || 'patch';

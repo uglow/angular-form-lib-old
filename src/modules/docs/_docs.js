@@ -22,7 +22,7 @@
   }])
   .config(['$translateProvider', function($translateProvider) {
     $translateProvider.useStaticFilesLoader({
-      prefix: 'assets/modules/docs/language/',
+      prefix: 'assets/docs/language/',
       suffix: '.json'
     });
     $translateProvider.preferredLanguage('enAU');
@@ -33,7 +33,7 @@
     var vm = this; // view-model
 
     // Fetch the documentation config and store it on the rootScope (for laughs :)
-    $http.get('assets/config/docsConfig.json').then(function (result) {
+    $http.get('assets/docs/config/docsConfig.json').then(function (result) {
       vm.DOC_CONFIG = result.data;
       vm.REPO_HOST = result.data.repository.host;
       vm.REPO = vm.REPO_HOST + result.data.repository.branch;
