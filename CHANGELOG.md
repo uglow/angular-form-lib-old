@@ -1,3 +1,12 @@
+<a name="0.0.4"></a>
+### 0.0.4 (2014-12-29)
+
+
+#### Features
+
+* **coverage:** Minor change to trigger coverage recalculation ([3fb19c02](http://github.com/uglow/angular-form-lib/commit/3fb19c02e3170ecac4499fa2b73d84f63befc9bc))
+
+
 <a name="0.0.3"></a>
 ### 0.0.3 (2014-12-22)
 
