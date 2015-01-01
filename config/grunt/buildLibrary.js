@@ -1,31 +1,19 @@
 module.exports = function(grunt) {
   'use strict';
 
-  var paths = grunt.config.get('paths.library');
+  var config = grunt.config.get('paths.library');
 
   grunt.extendConfig({
-    buildLibrary: {
-      pre: ['clean:library'],
-      srcFiles: ['copy:libFiles'],
-      distFiles: ['concat:library', 'uglify:library']
-    },
-
     clean: {
-      library: paths.dest.dir
+      library: config.clean
     },
 
     concat: {
-      library: {
-        files: [
-          {src: paths.src.jsFilesToConcat, dest: paths.dest.jsFile}
-        ]
-      }
+      library: config.concat
     },
 
     copy: {
-      libFiles: {
-        files: paths.copy.files
-      }
+      libFiles: config.copy
     },
 
     uglify: {
@@ -42,18 +30,11 @@ module.exports = function(grunt) {
           },
           mangle: true
         },
-        files: [
-          {src: paths.dest.jsFile, dest: paths.dest.jsMinFile}
-        ]
+        files: config.uglify.files
       }
     }
   });
 
 
-  grunt.registerMultiTask('buildLibrary', 'Build the library for distribution via Bower', function () {
-    grunt.log.writeln(this.target + ': ' + this.data);
-
-    // Execute each task
-    grunt.task.run(this.data);
-  });
+  grunt.registerTask('buildLibrary', ['clean:library', 'copy:libFiles', 'concat:library', 'uglify:library']);
 };

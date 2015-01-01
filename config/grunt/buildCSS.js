@@ -1,7 +1,7 @@
 module.exports = function(grunt) {
   'use strict';
 
-  var paths = grunt.config.get('paths.buildCSS');
+  var config = grunt.config.get('paths.buildCSS');
 
   grunt.extendConfig({
     // Add vendor prefixed styles
@@ -9,19 +9,10 @@ module.exports = function(grunt) {
       options: {
         browsers: ['> 2%', 'last 2 versions', 'Firefox ESR', 'Opera 12.1']
       },
-      dist: {
-        files: [{
-          expand: true,
-          cwd: paths.compiledCSSDir,
-          src: paths.compiledCSSFiles,
-          dest: paths.compiledCSSDir
-        }]
-      }
+      dist: config.autoPrefix
     },
     copy: {
-      externalCSS: {
-        files: paths.externalCSSFiles
-      }
+      externalCSS: config.copy
     },
     //stylus implementation
     stylus: {
@@ -29,20 +20,13 @@ module.exports = function(grunt) {
         options: {
           compress: false
         },
-        paths: paths.stylusDirs,
-        files: [{
-          expand: true,
-          flatten: true,
-          cwd: paths.preCompiledCSSDir,
-          src: paths.preCompiledCSSFiles,
-          dest: paths.compiledCSSDir,
-          ext: '.css'
-        }]
+        paths: config.compile.sourceDirs,
+        files: config.compile.files
       }
     },
     watch: {
       compileCss: {
-        files: paths.preCompiledCSSDir + '**/*.styl',
+        files: config.watch.files,
         tasks: ['stylus', 'autoprefixer']
       }
     }

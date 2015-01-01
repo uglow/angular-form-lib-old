@@ -1,7 +1,7 @@
 module.exports = function(grunt) {
   'use strict';
 
-  var paths = grunt.config.get('paths.buildJS');
+  var config = grunt.config.get('paths.buildJS');
 
   /**
    * Build JS is complex! The basic premise is:
@@ -20,63 +20,28 @@ module.exports = function(grunt) {
 
   grunt.extendConfig({
     clean: {
-      buildJS: [paths.tempTemplateDir, paths.tempJSDir, paths.tempJSIncludesDir]
+      buildJS: config.clean
     },
     copy: {
-      directiveTemplatesToTemp: {
-        files: [{expand: true, flatten: false, cwd: paths.moduleHTMLTemplateDir, src: paths.moduleHTMLTemplateFiles, dest: paths.tempTemplateDir}]
-      },
-      jsToTemp: {
-        files: [{expand: true, cwd: paths.moduleJSDir, src: paths.moduleJSFiles, dest: paths.tempJSDir}]
-      },
-      jsIncludesToTemp: {
-        files: [{expand: true, src: paths.jsIncludes, dest: paths.tempJSIncludesDir}]
-      },
-      vendorJS: {
-        files: [{expand: true, flatten: false, src: paths.vendorJSFiles, dest: paths.vendorJSDestDir}]
-      }
+      htmlTemplatesToTemp: config.copy.htmlTemplatesToTemp,
+      jsToTemp: config.copy.jsToTemp,
+      vendorJS: config.copy.vendorJS
     },
     concat: {
-      /* This builds the moduleName.js file in the output/js folder */
-      moduleJS: {
-        files: [
-          {
-            expand: true,
-            cwd: paths.tempJSDir,
-            src: paths.moduleJSFiles,
-            dest: paths.moduleJSDestDir,
-            rename: function(dest, src) {
-              // Use the source directory(s) to create the destination file name
-              // e.g. ui/common/icon.js -> ui/common.js
-              //      ui/special/foo.js -> ui/special.js
-              //grunt.log.writeln('Concat: ' + src);
-              //grunt.log.writeln('------->: ' + src.substring(0, src.lastIndexOf('/')));
-
-              return dest + src.substring(0, src.lastIndexOf('/')) + '.js';
-            }
-          }
-        ]
-      }
+      moduleJS: config.concat.moduleJS
     },
 
     includereplace: {
       js: {
-        files: [{expand: true, cwd: paths.tempJSDir, src: '**/*.js', dest: paths.tempJSDir}],
+        files: config.includeFilesInJS.sourceFiles,
         options: {
-          includesDir: paths.tempJSIncludesDir
+          includesDir: config.includeFilesInJS.includesDir
         }
       }
     },
 
     prepareNGTemplates: {
-      app: {
-        files: [{
-          cwd: paths.tempTemplateDir,      // Using this shortens the URL-key of the template name in the $templateCache
-          moduleName: /^(.*)\/template/,    // Use the captured group as the module name
-          src: paths.moduleHTMLTemplateFiles,  // The templates files
-          dest: paths.tempJSDir        // Base destination directory
-        }]
-      }
+      app: config.prepareNGTemplates
     },
 
     ngtemplates: {
@@ -105,16 +70,12 @@ module.exports = function(grunt) {
 
     watch: {
       // JS task is in watch.js, as it needs to be run other tasks besides concat:moduleJS
-      directiveTemplates: {
-        files: paths.moduleDirHTMLTemplateFiles,
-        tasks: ['_buildJS']
-      },
-      jsFilestoInclude: {
-        files: [paths.jsIncludes],
+      jsHtmlTemplates: {
+        files: config.watch.jsHtmlTemplates.files,
         tasks: ['_buildJS']
       },
       vendorJS: {
-        files: paths.vendorJSDir + '**/*.js',
+        files: config.watch.vendorJS.files,
         tasks: ['copy:vendorJS']
       }
     }
@@ -168,14 +129,13 @@ module.exports = function(grunt) {
   });
 
 
-  grunt.registerTask('_convertHTML2JS', 'PRIVATE - do not use', ['copy:directiveTemplatesToTemp', 'prepareNGTemplates', 'ngtemplates']);
+  grunt.registerTask('_convertHTML2JS', 'PRIVATE - do not use', ['copy:htmlTemplatesToTemp', 'prepareNGTemplates', 'ngtemplates']);
 
   grunt.registerTask('_buildJS', 'PRIVATE - do not use', [
     'clean:buildJS',
-    'copy:vendorJS',
     '_convertHTML2JS',
+    'copy:vendorJS',
     'copy:jsToTemp',
-    'copy:jsIncludesToTemp',
     'includereplace:js',
     'concat:moduleJS'
   ]);

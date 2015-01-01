@@ -1,37 +1,22 @@
 module.exports = function(grunt) {
   'use strict';
 
-  var paths = grunt.config.get('paths');
+  var config = grunt.config.get('paths');
 
   grunt.extendConfig({
     clean: {
-      dev: paths.build.dev.dir
-    },
-
-    compress: {
-      main: {
-        options: {
-          mode: 'zip',
-          archive: 'artifacts/build.zip'
-        },
-        files: [{
-          expand: true,
-          src: '**/*',
-          cwd: paths.build.prod.dir,
-          dot: true
-        }]
-      }
+      dev: config.build.dev.dir
     },
 
     watch: {
       // Watch the Grunt config files - if they change, rebuild
       gruntConfig: {
-        files: paths.config.gruntFiles,
+        files: config.config.gruntFiles,
         tasks: ['_build']
       },
       // Watch the output files
       dev: {
-        files: paths.build.dev.livereloadFiles,
+        files: config.build.dev.livereloadFiles,
         options: {
           livereload: true
         }
@@ -40,7 +25,7 @@ module.exports = function(grunt) {
   });
 
 
-  grunt.registerTask('_build', 'PRIVATE - do not use', ['clean:dev', '_buildJS', '_buildCSS', '_buildHTML', 'verify:all']);
+  grunt.registerTask('_build', 'PRIVATE - do not use', ['clean:dev', '_buildIncludes', '_buildJS', '_buildCSS', '_buildHTML', 'verify:all']);
 
 
   /****************** BUILD TYPE ******************/

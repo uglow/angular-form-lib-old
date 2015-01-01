@@ -7,7 +7,7 @@ module.exports = function(grunt) {
   grunt.extendConfig({
     watch: {
       js: {
-        files: ['<%= paths.src.js.dir %>**/*.js', '<%= paths.config.gruntFiles %>', '<%= paths.test.specs %>'],
+        files: ['<%= paths.buildJS.watch.allJSSrc.files %>'],
         tasks: ['_buildJS', 'newer:jshint:all', 'newer:jscs:all', 'karma:unit']
       }
     }

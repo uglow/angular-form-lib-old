@@ -1,26 +1,26 @@
 module.exports = function(grunt) {
   'use strict';
 
-  var paths = grunt.config.get('paths.buildHTML');
+  var config = grunt.config.get('paths.buildHTML');
 
   grunt.extendConfig({
     copy: {
-      html: paths.html.copy,
-      moduleAssets: paths.moduleAssets.copy
+      html: config.html.copy,
+      moduleAssets: config.moduleAssets.copy
     },
 
     targethtml: {
-      unoptimised: paths.html.filesWithTemplateTags
+      unoptimised: config.html.filesWithTemplateTags
       // There's some extra config here to generate the vendor scripts
     },
 
     watch: {
       html: {
-        files: paths.html.watch,
+        files: config.html.watch,
         tasks: ['copy:html', 'targethtml:unoptimised']
       },
       moduleAssets: {
-        files: paths.moduleAssets.watch,
+        files: config.moduleAssets.watch,
         tasks: ['copy:moduleAssets']
       }
     }
@@ -39,10 +39,25 @@ module.exports = function(grunt) {
   }
 
   // This task takes a list of vendorJS files and turns it into a string containing <script> tags, stored in a config variable
-  grunt.config.set('targethtml.unoptimised.options.curlyTags.vendorScripts', generateScriptTags(paths.vendorJSFiles));
-  grunt.config.set('targethtml.unoptimised.options.curlyTags.externalScripts', generateScriptTags(paths.externalJSFiles));
-  grunt.config.set('targethtml.optimised.options.curlyTags.vendorScripts', generateScriptTags(paths.vendorJSFiles));
-  grunt.config.set('targethtml.optimised.options.curlyTags.externalScripts', generateScriptTags(paths.externalJSFiles));
+  grunt.config.set('targethtml.unoptimised.options.curlyTags.vendorScripts', generateScriptTags(config.vendorJSFiles));
+  grunt.config.set('targethtml.unoptimised.options.curlyTags.externalScripts', generateScriptTags(config.externalJSFiles));
+  grunt.config.set('targethtml.optimised.options.curlyTags.vendorScripts', generateScriptTags(config.vendorJSFiles));
+  grunt.config.set('targethtml.optimised.options.curlyTags.externalScripts', generateScriptTags(config.externalJSFiles));
+
+
+  function generateLinkTags(files) {
+    var result = '';
+
+    files.forEach(function(fileName) {
+      result += '<link rel="stylesheet" href="' + fileName + '">\n';
+    });
+
+    return result;
+  }
+
+  // This task takes a list of vendorJS files and turns it into a string containing <script> tags, stored in a config variable
+  grunt.config.set('targethtml.unoptimised.options.curlyTags.cssFiles', generateLinkTags(config.compiledCSSFiles));
+  grunt.config.set('targethtml.optimised.options.curlyTags.cssFiles', generateLinkTags(config.compiledCSSFiles));
 
 
 

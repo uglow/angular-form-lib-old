@@ -39,10 +39,14 @@ module.exports = function(grunt) {
         css: {
           dir: '<%= paths.src.modules.dir %>',
           stylusDirs: '<%= paths.src.modules.dir %>**/styles',
-          rootFiles: [
+          rootSourceFiles: [
             '**/styles/docs.styl',
             '**/styles/sampleFormStyle.styl'
           ]
+        },
+        includes: {
+          dir: '<%= paths.src.modules.dir %>**/includes',
+          files: '*'
         },
         js: {
           dir: '<%= paths.src.modules.dir %>',
@@ -78,10 +82,18 @@ module.exports = function(grunt) {
       test: {
         specs: '<%= paths.src.modules.dir %>**/unitTest/*.spec.js'
       },
+      report: {
+        dir: 'reports/'
+      },
 
       build: {
         dev: {
           dir: 'dev/',
+          assetsDir: '<%= paths.build.dev.dir %>/assets/',
+          cssDir: '<%= paths.build.dev.dir %>/css/',
+          jsDir: '<%= paths.build.dev.dir %>/js/',
+          vendorDir: '<%= paths.build.dev.dir %>/vendor/',
+          viewsDir: '<%= paths.build.dev.dir %>/views/',
           livereloadFiles: ['<%= paths.build.dev.dir %>**/*']
         },
         prod: {
@@ -95,47 +107,117 @@ module.exports = function(grunt) {
         }
       },
 
-      report: {
-        dir: 'reports/'
+      buildIncludes: {
+        includeTempDir: '<%= paths.build.temp.dir %>jsincludes/',
+        clean: ['<%= paths.buildIncludes.includeTempDir %>'],
+        copy: {
+          files: [{expand: true, src: '<%= paths.src.includes.dir %><%= paths.src.includes.files %>', dest: '<%= paths.buildIncludes.includeTempDir %>'}]
+        },
+        watch: {
+          files: ['<%= paths.src.includes.dir %><%= paths.src.includes.files %>']
+        }
       },
+
       // Specific modules
       buildCSS: {
-        stylusDirs: '<%= paths.src.css.stylusDirs %>',
-        preCompiledCSSDir: '<%= paths.src.css.dir %>',
-        preCompiledCSSFiles: '<%= paths.src.css.rootFiles %>',
-        compiledCSSDir: '<%= paths.build.dev.dir %>css',
-        compiledCSSFiles: '*.css',
-        externalCSSFiles: [
-          {
+        compile: {
+          sourceDirs: '<%= paths.src.css.stylusDirs %>',  // Stylus-specific property
+          files: [{expand: true, flatten: true, cwd: '<%= paths.src.css.dir %>', src: '<%= paths.src.css.rootSourceFiles %>', dest: '<%= paths.build.dev.cssDir %>', ext: '.css'}]
+        },
+
+        copy: {
+          files: [{
             expand: true,
             flatten: true,
-            dest: '<%= paths.build.dev.dir %>css/',
             src: [
               '<%= paths.bower.dir %>angular-motion/dist/angular-motion.css',
               '<%= paths.bower.dir %>highlightjs/styles/github.css'
-            ]
-          }
-        ]
+            ],
+            dest: '<%= paths.build.dev.cssDir %>'
+          }]
+        },
+
+        autoPrefix: {
+          files: [{expand: true, cwd: '<%= paths.build.dev.dir %>css', src: '*.css', dest: '<%= paths.build.dev.cssDir %>'}]
+        },
+
+        watch: {
+          files: ['<%= paths.src.css.dir %>**/*.styl']
+        }
       },
 
       buildJS: {
-        moduleJSDir: '<%= paths.src.js.dir %>',
-        moduleJSFiles: ['**/_*.js', '**/*.js', '!**/unitTest/*.spec.js'],
-        moduleDirJSFiles: ['<%= paths.src.js.files %>'],
-        moduleJSDestDir: '<%= paths.build.dev.dir %>js/',
-
-        moduleHTMLTemplateDir: '<%= paths.src.templateHTML.dir %>',
-        moduleHTMLTemplateFiles: '<%= paths.src.templateHTML.files %>',
-        moduleDirHTMLTemplateFiles: '<%= paths.src.templateHTML.dir %><%= paths.buildJS.moduleHTMLTemplateFiles %>',
-        tempTemplateDir: '<%= paths.build.temp.dir %>templates/',
+        // Common variables
         tempJSDir: '<%= paths.build.temp.dir %>js/',
-
-        jsIncludes: '<%= paths.src.dir %>refdata/**/*',
-        tempJSIncludesDir: '<%= paths.build.temp.dir %>jsincludes/',
-
+        tempTemplateDir: '<%= paths.build.temp.dir %>templates/',
         vendorJSFiles: ['<%= paths.src.jsLib.compilableFiles %>', '<%=paths.src.jsLib.externalFiles %>'],
-        vendorJSDestDir: '<%= paths.build.dev.dir %>vendor/'
+
+        // Tasks
+        clean: ['<%= paths.buildJS.tempTemplateDir %>', '<%= paths.buildJS.tempJSDir %>', '<%= paths.build.dev.vendorDir %>', '<%= paths.build.dev.jsDir %>'],
+
+        copy: {
+          htmlTemplatesToTemp: {
+            files: [{expand: true, flatten: false, cwd: '<%= paths.src.templateHTML.dir %>', src: '<%= paths.src.templateHTML.files %>', dest: '<%= paths.buildJS.tempTemplateDir %>'}]
+          },
+          jsToTemp: {
+            files: [{expand: true, flatten: false, cwd: '<%= paths.src.js.dir %>', src: ['**/_*.js', '**/*.js', '!**/unitTest/*.spec.js'], dest: '<%= paths.buildJS.tempJSDir %>'}]
+          },
+          vendorJS: {
+            files: [{expand: true, flatten: false, src: '<%= paths.buildJS.vendorJSFiles %>', dest: '<%= paths.build.dev.vendorDir %>'}]
+          }
+        },
+
+        /* This builds the moduleName.js file into the output/js folder */
+        concat: {
+          moduleJS: {
+            files: [
+              {
+                expand: true,
+                cwd: '<%= paths.buildJS.tempJSDir %>',
+                src: ['**/_*.js', '**/*.js', '!**/unitTest/*.spec.js'], // Concat files starting with '_' first
+                dest: '<%= paths.build.dev.jsDir %>',
+                rename: function(dest, src) {
+                  // Use the source directory(s) to create the destination file name
+                  // e.g. ui/common/icon.js -> ui/common.js
+                  //      ui/special/foo.js -> ui/special.js
+                  //grunt.log.writeln('Concat: ' + src);
+                  //grunt.log.writeln('------->: ' + src.substring(0, src.lastIndexOf('/')));
+
+                  return dest + src.substring(0, src.lastIndexOf('/')) + '.js';
+                }
+              }
+            ]
+          }
+        },
+
+        // This task-config prepares the templates for use *** within-each-module *** !
+        prepareNGTemplates: {
+          files: [{
+            cwd: '<%= paths.buildJS.tempTemplateDir %>',  // Using this shortens the URL-key of the template name in the $templateCache
+            moduleName: /^(.*)\/template/,    // Use the captured group as the module name
+            src: '<%= paths.src.templateHTML.files %>',   // The HTML template files
+            dest: '<%= paths.buildJS.tempJSDir %>'        // Base destination directory
+          }]
+        },
+
+        includeFilesInJS: {
+          sourceFiles: [{expand: true, cwd: '<%= paths.buildJS.tempJSDir %>', src: '**/*.js', dest: '<%= paths.buildJS.tempJSDir %>'}],
+          includesDir: '<%= paths.buildIncludes.includeTempDir %>'
+        },
+
+        watch: {
+          allJSSrc: {
+            files: ['<%= paths.src.js.dir %>**/*.js', '<%= paths.config.gruntFiles %>', '<%= paths.test.specs %>']
+          },
+          jsHtmlTemplates: {
+            files: ['<%= paths.src.templateHTML.dir %><%= paths.src.templateHTML.files %>']
+          },
+          vendorJS: {
+            files: ['<%= paths.buildJS.vendorJSFiles %>']
+          }
+        }
       },
+
 
       buildHTML: {
         html: {
@@ -166,7 +248,7 @@ module.exports = function(grunt) {
                 flatten: false,
                 cwd: '<%= paths.src.assets.dir %>',
                 src: '<%= paths.src.assets.files %>',
-                dest: '<%= paths.build.dev.dir %>assets/',
+                dest: '<%= paths.build.dev.assetsDir %>',
                 rename: function(dest, src) {
                   grunt.log.writeln('Copy: ' + src + ', ' + dest);
                   // Remove the 'prefix/assets/ portion of the path
@@ -181,27 +263,41 @@ module.exports = function(grunt) {
           watch: ['<%= paths.src.assets.dir %>' + '<%= paths.src.assets.files %>']
         },
         vendorJSFiles: '<%= paths.src.jsLib.compilableFiles %>',
-        externalJSFiles: '<%= paths.src.jsLib.externalFiles %>'
+        externalJSFiles: '<%= paths.src.jsLib.externalFiles %>',
+
+        compiledCSSFiles: [
+          'css/angular-motion.css',
+          'css/github.css',
+          'css/docs.css',
+          'css/sampleFormStyle.css'
+        ]
       },
 
       library: {
-        src: {
-          dir: '<%= paths.build.dev.dir %>js/',
-          allSrc: ['**/*.js', '!**/docs.js'],
-          jsFilesToConcat: ['<%= paths.library.dest.src %>/**/*.js']
-        },
-        dest: {
-          dir: 'dist/',
-          src: '<%= paths.library.dest.dir %>src/',
-          libFileName: 'ng-form-lib.js',
-          libMinFileName: 'ng-form-lib.min.js',
-          jsFile: '<%= paths.library.dest.dir %><%= paths.library.dest.libFileName %>',
-          jsMinFile: '<%= paths.library.dest.dir %><%= paths.library.dest.libMinFileName %>'
-        },
+        // Common vars
+        libFile: 'dist/ng-form-lib.js',
+        minLibFile: 'dist/ng-form-lib.min.js',
+
+        // Task config
+        clean: ['dist/'],
+
         copy: {
-          files: [
-            {expand: true, cwd: '<%= paths.library.src.dir %>', src: '<%= paths.library.src.allSrc %>', dest: '<%= paths.library.dest.src %>'}
-          ]
+          files: [{
+            expand: true, cwd: '<%= paths.build.dev.jsDir %>', src: ['**/*.js', '!**/docs.js'], dest: 'dist/src'
+          }]
+        },
+
+        concat: {
+          files: [{
+            src: ['dist/src/**/*.js'],
+            dest: '<%= paths.library.libFile %>'
+          }]
+        },
+
+        uglify: {
+          files: [{
+            src: '<%= paths.library.libFile %>', dest: '<%= paths.library.minLibFile %>'
+          }]
         }
       },
 
@@ -209,11 +305,12 @@ module.exports = function(grunt) {
         copy: {
           files: [
             {expand: true, cwd: '<%= paths.optimise.src.dir %>', src: '<%= paths.optimise.src.optimisedAssetFiles %>', dest: '<%= paths.optimise.dest.dir %>'},
-            {expand: true, cwd: '<%= paths.library.dest.dir %>', src: '<%= paths.library.dest.libFileName %>', dest: '<%= paths.optimise.dest.dir %>js/'},
+            {expand: true, flatten: true, src: '<%= paths.library.libFile %>', dest: '<%= paths.optimise.dest.dir %>js/'},
             {expand: true, cwd: '<%= paths.optimise.src.dir %>assets/', src: '*/{config,language}/**/*', dest: '<%= paths.optimise.dest.dir %>assets/'},
             {expand: true, cwd: '<%= paths.optimise.src.dir %>', src: 'vendor/**/*', dest: '<%= paths.optimise.dest.dir %>'}
           ]
         },
+        
         src: {
           dir: '<%= paths.build.dev.dir %>',
           cssDir: '<%= paths.optimise.src.dir %>css/',
@@ -221,7 +318,7 @@ module.exports = function(grunt) {
           htmlFiles: ['views/**/*.html'],
           imagesDir: '<%= paths.optimise.src.dir %>assets/images/',
           jsFilesToConcat: [
-            '<%= paths.build.dev.dir %>js/**/docs.js'
+            '<%= paths.build.dev.jsDir %>**/docs.js'
           ],
           optimisedAssetFiles: [
             'assets/font/**/*',
