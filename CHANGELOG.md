@@ -1,3 +1,12 @@
+<a name="0.0.8"></a>
+### 0.0.8 (2015-01-02)
+
+
+#### Features
+
+* **build:** Improve build process to use correct version # for gh-pages branch (take 4) ([b0c78ee9](http://github.com/uglow/angular-form-lib/commit/b0c78ee96f62c6f04e7df9ba5444b7855b9ae98f))
+
+
 <a name="0.0.7"></a>
 ### 0.0.7 (2015-01-02)
 
