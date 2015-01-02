@@ -1,7 +1,7 @@
 module.exports = function(grunt) {
   'use strict';
 
-  var config = grunt.config.get('paths.buildIncludes');
+  var config = grunt.config.get('cfg.buildIncludes');
 
   /**
    // "includes" refers to files that are separated from code (JS/HTML/CSS) at design time,
@@ -24,6 +24,14 @@ module.exports = function(grunt) {
       includes: {
         files: config.watch.files,
         tasks: ['_build']
+      }
+    },
+
+    includereplace: {
+      options: {
+        prefix: '//@@',  // This works for HTML and JS replacements
+        suffix: '',
+        globals: {}
       }
     }
   });

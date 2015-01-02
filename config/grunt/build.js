@@ -1,7 +1,7 @@
 module.exports = function(grunt) {
   'use strict';
 
-  var config = grunt.config.get('paths');
+  var config = grunt.config.get('cfg');
 
   grunt.extendConfig({
     clean: {

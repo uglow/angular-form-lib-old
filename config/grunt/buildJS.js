@@ -1,7 +1,7 @@
 module.exports = function(grunt) {
   'use strict';
 
-  var config = grunt.config.get('paths.buildJS');
+  var config = grunt.config.get('cfg.buildJS');
 
   /**
    * Build JS is complex! The basic premise is:
@@ -60,8 +60,8 @@ module.exports = function(grunt) {
       // The prepareNGTemplate task generates the config for ngTemplates, using the module-folder hierarchy
       // See prepareNGTemplate config (above)
 //      'ui.accessible.controls.tooltip.template': {
-//        src: '<%= paths.dest.partialsDir %>**/ui/accessible/template/AccessibleTooltipTemplate.html',
-//        dest: '<%= paths.dest.jsDir %>ui/ui.accessible.controls.tooltip.template.js',
+//        src: '<%= cfg.dest.partialsDir %>**/ui/accessible/template/AccessibleTooltipTemplate.html',
+//        dest: '<%= cfg.dest.jsDir %>ui/ui.accessible.controls.tooltip.template.js',
 //        options: {
 //          standalone: true
 //        }

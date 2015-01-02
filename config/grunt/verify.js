@@ -1,7 +1,7 @@
 module.exports = function(grunt) {
   'use strict';
 
-  var paths = grunt.config.get('paths.verify');
+  var config = grunt.config.get('cfg.verify');
 
   grunt.extendConfig({
     verify: {
@@ -13,59 +13,59 @@ module.exports = function(grunt) {
     //jscs, check for code style errors
     jscs: {
       options: {
-        config: paths.jscs.baseConfig,
+        config: config.jscs.baseConfig,
         reporter : 'text'
       },
       all: {
         files: {
-          src: paths.allFiles
+          src: config.allFiles
         }
       },
       src: {
         files: {
-          src: paths.srcFiles
+          src: config.srcFiles
         }
       },
       test: {
         files: {
-          src: paths.testFiles
+          src: config.testFiles
         }
       },
       ci: {
         options: {
-          config: paths.jscs.CIConfig,
+          config: config.jscs.CIConfig,
           reporter: 'junit',
-          reporterOutput : paths.reportDir + 'jscs.xml'
+          reporterOutput : config.reportDir + 'jscs.xml'
         },
         files: {
-          src: paths.allFiles
+          src: config.allFiles
         }
       }
     },
     jshint: {
       options: {
-        jshintrc: paths.jshint.baseConfig,
+        jshintrc: config.jshint.baseConfig,
         reporter: require('jshint-stylish')
       },
       all: {
-        src: paths.allFiles
+        src: config.allFiles
       },
       src: {
-        src: paths.srcFiles
+        src: config.srcFiles
       },
       test: {
         options: {
-          jshintrc: paths.jshint.testConfig
+          jshintrc: config.jshint.testConfig
         },
-        src: paths.testFiles
+        src: config.testFiles
       },
       ci: {
         options: {
-          jshintrc: paths.jshint.CIConfig,
+          jshintrc: config.jshint.CIConfig,
           reporter: require('jshint-junit-reporter'),
-          reporterOutput: paths.reportDir + 'jshint.xml'
+          reporterOutput: config.reportDir + 'jshint.xml'
         },
-        src: paths.srcFiles
+        src: config.srcFiles
       }
     }
   });

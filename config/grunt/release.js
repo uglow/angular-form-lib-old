@@ -3,7 +3,7 @@ module.exports = function(grunt) {
 
   var colors = require('colors'); /* jshint ignore:line */
 
-  var config = grunt.config.get('paths.release');
+  var config = grunt.config.get('cfg.release');
 
   grunt.extendConfig({
     bump: {

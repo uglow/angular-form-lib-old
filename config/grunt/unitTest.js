@@ -1,7 +1,7 @@
 module.exports = function(grunt) {
   'use strict';
 
-  var paths = grunt.config.get('paths.unitTest');
+  var config = grunt.config.get('cfg.unitTest');
 
   grunt.extendConfig({
     coverage: {
@@ -13,35 +13,35 @@ module.exports = function(grunt) {
           functions: 80
         },
         dir: 'coverage',
-        root: paths.reportDir
+        root: config.reportDir
       }
     },
     // Test settings
     karma: {
       options: {
-        'files': paths.testFiles,
-        'exclude': paths.excludeFiles,
-        'preprocessors': paths.preprocessors
+        'files': config.testFiles,
+        'exclude': config.excludeFiles,
+        'preprocessors': config.preprocessors
       },
       unit: {
-        configFile: paths.baseConfig,
+        configFile: config.baseConfig,
         singleRun: true,
         browsers: ['PhantomJS'],
         reporters: ['progress', 'coverage']
       },
       browser: {
-        configFile: paths.browserConfig,
+        configFile: config.browserConfig,
         singleRun: false,
         browsers: ['Chrome'],
         reporters: []
       },
       ci: {
-        configFile: paths.CIConfig,
+        configFile: config.CIConfig,
         singleRun: true,
         browsers: ['PhantomJS'],
         reporters: ['progress', 'junit', 'coverage'],
         junitReporter: {
-          outputFile: paths.reportDir + 'unit-tests.xml'
+          outputFile: config.reportDir + 'unit-tests.xml'
         }
       }
     }

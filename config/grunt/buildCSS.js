@@ -1,7 +1,7 @@
 module.exports = function(grunt) {
   'use strict';
 
-  var config = grunt.config.get('paths.buildCSS');
+  var config = grunt.config.get('cfg.buildCSS');
 
   grunt.extendConfig({
     // Add vendor prefixed styles

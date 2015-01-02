@@ -1,7 +1,7 @@
 module.exports = function(grunt) {
   'use strict';
 
-  var paths = grunt.config.get('paths.optimise');
+  var config = grunt.config.get('cfg.optimise');
 
   grunt.extendConfig({
     buildDocs: {
@@ -16,7 +16,7 @@ module.exports = function(grunt) {
     },
 
     clean: {
-      dist: paths.dest.dir
+      dist: config.dest.dir
     },
 
     concurrent: {
@@ -26,17 +26,17 @@ module.exports = function(grunt) {
     concat: {
       optimize: {
         files: [
-          {src: paths.src.jsFilesToConcat, dest: paths.dest.jsDir + paths.dest.jsMinFile}
+          {src: config.src.jsFilesToConcat, dest: config.dest.jsDir + config.dest.jsMinFile}
         ]
       }
     },
 
     copy: {
-      dist: paths.copy,
+      dist: config.copy,
       htmlPreOptimised: {
         files: [
-          {expand: true, cwd: paths.src.dir, src: paths.src.htmlFiles, dest: paths.dest.dir},
-          {expand: true, cwd: paths.src.rootHtmlFilesDir, src: paths.src.rootHtmlFiles, dest: paths.dest.dir}
+          {expand: true, cwd: config.src.dir, src: config.src.htmlFiles, dest: config.dest.dir},
+          {expand: true, cwd: config.src.rootHtmlFilesDir, src: config.src.rootHtmlFiles, dest: config.dest.dir}
         ]
       }
     },
@@ -47,21 +47,21 @@ module.exports = function(grunt) {
       },
       dist: {
         files: [
-          {expand: true, cwd: paths.src.cssDir, src: paths.src.cssFiles, dest: paths.dest.cssDir}
+          {expand: true, cwd: config.src.cssDir, src: config.src.cssFiles, dest: config.dest.cssDir}
         ]
       }
     },
 
     filerev: {
       dist: {
-        src: paths.dest.filesToRev
+        src: config.dest.filesToRev
       }
     },
 
     imagemin: {
       dist: {
         files: [
-          {expand: true, cwd: paths.src.imagesDir, src: '{,*/}*.{png,jpg,jpeg,gif}', dest: paths.dest.imagesDir}
+          {expand: true, cwd: config.src.imagesDir, src: '{,*/}*.{png,jpg,jpeg,gif}', dest: config.dest.imagesDir}
         ]
       }
     },
@@ -69,14 +69,14 @@ module.exports = function(grunt) {
     svgmin: {
       dist: {
         files: [
-          {expand: true, cwd: paths.src.imagesDir, src: '{,*/}*.svg', dest: paths.dest.imagesDir}
+          {expand: true, cwd: config.src.imagesDir, src: '{,*/}*.svg', dest: config.dest.imagesDir}
         ]
       }
     },
 
     targethtml: {
       optimised: {
-        files: [{src: paths.dest.rootFilesDir + paths.src.rootHtmlFiles, dest: paths.dest.rootFilesDir}]
+        files: [{src: config.dest.rootFilesDir + config.src.rootHtmlFiles, dest: config.dest.rootFilesDir}]
       }
     },
 
@@ -92,17 +92,17 @@ module.exports = function(grunt) {
           removeOptionalTags: true
         },
         files: [
-          {expand: true, cwd: paths.dest.dir, src: paths.src.htmlFiles, dest: paths.dest.dir},
-          {expand: true, cwd: paths.dest.rootFilesDir, src: paths.dest.rootHtmlFiles, dest: paths.dest.rootFilesDir}
+          {expand: true, cwd: config.dest.dir, src: config.src.htmlFiles, dest: config.dest.dir},
+          {expand: true, cwd: config.dest.rootFilesDir, src: config.dest.rootHtmlFiles, dest: config.dest.rootFilesDir}
         ]
       }
     },
 
     usemin: {
-      html: paths.dest.htmlFiles,
-      css: paths.dest.cssFiles,
+      html: config.dest.htmlFiles,
+      css: config.dest.cssFiles,
       options: {
-        assetsDirs: [paths.dest.dir, paths.dest.dir + 'assets/']
+        assetsDirs: [config.dest.dir, config.dest.dir + 'assets/']
       }
     }
   });
