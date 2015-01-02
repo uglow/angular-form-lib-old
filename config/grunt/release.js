@@ -6,10 +6,11 @@ module.exports = function(grunt) {
   var config = grunt.config.get('cfg.release');
 
   grunt.extendConfig({
+    PKG: grunt.file.readJSON('package.json'),
     bump: {
       options: {
         files: config.filesToBump,
-        updateConfigs: [],
+        updateConfigs: ['PKG'],
         commit: true,
         commitMessage: 'Release v%VERSION%',
         commitFiles: config.filesToCommit,
@@ -64,6 +65,7 @@ module.exports = function(grunt) {
 
     // Run this as a separate task as it relies on getting the version number from package.json.
     // When it is run in the same task-function, the value of "version" is still the old-version (new version has not been written to disk yet)
+
     grunt.task.run('releaseDocs');
   });
 

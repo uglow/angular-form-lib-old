@@ -31,7 +31,7 @@ module.exports = function(grunt) {
     gitcommit: {
       documentation: {
         options: {
-          message: 'docs(v' + grunt.file.readJSON('package.json').version + '): Update documentation',
+          message: 'docs(v<%= PKG.version %>): Update documentation',
           noStatus: true
         },
         files: {
