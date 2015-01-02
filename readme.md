@@ -31,7 +31,6 @@ From the command line, you can run the following commands:
 - `grunt build:serve`: Builds the site into /dist, and then serves it up
 - `grunt test`: Runs unit tests in PhantomJS
 - `grunt test:browser`: Runs unit tests in Chrome (useful for debugging)
-- `grunt compress`: Compresses the currently-built folder into artifacts/build.zip
 
 # Notes
 - If Grunt throws errors for missing dependencies try installing them manually through npm install *filename*

@@ -60,7 +60,11 @@ module.exports = function(grunt) {
   // Note: Do NOT call release until you have committed all your changes already.
   grunt.registerTask('release', 'Releases a new version (update version, changelog, commit)', function (versionChange) {
     var target = versionChange || 'patch';
-    grunt.task.run('preReleaseCheck', 'preChangelog', 'bump-only' + ':' + target, 'changelog', 'bump-commit', 'releaseDocs');
+    grunt.task.run('preReleaseCheck', 'preChangelog', 'bump-only' + ':' + target, 'changelog', 'bump-commit');
+
+    // Run this as a separate task as it relies on getting the version number from package.json.
+    // When it is run in the same task-function, the value of "version" is still the old-version (new version has not been written to disk yet)
+    grunt.task.run('releaseDocs');
   });
 
 
