@@ -1,3 +1,12 @@
+<a name="0.1.0"></a>
+## 0.1.0 (2015-01-05)
+
+
+#### Features
+
+* **build:** Use grunt-modular-project-tasks to build project (standard build process) ([8d5fb679](http://github.com/uglow/angular-form-lib/commit/8d5fb6795fb446fdf17f19571cdd9a07fafd4275))
+
+
 <a name="0.0.8"></a>
 ### 0.0.8 (2015-01-02)
 
