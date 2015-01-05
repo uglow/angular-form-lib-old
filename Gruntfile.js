@@ -19,7 +19,11 @@ module.exports = function (grunt) {
       },
       config: {
         dir: 'config/',
-        gruntFiles: ['Gruntfile.js', '<%= cfg.config.dir %>grunt/*.js']
+        gruntFiles: ['Gruntfile.js']
+      },
+      git: {
+//        commitHookFileRelativePath: '../../<%= cfg.config.dir %>git/validate-commit-msg.js',
+//        commitTemplate: '<%= cfg.config.dir %>git/git-commit-template.txt'
       },
       src: {
         dir: 'src/',
@@ -396,20 +400,24 @@ module.exports = function (grunt) {
         reportDir: '<%= cfg.report.dir %>',
         jshint: {
           baseConfig: '<%= cfg.config.dir %>jshint/.jshintrc',
-          testConfig: '<%= cfg.config.dir %>jshint/.jshintrc',
-          CIConfig: '<%= cfg.config.dir %>jshint/.jshintrc'
+          testConfig: '<%= cfg.config.dir %>jshint/.jshintrc'
         },
         jscs: {
           baseConfig: '<%= cfg.config.dir %>jscs/.jscsrc',
-          testConfig: '<%= cfg.config.dir %>jscs/.jscsrc',
-          CIConfig: '<%= cfg.config.dir %>jscs/.jscsrc'
+          testConfig: '<%= cfg.config.dir %>jscs/.jscsrc'
         }
       }
     }
   });
 
 
-  grunt.loadTasks('config/grunt');  // Loads all the Grunt tasks inside the config/grunt folder AFTER the above config
+  grunt.loadTasks('bower_components/grunt-modular-project-tasks/config/grunt');  // Loads all the Grunt tasks inside the config/grunt folder AFTER the above config
 
   grunt.registerTask('default', ['dev']);
+
+  // Overwrite the default "release" task, to also release the documents
+  grunt.registerTask('release', 'Releases a new version (update version, changelog, commit)', function (versionChange) {
+    var target = versionChange || 'patch';
+    grunt.task.run('preReleaseCheck', 'preChangelog', 'bump-only' + ':' + target, 'changelog', 'bump-commit', 'releaseDocs');
+  });
 };

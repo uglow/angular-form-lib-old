@@ -1,7 +1,0 @@
-#----------------------------- 100 chars max ------------------------------------------------------
-#<feat|fix|docs|style|refactor|perf|test|chore|revert>(<scope>): <subject>
-#
-#<body - motivation for the change and contrast with previous behavior>
-#      - use imperative/command language (e.g. "change" not "changed" or "changes">
-#
-#<footer - breaking changes, references to other issues>
