@@ -2,422 +2,165 @@
 
 module.exports = function (grunt) {
 
-  // Load grunt tasks automatically
-  require('load-grunt-tasks')(grunt);
-
   // Time how long tasks take. Can help when optimizing build times
   require('time-grunt')(grunt);
 
+  // Load grunt tasks automatically
+  require('load-grunt-tasks')(grunt, {pattern: ['grunt*', '!grunt-modular-project']});
+
+
+
   // The actual project configuration - this will be different for each project
-  grunt.extendConfig({
-    cfg: {
-      bower: {
-        dir: 'bower_components/'
-      },
-      node: {
-        dir: 'node_modules/'
-      },
-      config: {
-        dir: 'config/',
-        gruntFiles: ['Gruntfile.js']
-      },
-      git: {
-//        commitHookFileRelativePath: '../../<%= cfg.config.dir %>git/validate-commit-msg.js',
-//        commitTemplate: '<%= cfg.config.dir %>git/git-commit-template.txt'
-      },
-      src: {
-        dir: 'src/',
-        assets: {
-          dir: '<%= cfg.src.modules.dir %>',
-          files: ['*/assets/**/*']
-        },
-        css: {
-          dir: '<%= cfg.src.modules.dir %>',
-          stylusDirs: '<%= cfg.src.modules.dir %>**/styles',
-          rootSourceFiles: [
-            '**/styles/docs.styl',
-            '**/styles/sampleFormStyle.styl'
-          ]
-        },
-        includes: {
-          dir: '<%= cfg.src.modules.dir %>**/includes/',
-          files: '*'
-        },
-        js: {
-          dir: '<%= cfg.src.modules.dir %>',
-          files: ['<%= cfg.src.js.dir %>**/_*.js', '<%= cfg.src.js.dir %>**/*.js', '!<%= cfg.test.specs %>']
-        },
-        jsLib: {
-          compilableFiles: [
-            // Order is important - Angular should come first
-            '<%= cfg.bower.dir %>angular/angular.js',
-            '<%= cfg.bower.dir %>angular-animate/angular-animate.js',
-            '<%= cfg.bower.dir %>angular-translate/angular-translate.js',
-            '<%= cfg.bower.dir %>angular-translate-loader-static-files/angular-translate-loader-static-files.js',
-            '<%= cfg.bower.dir %>angular-scroll/angular-scroll.js',
-            '<%= cfg.bower.dir %>angular-strap/dist/angular-strap.js',
-            '<%= cfg.bower.dir %>angular-strap/dist/angular-strap.tpl.js'
-          ],
-          externalFiles: [
-            '<%= cfg.bower.dir %>highlightjs/highlight.pack.js'
-          ]
-        },
-        html: {
-          dir: '<%= cfg.src.modules.dir %>',
-          files: ['**/*.{html,inc}'] //templates directory needs to be ignored
-        },
-        modules: {
-          dir: '<%= cfg.src.dir %>modules/'
-        },
-        templateHTML: {
-          dir: '<%= cfg.src.modules.dir %>',
-          files: '**/template/*.html'
-        }
-      },
-      test: {
-        specs: '<%= cfg.src.modules.dir %>**/unitTest/*.spec.js'
-      },
-      report: {
-        dir: 'reports/'
-      },
-
-      build: {
-        dev: {
-          dir: 'dev/',
-          assetsDir: '<%= cfg.build.dev.dir %>assets/',
-          cssDir: '<%= cfg.build.dev.dir %>css/',
-          jsDir: '<%= cfg.build.dev.dir %>js/',
-          vendorDir: '<%= cfg.build.dev.dir %>vendor/',
-          viewsDir: '<%= cfg.build.dev.dir %>views/',
-          livereloadFiles: ['<%= cfg.build.dev.dir %>**/*']
-        },
-        prod: {
-          dir: 'dist/'
-        },
-        doc: {
-          dir: 'docs/'
-        },
-        temp: {
-          dir: '.tmp/'
-        }
-      },
-
-      buildIncludes: {
-        includeTempDir: '<%= cfg.build.temp.dir %>jsincludes/',
-        clean: ['<%= cfg.buildIncludes.includeTempDir %>'],
-        copy: {
-          files: [{expand: true, src: '<%= cfg.src.includes.dir %><%= cfg.src.includes.files %>', dest: '<%= cfg.buildIncludes.includeTempDir %>'}]
-        },
-        watch: {
-          files: ['<%= cfg.src.includes.dir %><%= cfg.src.includes.files %>']
-        }
-      },
-
-      // Specific modules
-      buildCSS: {
-        compile: {
-          sourceDirs: '<%= cfg.src.css.stylusDirs %>',  // Stylus-specific property
-          files: [{expand: true, flatten: true, cwd: '<%= cfg.src.css.dir %>', src: '<%= cfg.src.css.rootSourceFiles %>', dest: '<%= cfg.build.dev.cssDir %>', ext: '.css'}]
-        },
-
-        copy: {
-          files: [{
-            expand: true,
-            flatten: true,
-            src: [
-              '<%= cfg.bower.dir %>angular-motion/dist/angular-motion.css',
-              '<%= cfg.bower.dir %>highlightjs/styles/github.css'
-            ],
-            dest: '<%= cfg.build.dev.cssDir %>'
-          }]
-        },
-
-        autoPrefix: {
-          files: [{expand: true, cwd: '<%= cfg.build.dev.dir %>css', src: '*.css', dest: '<%= cfg.build.dev.cssDir %>'}]
-        },
-
-        watch: {
-          files: ['<%= cfg.src.css.dir %>**/*.styl']
-        }
-      },
-
-      buildJS: {
-        // Common variables
-        tempJSDir: '<%= cfg.build.temp.dir %>js/',
-        tempTemplateDir: '<%= cfg.build.temp.dir %>templates/',
-        vendorJSFiles: ['<%= cfg.src.jsLib.compilableFiles %>', '<%= cfg.src.jsLib.externalFiles %>'],
-
-        // Tasks
-        clean: ['<%= cfg.buildJS.tempTemplateDir %>', '<%= cfg.buildJS.tempJSDir %>', '<%= cfg.build.dev.vendorDir %>', '<%= cfg.build.dev.jsDir %>'],
-
-        copy: {
-          htmlTemplatesToTemp: {
-            files: [{expand: true, flatten: false, cwd: '<%= cfg.src.templateHTML.dir %>', src: '<%= cfg.src.templateHTML.files %>', dest: '<%= cfg.buildJS.tempTemplateDir %>'}]
-          },
-          jsToTemp: {
-            files: [{expand: true, flatten: false, cwd: '<%= cfg.src.js.dir %>', src: ['**/_*.js', '**/*.js', '!**/unitTest/*.spec.js'], dest: '<%= cfg.buildJS.tempJSDir %>'}]
-          },
-          vendorJS: {
-            files: [{expand: true, flatten: false, src: '<%= cfg.buildJS.vendorJSFiles %>', dest: '<%= cfg.build.dev.vendorDir %>'}]
-          }
-        },
-
-        /* This builds the moduleName.js file into the output/js folder */
-        concat: {
-          moduleJS: {
-            files: [
-              {
-                expand: true,
-                cwd: '<%= cfg.buildJS.tempJSDir %>',
-                src: ['**/_*.js', '**/*.js', '!**/unitTest/*.spec.js'], // Concat files starting with '_' first
-                dest: '<%= cfg.build.dev.jsDir %>',
-                rename: function(dest, src) {
-                  // Use the source directory(s) to create the destination file name
-                  // e.g. ui/common/icon.js -> ui/common.js
-                  //      ui/special/foo.js -> ui/special.js
-                  //grunt.log.writeln('Concat: ' + src);
-                  //grunt.log.writeln('------->: ' + src.substring(0, src.lastIndexOf('/')));
-
-                  return dest + src.substring(0, src.lastIndexOf('/')) + '.js';
-                }
-              }
-            ]
-          }
-        },
-
-        // This task-config prepares the templates for use *** within-each-module *** !
-        prepareNGTemplates: {
-          files: [{
-            cwd: '<%= cfg.buildJS.tempTemplateDir %>',  // Using this shortens the URL-key of the template name in the $templateCache
-            moduleName: /^(.*)\/template/,    // Use the captured group as the module name
-            src: '<%= cfg.src.templateHTML.files %>',   // The HTML template files
-            dest: '<%= cfg.buildJS.tempJSDir %>'        // Base destination directory
-          }]
-        },
-
-        includeFilesInJS: {
-          sourceFiles: [{expand: true, cwd: '<%= cfg.buildJS.tempJSDir %>', src: '**/*.js', dest: '<%= cfg.buildJS.tempJSDir %>'}],
-          includesDir: '<%= cfg.buildIncludes.includeTempDir %>'
-        },
-
-        watch: {
-          allJSSrc: {
-            files: ['<%= cfg.src.js.dir %>**/*.js', '<%= cfg.config.gruntFiles %>', '<%= cfg.test.specs %>']
-          },
-          jsHtmlTemplates: {
-            files: ['<%= cfg.src.templateHTML.dir %><%= cfg.src.templateHTML.files %>']
-          },
-          vendorJS: {
-            files: ['<%= cfg.buildJS.vendorJSFiles %>']
-          }
-        }
-      },
-
-
-      buildHTML: {
-        html: {
-          copy: {
-            files: [
-              {expand: true, flatten: false, cwd: '<%= cfg.src.html.dir %>', src: '<%= cfg.src.html.files %>', dest: '<%= cfg.build.dev.viewsDir %>'},
-              {expand: true, flatten: true, cwd: '<%= cfg.src.dir %>', src: '*.html', dest: '<%= cfg.build.dev.dir %>'},
-              {expand: true, flatten: false, cwd: '<%= cfg.src.dir %>', src: 'partials/*', dest: '<%= cfg.build.dev.viewsDir %>'}
-            ]
-          },
-          watch: [
-            '<%= cfg.src.html.dir %><%= cfg.src.html.files %>',
-            '<%= cfg.src.dir %>*.html',
-            '<%= cfg.src.dir %>partials/*'
-          ],
-          filesWithTemplateTags: {
-            files: [
-              {src: '<%= cfg.build.dev.dir %>*.html', dest: '<%= cfg.build.dev.dir %>'}
-            ]
-          }
-        },
-
-        moduleAssets: {
-          copy: {
-            files:[
-              {
-                expand: true,
-                flatten: false,
-                cwd: '<%= cfg.src.assets.dir %>',
-                src: '<%= cfg.src.assets.files %>',
-                dest: '<%= cfg.build.dev.assetsDir %>',
-                rename: function(dest, src) {
-                  grunt.log.writeln('Copy: ' + src + ', ' + dest);
-                  // Remove the 'prefix/assets/ portion of the path
-                  var moduleName = src.substr(0, src.indexOf('/assets/'));
-                  //grunt.log.ok('module name = ' + moduleName);
-                  var newPath = src.substr(src.indexOf('/assets/') + 8);
-                  return dest + '/' + moduleName + '/' + newPath;
-                }
-              }
-            ]
-          },
-          watch: ['<%= cfg.src.assets.dir %>' + '<%= cfg.src.assets.files %>']
-        },
-        vendorJSFiles: '<%= cfg.src.jsLib.compilableFiles %>',
-        externalJSFiles: '<%= cfg.src.jsLib.externalFiles %>',
-
+  grunt.initConfig({
+    // Configuration to be run (and then tested).
+    modularProjectConfig: {
+      options: {
+        srcDir: 'src/',
+        modulesSubDir: 'modules/',
+        moduleAssets: 'assets',
+        moduleIncludes: 'includes',
+        moduleStyles: 'styles',
+        cssRootFiles: ['**/styles/docs.styl', '**/styles/sampleFormStyle.styl'],
+        externalCSSFiles: [
+          '<%= modularProject.bowerDir %>angular-motion/dist/angular-motion.css',
+          '<%= modularProject.bowerDir %>highlightjs/styles/github.css'
+        ],
         compiledCSSFiles: [
           'css/angular-motion.css',
           'css/github.css',
           'css/docs.css',
           'css/sampleFormStyle.css'
-        ]
+        ],
+        vendor: {
+          compilableFiles: [
+            // Order is important - Angular should come first
+            '<%= modularProject.bowerDir %>angular/angular.js',
+            '<%= modularProject.bowerDir %>angular-animate/angular-animate.js',
+            '<%= modularProject.bowerDir %>angular-translate/angular-translate.js',
+            '<%= modularProject.bowerDir %>angular-translate-loader-static-files/angular-translate-loader-static-files.js',
+            '<%= modularProject.bowerDir %>angular-scroll/angular-scroll.js',
+            '<%= modularProject.bowerDir %>angular-strap/dist/angular-strap.js',
+            '<%= modularProject.bowerDir %>angular-strap/dist/angular-strap.tpl.js'
+          ],
+          externalFiles: [
+            '<%= modularProject.bowerDir %>highlightjs/highlight.pack.js'
+          ]
+        },
+        testLibraryFiles: [
+          '<%= modularProjectConfig.options.vendor.compilableFiles %>',
+          '<%= modularProject.bowerDir %>angular-mocks/angular-mocks.js'
+        ],
+        output: {
+          devDir: 'dev/',
+          prodDir: 'docs/'
+        },
+        tasks: {
+          optimise: ['mpBuildLibrary', 'mpBuildDocs', 'beep:twobits'],
+          release: ['releaseDocs']
+        },
+        release: {
+          // Modify both the docsConfig.json SRC and the temporary documentation version (in /docs), but only commit the SRC version.
+          filesToBump: ['package.json', 'bower.json', 'src/modules/docs/assets/config/docsConfig.json', 'docs/assets/docs/config/docsConfig.json'],
+          filesToCommit: ['package.json', 'bower.json', 'CHANGELOG.md', 'src/modules/docs/assets/config/docsConfig.json']
+        }
       },
 
-      library: {
+      // Custom config for building a JS library - used by the mpBuildLibrary task
+      buildLibrary: {
         // Common vars
-        libFile: 'dist/ng-form-lib.js',
-        minLibFile: 'dist/ng-form-lib.min.js',
+        libDir: 'lib/',
+        libFile: '<%= modularProjectConfig.buildLibrary.libDir %>ng-form-lib.js',
+        minLibFile: '<%= modularProjectConfig.buildLibrary.libDir %>ng-form-lib.min.js',
 
         // Task config
-        clean: ['dist/'],
+        clean: ['<%= modularProjectConfig.buildLibrary.libDir %>'],
 
         copy: {
-          files: [{
-            expand: true, cwd: '<%= cfg.build.dev.jsDir %>', src: ['**/*.js', '!**/docs.js'], dest: 'dist/src'
-          }]
+          files: [{expand: true, cwd: '<%= modularProject.build.dev.jsDir %>', src: ['**/*.js', '!**/docs.js'], dest: '<%= modularProjectConfig.buildLibrary.libDir %>src'}]
         },
 
         concat: {
           files: [{
-            src: ['dist/src/**/*.js'],
-            dest: '<%= cfg.library.libFile %>'
+            src: ['<%= modularProjectConfig.buildLibrary.libDir %>src/**/*.js'],
+            dest: '<%= modularProjectConfig.buildLibrary.libFile %>'
           }]
         },
 
-        uglify: {
-          files: [{
-            src: '<%= cfg.library.libFile %>', dest: '<%= cfg.library.minLibFile %>'
-          }]
-        }
+        uglifyFiles: [{src: '<%= modularProjectConfig.buildLibrary.libFile %>', dest: '<%= modularProjectConfig.buildLibrary.minLibFile %>'}]
       },
 
-      optimise: {
-        copy: {
-          files: [
-            {expand: true, cwd: '<%= cfg.optimise.src.dir %>', src: '<%= cfg.optimise.src.optimisedAssetFiles %>', dest: '<%= cfg.optimise.dest.dir %>'},
-            {expand: true, flatten: true, src: '<%= cfg.library.libFile %>', dest: '<%= cfg.optimise.dest.dir %>js/'},
-            {expand: true, cwd: '<%= cfg.optimise.src.dir %>assets/', src: '*/{config,language}/**/*', dest: '<%= cfg.optimise.dest.dir %>assets/'},
-            {expand: true, cwd: '<%= cfg.optimise.src.dir %>', src: 'vendor/**/*', dest: '<%= cfg.optimise.dest.dir %>'}
-          ]
-        },
-
+      // This is a custom config used by the mpBuildDocs task
+      buildDocs: {
         src: {
-          dir: '<%= cfg.build.dev.dir %>',
-          cssDir: '<%= cfg.optimise.src.dir %>css/',
+          dir: '<%= modularProject.build.dev.dir %>',
+          cssDir: '<%= modularProject.build.dev.cssDir %>',
           cssFiles: '*.css',
-          htmlFiles: ['views/**/*.html'],
-          imagesDir: '<%= cfg.optimise.src.dir %>assets/images/',
+          htmlFiles: ['<%= modularProject.options.output.viewsSubDir %>/**/*.html'],
+          imagesDir: '<%= modularProject.build.dev.assetsDir %>images/',
           jsFilesToConcat: [
-            '<%= cfg.build.dev.jsDir %>**/docs.js'
+            '<%= modularProject.build.dev.jsDir %>**/docs.js'
           ],
           optimisedAssetFiles: [
             'assets/font/**/*',
             'assets/language/**/*'
           ],
           rootHtmlFiles: '*.html',
-          rootHtmlFilesDir: '<%= cfg.src.dir %>'
+          rootHtmlFilesDir: '<%= modularProject.src.dir %>'
         },
+
         dest: {
-          dir: '<%= cfg.build.doc.dir %>',
-          cssDir: '<%= cfg.optimise.dest.dir %>css/',
-          cssFiles: ['<%= cfg.optimise.dest.cssDir %>*.css'],
+          dir: '<%= modularProjectConfig.options.output.prodDir %>',
+          cssDir: '<%= modularProjectConfig.buildDocs.dest.dir %><%= modularProject.options.output.cssSubDir %>',
+          cssFiles: ['<%= modularProjectConfig.buildDocs.dest.cssDir %>*.css'],
           filesToRev: [
-            '<%= cfg.optimise.dest.dir %>assets/font/*',
-            '<%= cfg.optimise.dest.dir %>assets/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}',
-            '<%= cfg.optimise.dest.dir %>css/*.css',
-            '<%= cfg.optimise.dest.dir %>js/*.js',
-            '<%= cfg.optimise.dest.dir %>vendor/**/*.js'
+            '<%= modularProjectConfig.buildDocs.dest.dir %><%= modularProject.options.output.assetsSubDir %>font/*',
+            '<%= modularProjectConfig.buildDocs.dest.dir %><%= modularProject.options.output.assetsSubDir %>images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}',
+            '<%= modularProjectConfig.buildDocs.dest.dir %><%= modularProject.options.output.cssSubDir %>*.css',
+            '<%= modularProjectConfig.buildDocs.dest.dir %><%= modularProject.options.output.jsSubDir %>*.js',
+            '<%= modularProjectConfig.buildDocs.dest.dir %><%= modularProject.options.output.vendorSubDir %>**/*.js'
           ],
-          htmlFiles: ['<%= cfg.optimise.dest.dir %>*.html', '<%= cfg.optimise.dest.dir %>views/**/*.html'],
-          imagesDir: '<%= cfg.optimise.dest.dir %>assets/images/',
-          jsDir: '<%= cfg.optimise.dest.dir %>js/',
+          htmlFiles: [
+            '<%= modularProjectConfig.buildDocs.dest.dir %>*.html',
+            '<%= modularProjectConfig.buildDocs.dest.dir %><%= modularProject.options.output.viewsSubDir %>**/*.html'
+          ],
+          assetDir: '<%= modularProjectConfig.buildDocs.dest.dir %><%= modularProject.options.output.assetsSubDir %>',
+          imagesDir: '<%= modularProjectConfig.buildDocs.dest.dir %><%= modularProject.options.output.assetsSubDir %>images/',
+          jsDir: '<%= modularProjectConfig.buildDocs.dest.dir %><%= modularProject.options.output.jsSubDir %>',
           jsMinFile: 'ng-form-lib-docs.js',
-          rootFilesDir: '<%= cfg.optimise.dest.dir %>',
+          rootFilesDir: '<%= modularProjectConfig.buildDocs.dest.dir %>',
           rootHtmlFiles: '*.html'
-        }
-      },
-
-      serve: {
-        dev: {
-          baseDir: ['<%= cfg.build.dev.dir %>'],
-          port: 8000,
-          hostname: 'localhost'
         },
-        prod: {
-          baseDir: ['<%= cfg.build.doc.dir %>'],
-          port: 8000,
-          hostname: 'localhost'
-        }
-      },
 
-      unitTest: {
-        reportDir: '<%= cfg.report.dir %>',
-        baseConfig: '<%= cfg.config.dir %>karma/karma.conf.js',
-        browserConfig: '<%= cfg.config.dir %>karma/karma.conf.js',
-        CIConfig: '<%= cfg.config.dir %>karma/karma.conf.js',
-        testFiles: [
-          '<%= cfg.src.jsLib.compilableFiles %>',
-          '<%= cfg.bower.dir %>angular-mocks/angular-mocks.js',
+        vendorDir: '<%= modularProject.options.output.vendorSubDir %>',
+        vendorJSFiles: '<%= modularProjectConfig.options.vendor.compilableFiles %>',
+        externalJSFiles: '<%= modularProjectConfig.options.vendor.externalFiles %>',
+        compiledCSSFiles: '<%= modularProjectConfig.options.compiledCSSFiles %>',
 
-          // Our source code
-          '<%= cfg.src.modules.dir %>**/_*.js',        // Need to load these next
-          '<%= cfg.src.modules.dir %>**/*.js',         // Then all other source files
-
-          // HTML Templates (which are converted to JS files by ng-html2js
-          '<%= cfg.src.modules.dir %>**/template/*.html',
-
-          // Test specs
-          '<%= cfg.src.modules.dir %>**/unitTest/*.spec.js'
-        ],
-        excludeFiles: [
-          '<%= cfg.src.modules.dir %>docs/**/*.js',   // No need to test the docs module
-          '<%= cfg.src.modules.dir %>**/docs/*.js'    // No need to test the docs examples
-        ],
-        preprocessors: {
-          // Source files, that you wanna generate coverage for.
-          // Do not include tests or libraries
-          // (these files will be instrumented by Istanbul)
-          'src/modules/**/!(*.spec).js': ['coverage'],
-          '**/*.html': ['ng-html2js']
-        }
-      },
-
-      release: {
-        // Modify both the docsConfig.json SRC and the temporary documentation version (in /docs), but only commit the SRC version.
-        filesToBump: ['package.json', 'bower.json', 'src/modules/docs/assets/config/docsConfig.json', 'docs/assets/docs/config/docsConfig.json'],
-        filesToCommit: ['package.json', 'bower.json', 'CHANGELOG.md', 'src/modules/docs/assets/config/docsConfig.json']
-      },
-
-      verify: {
-        allFiles: ['<%= cfg.src.js.dir %>**/*.js', '<%= cfg.config.gruntFiles %>', '<%= cfg.test.specs %>'],
-        srcFiles: ['<%= cfg.src.js.files %>', '<%= cfg.config.gruntFiles %>'],
-        testFiles: ['<%= cfg.test.specs %>'],
-        reportDir: '<%= cfg.report.dir %>',
-        jshint: {
-          baseConfig: '<%= cfg.config.dir %>jshint/.jshintrc',
-          testConfig: '<%= cfg.config.dir %>jshint/.jshintrc'
+        copy: {
+          files: [
+            {expand: true, cwd: '<%= modularProject.build.dev.dir %>', src: '<%= modularProjectConfig.buildDocs.src.optimisedAssetFiles %>', dest: '<%= modularProjectConfig.buildDocs.dest.dir %>'},
+            {expand: true, flatten: true, src: '<%= modularProjectConfig.buildLibrary.libFile %>', dest: '<%= modularProjectConfig.buildDocs.dest.jsDir %>'},
+            {expand: true, cwd: '<%= modularProject.build.dev.assetsDir %>', src: '*/{config,language}/**/*', dest: '<%= modularProjectConfig.buildDocs.dest.assetDir %>'},
+            {expand: true, cwd: '<%= modularProject.build.dev.dir %>', src: '<%= modularProject.options.output.vendorSubDir %>**/*', dest: '<%= modularProjectConfig.buildDocs.dest.dir %>'},
+            {expand: true, cwd: '<%= modularProjectConfig.buildDocs.src.dir %>', src: '<%= modularProjectConfig.buildDocs.src.htmlFiles %>', dest: '<%= modularProjectConfig.buildDocs.dest.dir %>'},
+            {expand: true, cwd: '<%= modularProjectConfig.options.srcDir %>', src: '*.html', dest: '<%= modularProjectConfig.buildDocs.dest.dir %>'}
+          ]
         },
-        jscs: {
-          baseConfig: '<%= cfg.config.dir %>jscs/.jscsrc',
-          testConfig: '<%= cfg.config.dir %>jscs/.jscsrc'
-        }
+
+        targethtml: {
+          files: [{src: '<%= modularProjectConfig.buildDocs.dest.dir %>*.html', dest: '<%= modularProjectConfig.buildDocs.dest.dir %>'}]
+        },
+
+        htmlminFiles: [
+          {expand: true, cwd: '<%= modularProjectConfig.buildDocs.dest.dir %>', src: '<%= modularProjectConfig.buildDocs.src.htmlFiles %>', dest: '<%= modularProjectConfig.buildDocs.dest.dir %>'},
+          {expand: true, cwd: '<%= modularProjectConfig.buildDocs.dest.dir %>', src: '*.html', dest: '<%= modularProjectConfig.buildDocs.dest.dir %>'}
+        ]
       }
     }
   });
 
+  grunt.loadNpmTasks('grunt-modular-project');
 
-  grunt.loadTasks('bower_components/grunt-modular-project-tasks/config/grunt');  // Loads all the Grunt tasks inside the config/grunt folder AFTER the above config
-
-  grunt.registerTask('default', ['dev']);
-
-  // Overwrite the default "release" task, to also release the documents
-  grunt.registerTask('release', 'Releases a new version (update version, changelog, commit)', function (versionChange) {
-    var target = versionChange || 'patch';
-    grunt.task.run('preReleaseCheck', 'preChangelog', 'bump-only' + ':' + target, 'changelog', 'bump-commit', 'releaseDocs');
-  });
+  // Need to load the 'grunt-modular-project' last
+//  require('load-grunt-tasks')(grunt, {pattern: ['grunt-modular-project']});
 };

@@ -6,7 +6,7 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
 
-    <!--(if target unoptimised || optimised)>
+    <!--(if target unoptimised || docs)>
     {{cssFiles}}
     <!(endif)-->
 
@@ -48,10 +48,12 @@
   <![endif]-->
 
 
-  <!--(if target unoptimised)>
+  <!--(if target unoptimised || docs)>
   {{vendorScripts}}
   {{externalScripts}}
+  <!(endif)-->
 
+  <!--(if target unoptimised)>
   <script src="js/docs.js"></script>
   <script src="js/common.js"></script>
   <script src="js/ngFormLib.js"></script>
@@ -85,9 +87,7 @@
 
   <!(endif)-->
 
-  <!--(if target optimised)>
-  {{vendorScripts}}
-  {{externalScripts}}
+  <!--(if target docs)>
   <script src="js/ng-form-lib-docs.js"></script>
   <script src="js/ng-form-lib.js"></script>
   <!(endif)-->

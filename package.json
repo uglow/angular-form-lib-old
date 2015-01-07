@@ -7,6 +7,7 @@
   },
   "dependencies": {},
   "devDependencies": {
+    "grunt-modular-project": "latest",
     "colors": "^0.6.2",
     "conventional-changelog": "0.0.6",
     "grunt": "^0.4.5",
