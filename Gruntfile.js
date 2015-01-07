@@ -5,15 +5,10 @@ module.exports = function (grunt) {
   // Time how long tasks take. Can help when optimizing build times
   require('time-grunt')(grunt);
 
-  // Load grunt tasks automatically
-  require('load-grunt-tasks')(grunt, {pattern: ['grunt*', '!grunt-modular-project']});
-
-
-
   // The actual project configuration - this will be different for each project
   grunt.initConfig({
     // Configuration to be run (and then tested).
-    modularProjectConfig: {
+    modularProject: {
       options: {
         srcDir: 'src/',
         modulesSubDir: 'modules/',
@@ -47,7 +42,7 @@ module.exports = function (grunt) {
           ]
         },
         testLibraryFiles: [
-          '<%= modularProjectConfig.options.vendor.compilableFiles %>',
+          '<%= modularProject.options.vendor.compilableFiles %>',
           '<%= modularProject.bowerDir %>angular-mocks/angular-mocks.js'
         ],
         output: {
@@ -69,24 +64,24 @@ module.exports = function (grunt) {
       buildLibrary: {
         // Common vars
         libDir: 'lib/',
-        libFile: '<%= modularProjectConfig.buildLibrary.libDir %>ng-form-lib.js',
-        minLibFile: '<%= modularProjectConfig.buildLibrary.libDir %>ng-form-lib.min.js',
+        libFile: '<%= modularProject.buildLibrary.libDir %>ng-form-lib.js',
+        minLibFile: '<%= modularProject.buildLibrary.libDir %>ng-form-lib.min.js',
 
         // Task config
-        clean: ['<%= modularProjectConfig.buildLibrary.libDir %>'],
+        clean: ['<%= modularProject.buildLibrary.libDir %>'],
 
         copy: {
-          files: [{expand: true, cwd: '<%= modularProject.build.dev.jsDir %>', src: ['**/*.js', '!**/docs.js'], dest: '<%= modularProjectConfig.buildLibrary.libDir %>src'}]
+          files: [{expand: true, cwd: '<%= modularProject.build.dev.jsDir %>', src: ['**/*.js', '!**/docs.js'], dest: '<%= modularProject.buildLibrary.libDir %>src'}]
         },
 
         concat: {
           files: [{
-            src: ['<%= modularProjectConfig.buildLibrary.libDir %>src/**/*.js'],
-            dest: '<%= modularProjectConfig.buildLibrary.libFile %>'
+            src: ['<%= modularProject.buildLibrary.libDir %>src/**/*.js'],
+            dest: '<%= modularProject.buildLibrary.libFile %>'
           }]
         },
 
-        uglifyFiles: [{src: '<%= modularProjectConfig.buildLibrary.libFile %>', dest: '<%= modularProjectConfig.buildLibrary.minLibFile %>'}]
+        uglifyFiles: [{src: '<%= modularProject.buildLibrary.libFile %>', dest: '<%= modularProject.buildLibrary.minLibFile %>'}]
       },
 
       // This is a custom config used by the mpBuildDocs task
@@ -109,57 +104,60 @@ module.exports = function (grunt) {
         },
 
         dest: {
-          dir: '<%= modularProjectConfig.options.output.prodDir %>',
-          cssDir: '<%= modularProjectConfig.buildDocs.dest.dir %><%= modularProject.options.output.cssSubDir %>',
-          cssFiles: ['<%= modularProjectConfig.buildDocs.dest.cssDir %>*.css'],
+          dir: '<%= modularProject.options.output.prodDir %>',
+          cssDir: '<%= modularProject.buildDocs.dest.dir %><%= modularProject.options.output.cssSubDir %>',
+          cssFiles: ['<%= modularProject.buildDocs.dest.cssDir %>*.css'],
           filesToRev: [
-            '<%= modularProjectConfig.buildDocs.dest.dir %><%= modularProject.options.output.assetsSubDir %>font/*',
-            '<%= modularProjectConfig.buildDocs.dest.dir %><%= modularProject.options.output.assetsSubDir %>images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}',
-            '<%= modularProjectConfig.buildDocs.dest.dir %><%= modularProject.options.output.cssSubDir %>*.css',
-            '<%= modularProjectConfig.buildDocs.dest.dir %><%= modularProject.options.output.jsSubDir %>*.js',
-            '<%= modularProjectConfig.buildDocs.dest.dir %><%= modularProject.options.output.vendorSubDir %>**/*.js'
+            '<%= modularProject.buildDocs.dest.dir %><%= modularProject.options.output.assetsSubDir %>font/*',
+            '<%= modularProject.buildDocs.dest.dir %><%= modularProject.options.output.assetsSubDir %>images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}',
+            '<%= modularProject.buildDocs.dest.dir %><%= modularProject.options.output.cssSubDir %>*.css',
+            '<%= modularProject.buildDocs.dest.dir %><%= modularProject.options.output.jsSubDir %>*.js',
+            '<%= modularProject.buildDocs.dest.dir %><%= modularProject.options.output.vendorSubDir %>**/*.js'
           ],
           htmlFiles: [
-            '<%= modularProjectConfig.buildDocs.dest.dir %>*.html',
-            '<%= modularProjectConfig.buildDocs.dest.dir %><%= modularProject.options.output.viewsSubDir %>**/*.html'
+            '<%= modularProject.buildDocs.dest.dir %>*.html',
+            '<%= modularProject.buildDocs.dest.dir %><%= modularProject.options.output.viewsSubDir %>**/*.html'
           ],
-          assetDir: '<%= modularProjectConfig.buildDocs.dest.dir %><%= modularProject.options.output.assetsSubDir %>',
-          imagesDir: '<%= modularProjectConfig.buildDocs.dest.dir %><%= modularProject.options.output.assetsSubDir %>images/',
-          jsDir: '<%= modularProjectConfig.buildDocs.dest.dir %><%= modularProject.options.output.jsSubDir %>',
+          assetDir: '<%= modularProject.buildDocs.dest.dir %><%= modularProject.options.output.assetsSubDir %>',
+          imagesDir: '<%= modularProject.buildDocs.dest.dir %><%= modularProject.options.output.assetsSubDir %>images/',
+          jsDir: '<%= modularProject.buildDocs.dest.dir %><%= modularProject.options.output.jsSubDir %>',
           jsMinFile: 'ng-form-lib-docs.js',
-          rootFilesDir: '<%= modularProjectConfig.buildDocs.dest.dir %>',
+          rootFilesDir: '<%= modularProject.buildDocs.dest.dir %>',
           rootHtmlFiles: '*.html'
         },
 
         vendorDir: '<%= modularProject.options.output.vendorSubDir %>',
-        vendorJSFiles: '<%= modularProjectConfig.options.vendor.compilableFiles %>',
-        externalJSFiles: '<%= modularProjectConfig.options.vendor.externalFiles %>',
-        compiledCSSFiles: '<%= modularProjectConfig.options.compiledCSSFiles %>',
+        vendorJSFiles: '<%= modularProject.options.vendor.compilableFiles %>',
+        externalJSFiles: '<%= modularProject.options.vendor.externalFiles %>',
+        compiledCSSFiles: '<%= modularProject.options.compiledCSSFiles %>',
 
         copy: {
           files: [
-            {expand: true, cwd: '<%= modularProject.build.dev.dir %>', src: '<%= modularProjectConfig.buildDocs.src.optimisedAssetFiles %>', dest: '<%= modularProjectConfig.buildDocs.dest.dir %>'},
-            {expand: true, flatten: true, src: '<%= modularProjectConfig.buildLibrary.libFile %>', dest: '<%= modularProjectConfig.buildDocs.dest.jsDir %>'},
-            {expand: true, cwd: '<%= modularProject.build.dev.assetsDir %>', src: '*/{config,language}/**/*', dest: '<%= modularProjectConfig.buildDocs.dest.assetDir %>'},
-            {expand: true, cwd: '<%= modularProject.build.dev.dir %>', src: '<%= modularProject.options.output.vendorSubDir %>**/*', dest: '<%= modularProjectConfig.buildDocs.dest.dir %>'},
-            {expand: true, cwd: '<%= modularProjectConfig.buildDocs.src.dir %>', src: '<%= modularProjectConfig.buildDocs.src.htmlFiles %>', dest: '<%= modularProjectConfig.buildDocs.dest.dir %>'},
-            {expand: true, cwd: '<%= modularProjectConfig.options.srcDir %>', src: '*.html', dest: '<%= modularProjectConfig.buildDocs.dest.dir %>'}
+            {expand: true, cwd: '<%= modularProject.build.dev.dir %>', src: '<%= modularProject.buildDocs.src.optimisedAssetFiles %>', dest: '<%= modularProject.buildDocs.dest.dir %>'},
+            {expand: true, flatten: true, src: '<%= modularProject.buildLibrary.libFile %>', dest: '<%= modularProject.buildDocs.dest.jsDir %>'},
+            {expand: true, cwd: '<%= modularProject.build.dev.assetsDir %>', src: '*/{config,language}/**/*', dest: '<%= modularProject.buildDocs.dest.assetDir %>'},
+            {expand: true, cwd: '<%= modularProject.build.dev.dir %>', src: '<%= modularProject.options.output.vendorSubDir %>**/*', dest: '<%= modularProject.buildDocs.dest.dir %>'},
+            {expand: true, cwd: '<%= modularProject.buildDocs.src.dir %>', src: '<%= modularProject.buildDocs.src.htmlFiles %>', dest: '<%= modularProject.buildDocs.dest.dir %>'},
+            {expand: true, cwd: '<%= modularProject.options.srcDir %>', src: '*.html', dest: '<%= modularProject.buildDocs.dest.dir %>'}
           ]
         },
 
         targethtml: {
-          files: [{src: '<%= modularProjectConfig.buildDocs.dest.dir %>*.html', dest: '<%= modularProjectConfig.buildDocs.dest.dir %>'}]
+          files: [{src: '<%= modularProject.buildDocs.dest.dir %>*.html', dest: '<%= modularProject.buildDocs.dest.dir %>'}]
         },
 
         htmlminFiles: [
-          {expand: true, cwd: '<%= modularProjectConfig.buildDocs.dest.dir %>', src: '<%= modularProjectConfig.buildDocs.src.htmlFiles %>', dest: '<%= modularProjectConfig.buildDocs.dest.dir %>'},
-          {expand: true, cwd: '<%= modularProjectConfig.buildDocs.dest.dir %>', src: '*.html', dest: '<%= modularProjectConfig.buildDocs.dest.dir %>'}
+          {expand: true, cwd: '<%= modularProject.buildDocs.dest.dir %>', src: '<%= modularProject.buildDocs.src.htmlFiles %>', dest: '<%= modularProject.buildDocs.dest.dir %>'},
+          {expand: true, cwd: '<%= modularProject.buildDocs.dest.dir %>', src: '*.html', dest: '<%= modularProject.buildDocs.dest.dir %>'}
         ]
       }
     }
   });
 
-  grunt.loadNpmTasks('grunt-modular-project');
+  // Load grunt tasks automatically
+  require('load-grunt-tasks')(grunt);//, {pattern: ['grunt*', '!grunt-modular-project']});
+
+//  grunt.loadNpmTasks('grunt-modular-project');
 
   // Need to load the 'grunt-modular-project' last
 //  require('load-grunt-tasks')(grunt, {pattern: ['grunt-modular-project']});
