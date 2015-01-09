@@ -1,3 +1,12 @@
+<a name="0.1.1"></a>
+### 0.1.1 (2015-01-09)
+
+
+#### Features
+
+* **build:** Improve build process to by using grunt-modular-package ([f87aef72](http://github.com/uglow/angular-form-lib/commit/f87aef729405bb773a00899bb9a946178a97f074))
+
+
 <a name="0.1.0"></a>
 ## 0.1.0 (2015-01-05)
 
