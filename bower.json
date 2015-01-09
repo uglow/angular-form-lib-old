@@ -31,8 +31,7 @@
   "dependencies": {
     "angular": "1.2.x",
     "angular-translate": "~2.2.0",
-    "angular-translate-loader-static-files": "~2.2.0",
-    "grunt-modular-project-tasks": "~0.3.4"
+    "angular-translate-loader-static-files": "~2.2.0"
   },
   "devDependencies": {
     "angular-animate": "1.2.x",
