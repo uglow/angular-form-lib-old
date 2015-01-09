@@ -1,0 +1,88 @@
+<div class=bs-docs-section ng-controller="FormSelectDemoController as ctrl">
+
+  <div class=page-header>
+    <h1 id=formSelect>Form Select <a class=small href={{mainCtrl.REPO}}/src/modules/ngFormLib/controls/formSelect/FormSelect.js target=_blank>FormSelect.js</a>
+    </h1>
+    <code>ngFormLib.controls.formSelect</code>
+  </div>
+
+  <p>The Form Select directive acts like a macro in that it expands into a <code>&lt;label&gt;</code><code>&lt;select&gt;</code> and some auxillary HTML elements, but does change the <code>$scope</code> of those elements.</p>
+
+  <p>It works this way because the elements are inter-related. For example, when the <code>required</code> attribute is set to <code>true</code>
+    the <code>&lt;label&gt;</code> element is changed so that a required-indicator-CSS-class is applied to the element.
+  </p>
+
+  <div class="callout callout-danger">
+    <h4>Plugin dependency</h4>
+    <p>FormSelect requires the <a href=#formControlsService>form controls service module</a>, the <a href=#fieldErrorController>field error controller module</a>
+      , the <a href=#errorMessageContainer>error message container module</a> and the <a href={{mainCtrl.REPO}}/src/controls/formSelect/template/FormSelectTemplate.html target=_blank>FormSelectTemplate.html</a> template to be loaded.</p>
+  </div>
+
+  <h2 id=formSelectExamples>Examples</h2>
+  <p>Use <code>form-select</code> to create a complete HTML structure containing a <code>label</code> and <code>select</code> element that reacts to the error state of the field.</p>
+
+  <h3>Live demo</h3>
+
+  <div class=bs-example style="padding-bottom: 24px" append-source>
+
+    
+    <form name=formFormSelect class=form novalidate form-submit>
+
+      <div form-select uid=formFormSelect_fldDemo1 name=formFormSelect_fldDemo1 label="Common field" required=true ff-ng-model=ctrl.data.demo1 ff-ng-options="item.label for item in ctrl.titleData track by item.label" field-errors="{required: 'Title is required'}"></div>
+
+      <div form-select uid=formFormSelect_fldDemo2 name=formFormSelect_fldDemo2 label="Field with placeholder" required=false ff-ng-model=ctrl.data.demo2 ff-ng-options="item.label for item in ctrl.titleData track by item.label" placeholder="{{'OTHER.PLACEHOLDER' | translate}}"></div>
+
+      <div form-select uid=formFormSelect_fldDemo3 name=formFormSelect_fldDemo3 label="{{'FIELD.TITLE' | translate}}" required=false ff-ng-model=ctrl.data.demo3 ff-ng-options="item.label for item in ctrl.titleData track by item.label" field-hint="{{'OTHER.HINT' | translate}}"></div>
+
+      <button type=submit class="btn btn-primary">Submit</button>
+      <button type=button class=btn form-reset=ctrl.data>Reset</button>
+    </form>
+
+  </div>
+
+  <h2 id=formSelectUsage>Usage</h2>
+  <p>Add the <code>form-select</code> directive to an element.</p>
+
+  <h3>Options</h3>
+  <p>Options can be passed via attributes on the directive.</p>
+  <div class=table-responsive>
+    <table class="table table-bordered table-striped">
+      <thead>
+        <tr>
+          <th style="width: 100px">Name
+          <th style="width: 100px">Type
+          <th style="width: 50px">Default
+          <th>Description
+        
+      
+      <tbody>
+        <tr>
+          <td>field-hint
+          <td>string
+          <td>
+          <td>Text that is related to the field but is not the field's label. Often used to provide additional information about the field. This string can be a language-resource-key.
+        
+        <tr>
+          <td>placeholder
+          <td>string
+          <td>
+          <td>Text to display when there is no initial value.
+        
+        <tr>
+          <td>template
+          <td>URL
+          <td>See <a ahref=#formControlsService>Form Controls Service options</a>
+          <td>The HTML template to use for the control. The default value can be overridden on the element, or globally by setting the default value in the <a href=#formControlsService>formControlsService</a>
+        
+        <tr>
+          <td>ff-ng-options
+          <td>expression
+          <td>
+          <td><strong>Required</strong> - the AngularJS <code>ngOptions</code> directive, which is applied to the <code>select</code> element.
+          Note that the 'track by' syntax is required in this expression for the control to work correctly with the <code>form-reset</code> directive.
+        
+      
+      <tbody ng-include="'views/ngFormLib/controls/common/docs/formControlsCommonProperties.docs.html'">
+    </table>
+  </div>
+</div>

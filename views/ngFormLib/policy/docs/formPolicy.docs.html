@@ -1,0 +1,256 @@
+<div class=bs-docs-section ng-controller="FormPolicyDemoCtrl as ctrl">
+
+  <div class=page-header>
+    <h1 id=formPolicy>Form Policy <a class=small href={{mainCtrl.REPO}}src/modules/ngFormLib/policy/FormPolicy.js target=_blank>FormPolicy.js</a>
+    </h1>
+    <code>ngFormLib.policy</code>
+  </div>
+
+  <p>Form Policy is a service which is used in conjunction with decorated <code>form</code> and <code>ng-form</code> directives to
+  apply validation behaviours to any form.<br><strong><code>ngFormLib.policy</code> is a required module for all other Form Policy directives.</strong>
+
+  </p><p>This service exposes the following configurable policies:</p>
+  <ul>
+    <li><strong>field state definition</strong> (policies which define what state a component should be in for the component to be consider in an error-state, a success-state, or some-other-state which you can define</li>
+    <li><strong>when to check for field-state changes</strong> - which user-or-application events should cause the component-state to be checked to see if it has changed state (according to the definition in the above policy)</li>
+    <li><strong>what to do when a state-change occurs</strong> - such as setting the focus to the first field that has an error, when the field is in an error-state</li>
+  </ul>
+
+  <p>Additionally, the decorated <code>form</code> and <code>ng-form</code> directives work with the <a href=#formControlService>Form Controls Service</a>
+  to allow the correct form element templates to be loaded based on the presence (or not) of the <code>form-horizontal</code> CSS class on the <code>form</code> element.</p>
+
+  <h2 id=formPolicyExamples>Examples</h2>
+  <p>Apply the default form policy to a form.</p>
+
+  <h3>Live demo</h3>
+  <pre class=bs-example-scope>  // Load policy and policy libraries FIRST. The policy libraries define a default policy for each policy-type
+  angular.module('myApp', ['ngFormLib',
+    'ngFormLib.policy.behaviourOnStateChange',
+    'ngFormLib.policy.checkForStateChanges',
+    'ngFormLib.policy.stateDefinitions']
+  );</pre>
+  <div class=bs-example style="padding-bottom: 24px" append-source>
+
+    <form name=formPolicy class=form novalidate form-submit="">
+      
+      <div class=form-group>
+        <label class=control-label for=formPolicy_fldTitle>Title</label>
+        <div class=control-row>
+          <select id=formPolicy_fldTitle name=formPolicy_fldTitle ng-model=ctrl.employee.title ng-options="item.label for item in ctrl.titleData" class=form-control ng-required=false field-error-controller></select>
+        </div>
+        <div error-container field-name=formPolicy_fldTitle field-errors="{required: 'Please select a title'}"></div>
+      </div>
+
+      
+      <div form-input uid=formPolicy_fldName name=formPolicy_fldName label=Name required=true input-type=text ff-ng-model=ctrl.employee.name ff-maxlength=40 ff-ng-pattern="/^[a-zA-Z0-9 \-.']+$/" field-errors="{required: 'Last name is required', pattern: 'Please enter a valid last name'}"></div>
+
+      <div form-checkbox uid=formPolicy_fld3 name=formPolicy_fld3 required=true ff-ng-model=ctrl.employee.fld1_3 field-errors="{required: 'You must agree'}">You are required to agree to this</div>
+
+      <button type=submit class="btn btn-primary">Submit</button>
+      <button type=button class="btn btn-secondary" form-reset=ctrl.employee>Reset</button>
+    </form>
+
+    <hr>
+
+    <form name=formPolicy2 class=form novalidate form-submit="" form-policy=ctrl.myCustomPolicy>
+      <fieldset>
+        <legend>Custom Form Policy</legend>
+
+        <p>This form takes advantage of the default control-templates' HTML structure to render the controls inside a form with <code>class="form-horizontal"</code>
+        as expected within Bootstrap. See the <a href=/css/sampleFormStyle.06e88538.css target=_blank>sample style sheet</a> to see how to do this.</p>
+
+        <div form-input uid=formPolicy2_fld1 name=formPolicy2_fld1 label="Nick Name" required=true input-type=text ff-ng-model=ctrl.fldFPCustPolicy.name ff-maxlength=40 ff-ng-pattern="/^[a-zA-Z0-9 \-.']+$/" field-errors="{required: 'Last name is required', pattern: 'Please enter a valid last name'}"></div>
+
+        <div form-select uid=formPolicy2_fld2 name=formPolicy2_fld2 label="Common field" required=true ff-ng-model=ctrl.data.demo1 ff-ng-options="item.label for item in ctrl.titleData track by item.label" field-errors="{required: 'Title is required'}"></div>
+
+        <div form-checkbox uid=formPolicy2_fld3 name=formPolicy2_fld3 required=true ff-ng-model=ctrl.data.fld2_3 field-errors="{required: 'You must agree'}">You are required to agree to this</div>
+
+        <button type=submit class="btn btn-primary">Submit</button>
+      </fieldset>
+    </form>
+  </div>
+
+  <h2 id=formPolicyUsage>Usage</h2>
+  <p>Load the <code>ngFormLib</code>module and (normally) the standard form policy libraries.</p>
+  <div class=highlight>
+    <pre><code class=js highlight-block>
+      angular.module('myApp', ['ngFormLib',
+        'ngFormLib.policy.behaviourOnStateChange',
+        'ngFormLib.policy.checkForStateChanges',
+        'ngFormLib.policy.stateDefinitions'
+      ]);
+    </code></pre>
+  </div>
+
+  <div class="callout callout-danger">
+    <h4>Heads up!</h4>
+    <p>For the form policy to work as above, the following configuration must exist:</p>
+    <ul>
+      <li>the <code>form</code> must have a non-empty <code>name</code> attribute</li>
+      <li>the <code>form-submit</code> directive <strong>must</strong> exist on the <code>form</code> element, or on a <code>button</code> element inside the form</li>
+      <li>each form field must have a non-empty <code>name</code> and <code>ng-model</code> attribute</li>
+      <li>each form field must use the <code>field-error-controller</code> directive for errors to appear when using the <code>error-container</code> directive</li>
+    </ul>
+  </div>
+
+  <h3>Options</h3>
+
+  <div class=table-responsive>
+    <table class="table table-bordered table-striped">
+      <thead>
+      <tr>
+        <th style="width: 100px">Name
+        <th style="width: 100px">Type
+        <th style="width: 50px">Default
+        <th>Description
+      
+      
+      <tbody>
+      <tr>
+        <td>formSubmitAttemptedClass
+        <td>string
+        <td>'form-submit-attempted'
+        <td>a CSS class-name that is applied to the <code>form</code> element when an attempt to submit the form is made (via the <code>formSubmit</code> directive)
+      
+      <tr>
+        <td>fieldErrorClass
+        <td>string
+        <td>'has-error'
+        <td>a CSS class-name that is applied to the field's form-group when an error is showing
+      
+      <tr>
+        <td>fieldSuccessClass
+        <td>string
+        <td>'has-success'
+        <td>a CSS class-name that is applied to the field's form-group when the field has been successfully validated
+      
+      <tr>
+        <td>behaviourOnStateChange
+        <td>function
+        <td>noop
+        <td>The behaviour-on-state-change policy function. This function returns an object with two methods on it: <code>applyBehaviour()</code> which is called when an the field's state changes,
+          and <code>resetBehaviour()</code> function which is called when the form is reset and when the form is submitted again. Function signature:
+
+          <pre class=bs-example-code><code class=javascript highlight-block>function myBehaviourOnStateChange(formController) {
+  return {
+    applyBehaviour: function (fieldElem, fieldState, formSubmitAttempted) {...},
+    resetBehaviour: function() {...}
+  };
+}</code></pre>
+          where:
+          <ul>
+            <li><code>formController</code> is the <code>form</code> controller, which has a reference to the form state and policy,</li>
+            <li><code>fieldElem</code> is a jqLite element,</li>
+            <li><code>fieldState</code> is a boolean indicating whether an error for this field is showing or not,</li>
+            <li><code>formSubmitAttempted</code> is a boolean indicating whether the user ahs attempted to submit the form</li>
+          </ul>
+        
+      
+      <tr>
+        <td>checkForStateChanges
+        <td>function
+        <td>noop
+        <td>The check-for-state-changes policy function. This function is responsible for determining <strong>when</strong> to evaluate whether a field has changed state (into an error state or into a success state).
+          Function signature:
+
+          <pre class=bs-example-code><code class=javascript highlight-block>function myCheckForStateChangesFunc(scope, element, name, errorCondition, ngModelController) {...}</code></pre>
+          where <ul>
+            <li><code>scope</code> is the Angular $scope for the element</li>
+            <li><code>element</code> is a jqLite field element</li>
+            <li><code>name</code> is the string-name of the field</li>
+            <li><code>errorCondition</code> is an Angular expression that can be $watch()ed</li>
+            <li><code>ngModelController</code> is the ngModelController of the field, which contains the <code>fieldState</code> property</li>
+          </ul>
+        
+      
+      <tr>
+        <td>errorCondition
+        <td>function
+        <td>noop
+        <td>The error condition policy function. This function returns a string-expression is used to determine <strong>if</strong> a field should show an error.
+          Function signature:
+
+          <pre class=bs-example-code><code class=javascript highlight-block>function myErrorCondition(formName, fieldName) {
+  ...;
+  return '...';
+}</code></pre>
+          where <ul>
+            <li><code>formName</code> is the string-name of the form that the field is situated inside of</li>
+            <li><code>fieldName</code> is strong-name of the field</li>
+          </ul>
+        
+      
+      
+    </table>
+  </div>
+
+  <h2 id=formPolicyConfig>Configuration</h2>
+  <p>Form policies can be defined in 3 ways: application-wide, per-form, or a combination of the two (application-wide with per-form overrides).</p>
+
+  <div class="callout callout-info">
+    <h4>Application-wide configuration</h4>
+
+    <p>You can override the default policies by replacing the policy-factory value for each policy:</p>
+    <div class=highlight>
+      <pre class=bs-example-code>
+        <code class=javascript highlight-block>
+          angular.module('myApp', ['ngFormLib',
+            'ngFormLib.policy.behaviourOnStateChange',
+            'ngFormLib.policy.checkForStateChanges',
+            'ngFormLib.policy.stateDefinitions'
+          ])
+          // Replace the 'formPolicyBehaviourOnStateChange' policy with a new implementation
+          .factory('formPolicyBehaviourOnStateChange', ['formPolicyBehaviourOnStateChangeLibrary', function(policyLib) {
+            return policyLib.onSubmitFocusFirstField;
+          }])
+          // Replace the 'formPolicycheckForStateChanges' policy with a new implementation
+          .factory('formPolicycheckForStateChanges', ['formPolicycheckForStateChangesLibrary', function(policyLib) {
+            return policyLib.onChange;
+          }]);
+          // Replace the 'formPolicyStateDefinitions' policy with a new implementation
+          .factory('formPolicyStateDefinitions', ['formPolicyStateDefinitionLibrary', function(policyLib) {
+
+            return function(formName, fieldName) {
+              // Return an object with the stateName(key) and the stateDefinition string(value)
+              return {
+                'error': policyLib.immediately(formName, fieldName)
+              };
+            };
+
+          }]);
+        </code>
+      </pre>
+    </div>
+  </div>
+
+  <div class="callout callout-info">
+    <h4>Per-Form configuration</h4>
+
+    <p>You can override the application-wide (default) policies by specifying a policy-object on the form via a <code>form-policy</code> attribute:</p>
+    <div class=highlight>
+      <pre class=bs-example-code><code class=html highlight-block>
+        &lt;div ng-controller="myController as ctrl"&gt;
+          &lt;form form-policy="myPolicy"&gt;...&lt;/form&gt;
+        &lt;/div&gt;
+      </code></pre>
+    </div>
+    <div class=highlight>
+      <pre class=bs-example-code><code class=javascript highlight-block>
+module.controller('myController', function() {
+  var vm = this;
+
+  function wonderChecker(scope, element, name, errorCondition, ngModelController) {
+      //...
+  }
+
+  // This will overwrite only the checkForStateChanges policy
+  vm.myPolicy = {
+    checkForStateChanges: wonderChecker,
+  };
+}
+        </code>
+      </pre>
+    </div>
+  </div>
+
+</div>
