@@ -1,3 +1,14 @@
+<a name="0.1.7"></a>
+### 0.1.7 (2015-01-09)
+
+
+#### Bug Fixes
+
+* **build:**
+  * Update /dist/.../docConfig.js to display correct release version ([8099d111](http://github.com/uglow/angular-form-lib/commit/8099d1118348a4f650af793d026ce5ec6a81ae69))
+  * Update Bower build to point to /lib file instead of /dist file ([2e61500e](http://github.com/uglow/angular-form-lib/commit/2e61500ea27afada5ac460cc192f000435d411fc))
+
+
 <a name="0.1.6"></a>
 ### 0.1.1 (2015-01-09)
 
