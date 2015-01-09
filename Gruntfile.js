@@ -9,26 +9,6 @@ module.exports = function (grunt) {
   grunt.initConfig({
     // Configuration to be run (and then tested).
     modularProject: {
-      input: {
-        srcDir: 'src/',
-        modulesDir: 'src/modules/',
-        moduleAssets: 'assets',
-        moduleIncludes: 'includes',
-        modulePartials: 'partials',
-        moduleStyles: 'styles',
-        moduleTemplates: 'template',
-        moduleTest: 'unitTest'
-      },
-      output: {
-        devDir: 'dev/',
-        prodDir: 'dist/',
-        assetsSubDir: 'assets/',
-        cssSubDir: 'css/',
-        jsSubDir: 'js/',
-        vendorJSSubDir: 'vendor/',
-        viewsSubDir: 'views/'
-      },
-
 
       buildCSS: {
         rootSourceFiles:  ['**/styles/docs.styl', '**/styles/sampleFormStyle.styl'],
@@ -66,15 +46,26 @@ module.exports = function (grunt) {
         libSrcFiles: ['**/*.js', '!**/docs.js']
       },
 
+      optimise: {
+        tasks: ['mpBuildLibrary', 'mpOptimise', 'beep:twobits'],
+
+        // Modify the optimise task so that it builds the docs.js files together, and copies the library JS file to the output
+        // Also need to disable whitespace escaping due to the use of <pre><code> blocks (can't get htmlmin to ignroe blocks at the moment)
+        jsMinFile: 'ng-form-lib-docs.js',
+        jsFilesToConcat: ['<%= modularProject.build.dev.jsDir %>**/docs.js'],
+        filesToCopy: [{expand: true, flatten: true, src: '<%= modularProject.buildLibrary.libFile %>', dest: '<%= modularProject.optimise.dest.jsDir %>'}],
+        htmlmin: {
+          options: {
+            collapseWhitespace: false
+          }
+        }
+      },
+
       release: {
         // Modify both the docsConfig.json SRC and the temporary documentation version (in /docs), but only commit the SRC version.
         filesToBump: ['package.json', 'bower.json', 'src/modules/docs/assets/config/docsConfig.json', 'docs/assets/docs/config/docsConfig.json'],
         filesToCommit: ['package.json', 'bower.json', 'CHANGELOG.md', 'src/modules/docs/assets/config/docsConfig.json'],
-        tasks: ['releaseDocs']
-      },
-
-      optimise: {
-        tasks: ['mpBuildLibrary', 'mpBuildDocs', 'beep:twobits']
+        tasks: ['gh-pages']
       },
 
       unitTest: {
@@ -83,6 +74,14 @@ module.exports = function (grunt) {
           '<%= modularProject.bowerDir %>angular-mocks/angular-mocks.js'
         ]
       }
+    },
+    'gh-pages': {
+      options: {
+        message: 'docs(v<%= PKG.version %>): Update documentation',
+        base: 'dist',
+        push: false
+      },
+      src: ['**']
     }
   });
 

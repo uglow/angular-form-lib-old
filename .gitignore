@@ -1,5 +1,7 @@
 /.tmp
+/bower_components
 /dev
+/dist
+/node_modules
 /reports
-/docs
 
