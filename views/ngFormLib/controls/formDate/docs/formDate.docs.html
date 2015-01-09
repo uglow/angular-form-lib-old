@@ -1,0 +1,69 @@
+<div class=bs-docs-section ng-controller="FormDateDemoController as ctrl">
+
+  <div class=page-header>
+    <h1 id=formDate>Form Date <a class=small href={{mainCtrl.REPO}}src/modules/ngFormLib/controls/formDate/formDate.js target=_blank>FormDate.js</a>
+    </h1>
+    <code>ngFormLib.controls.formDate</code>
+  </div>
+
+  <p>The Form Date directive acts like a macro in that it expands into a <code>label</code><code>input</code> and some auxillary HTML elements, but does change the <code>$scope</code> of those elements.</p>
+
+  <p>It works this way because the elements are inter-related. For example, when the <code>required</code> attribute is set to <code>true</code>
+    the <code>label</code> element is changed so that a required-indicator-CSS-class is applied to the element.
+  </p>
+
+  <div class="callout callout-danger">
+    <h4>Plugin dependency</h4>
+    <p>Form Date requires the <a href=#formControlsService>form controls service module</a>, the <a href=#fieldErrorController>field error controller module</a>
+      , the <a href=#errorMessageContainer>error message container module</a> and the <a href={{mainCtrl.REPO}}src/controls/formDate/template/FormDateInputTemplate.html target=_blank>FormDateInputTemplate.html</a> template to be loaded.</p>
+  </div>
+
+  <h2 id=formDateExamples>Examples</h2>
+  <p>Use <code>form-date</code> to create a complete HTML structure containing a <code>label</code> and <code>input</code> element that reacts to the state of the field.</p>
+
+  <h3>Live demo</h3>
+
+  <div class=bs-example style="padding-bottom: 24px" append-source>
+
+    
+    <form name=formDate1 class=form novalidate form-submit>
+
+      <h1>Coming Soon</h1>
+
+    </form>
+
+  </div>
+
+  <h2 id=formDateUsage>Usage</h2>
+  <p>Add the <code>form-date</code> directive to an element.</p>
+
+  <h3>Options</h3>
+  <p>Options can be passed via attributes on the directive.</p>
+  <div class=table-responsive>
+    <table class="table table-bordered table-striped">
+      <thead>
+        <tr>
+          <th style="width: 100px">Name
+          <th style="width: 100px">Type
+          <th style="width: 50px">Default
+          <th>Description
+        
+      
+      <tbody>
+        <tr>
+          <td>field-hint
+          <td>string
+          <td>
+          <td>Text that is related to the field but is not the field's label. Often used to provide additional information about the field. This string can be a language-resource-key.
+        
+        <tr>
+          <td>template
+          <td>URL
+          <td>See <a ahref=#formControlsService>Form Controls Service options</a>
+          <td>The HTML template to use for the control. The default value can be overridden on the element, or globally by setting the default value in the <a href=#formControlsService>formControlsService</a>
+        
+      
+      <tbody ng-include="'views/ngFormLib/controls/common/docs/formControlsCommonProperties.docs.html'">
+    </table>
+  </div>
+</div>

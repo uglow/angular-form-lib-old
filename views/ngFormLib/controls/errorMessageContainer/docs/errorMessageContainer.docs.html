@@ -1,0 +1,57 @@
+<div class=bs-docs-section ng-controller="ErrorMessageContainerDemoController as ctrl">
+
+  <div class=page-header>
+    <h1 id=errorMessageContainer>Error Message Container <a class=small href={{mainCtrl.REPO}}src/modules/ngFormLib/controls/errorMessageContainer/ErrorMessageContainer.js target=_blank>ErrorMessageContainer.js</a>
+    </h1>
+    <code>ngFormLib.controls.errorMessageContainer</code>
+  </div>
+
+  <p>The Error Message Container is a directive which shows & hides error messages based on the parent-form's policy and the corresponding input-field's state.
+    It links the error message(s) to the field using ARIA attributes. This increases the accessibility of form-elements quite a bit.</p>
+
+  <div class="callout callout-danger">
+    <h4>Plugin dependency</h4>
+    <p>Error Message Controller requires the <code>pascalprecht.translate</code> module (to perform translation of error messages). See <a href="http://angular-translate.github.io/">Angular Translate</a>.</p>
+  </div>
+
+  <p>Error messages typically have a consistent grammer.
+    <a href="http://angular-translate.github.io/">Angular Translate</a> makes it really easy to provide consistent error
+    syntax for the error messages across your application, with the bonus of providing multi-language support as well.
+    However, you can still use this directive without configuring Angular Translate - the error message strings will be rendered as-is.
+  </p>
+
+  <h2 id=errorMessageContainerExamples>Examples</h2>
+  <p><code>error-message-container</code> was designed to be used by the form controls in this library. However, it is possible to use
+  this directive without using the form controls. A good use case is when dealing with a collection of <code>form-radio-button</code> elements where there is no initial selection, but a selection is required</p>
+  <p>Use <code>error-message-container</code> to show an error message when a validation error occurs.</p>
+
+  <h3>Live demo</h3>
+
+  <div class=bs-example style="padding-bottom: 24px" append-source>
+
+    
+
+    Coming soon
+  </div>
+
+  <h2 id=errorMessageContainerUsage>Usage</h2>
+  <p>Add the <code>error-message-container</code> directive to any element, or use one of the form controls (above) which uses <code>error-message-container</code> already.</p>
+
+  <h3>Options</h3>
+  <p>Options can be passed via attributes on the directive.</p>
+  <div class=table-responsive>
+    <table class="table table-bordered table-striped">
+      <thead>
+      <tr>
+        <th style="width: 100px">Name
+        <th style="width: 100px">Type
+        <th style="width: 50px">Default
+        <th>Description
+      
+      
+      <tbody>
+
+      
+    </table>
+  </div>
+</div>
