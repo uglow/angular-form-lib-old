@@ -63,7 +63,7 @@ module.exports = function (grunt) {
 
       release: {
         // Modify both the docsConfig.json SRC and the temporary documentation version (in /docs), but only commit the SRC version.
-        filesToBump: ['package.json', 'bower.json', 'src/modules/docs/assets/config/docsConfig.json', 'docs/assets/docs/config/docsConfig.json'],
+        filesToBump: ['package.json', 'bower.json', 'src/modules/docs/assets/config/docsConfig.json', 'dist/assets/docs/config/docsConfig.json'],
         filesToCommit: ['package.json', 'bower.json', 'CHANGELOG.md', 'src/modules/docs/assets/config/docsConfig.json'],
         tasks: ['gh-pages']
       },
