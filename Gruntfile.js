@@ -80,7 +80,8 @@ module.exports = function (grunt) {
         tag: 'v<%= PKG.version %>',
         message: 'docs(v<%= PKG.version %>): Update documentation',
         base: 'dist',
-        push: false
+        push: true,
+        branch: 'gh-pages'
       },
       src: ['**']
     }
