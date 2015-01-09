@@ -1,0 +1,85 @@
+<div class=bs-docs-section ng-controller="FormControlsServiceDemoCtrl as ctrl">
+
+  <div class=page-header>
+    <h1 id=formControlsService>Form Controls Service <a class=small href={{mainCtrl.REPO}}src/modules/ngFormLib/controls/common/FormControlsService.js target=_blank>FormControlsService.js</a>
+    </h1>
+    <code>ngFormLib.controls.common</code>
+  </div>
+
+  <p>The Form Controls Service service provides common functions used by the form controls, and allows default values for the form controls to be changed from a central place.</p>
+
+  <div class="callout callout-danger">
+    <h4>Plugin dependency</h4>
+    <p>The Form Controls Service requires the <a href=#requiredMarker>RequiredMarker module</a> and the <a href={{mainCtrl.REPO}}src/common target=_blank>common.utility</a> module to be loaded.</p>
+  </div>
+
+  <h2 id=formControlsServiceOptions>Options</h2>
+
+  <p>Options can be configured like so:</p>
+  <div class=highlight>
+    <pre><code class=js highlight-block>angular.module('myApp', ['ngFormLib'])
+  .config(['FormControlsServiceProvider', function(FormControlsServiceProvider) {
+      FormControlsServiceProvider.defaults.select.template = 'path/to/my/template.html'
+  }])</code></pre>
+  </div>
+
+  <div class=table-responsive>
+    <table class="table table-bordered table-striped">
+      <thead>
+        <tr>
+          <th style="width: 100px">Name
+          <th style="width: 100px">Type
+          <th style="width: 50px">Default
+          <th>Description
+        
+      
+      <tbody>
+        <tr>
+          <td>idPrefix
+          <td>String
+          <td>fpFld
+          <td>The prefix string for generated form-control id values. Generated <code>id</code> values are used
+          when the form-control does not have it's own <code>cid</code> attribute with a non-empty value
+        
+        <tr>
+          <td>formCheckbox.template
+          <td>URL
+          <td>ngFormLib/controls/formCheckbox/ template/FormCheckboxTemplate.html
+          <td>Template for the <a ahref=#formCheckbox>Form Checkbox</a> control
+        
+        <tr>
+          <td>formDate.template
+          <td>URL
+          <td>ngFormLib/controls/formDate/ template/FormDateTemplate.html
+          <td>Template for the <a ahref=#formDate>Form Date</a> control
+        
+        <tr>
+          <td>formInput.template
+          <td>String
+          <td>&lt;div class="form-group"&gt;&lt;label class="control-label"&gt;&lt;/label&gt;&lt;div class="control-row"&gt;&lt;input #type# class="form-control"&gt;&lt;span ng-transclude&gt;&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;
+          <td>Template for the <a ahref=#formInput>Form Input</a> control. <br>
+          <strong>Note:</strong> The <code>#type#</code> string is replaced with the input's type (text|tel|number|...) prior to the template
+          being compiled. This is due to the <code>type</code> attribute being read-only on an <code>input</code> element (see <a href=http://stackoverflow.com/questions/8378563/why-cant-i-change-the-type-of-an-input-element-to-submit target=_blank>here</a>)
+        
+        <tr>
+          <td>formRadioButton.template
+          <td>URL
+          <td>ngFormLib/controls/formRadioButton/ template/FormRadioButtonTemplate.html
+          <td>Template for the <a ahref=#formRadioButton>Form RadioButton</a> control
+        
+        <tr>
+          <td>formSelect.template
+          <td>URL
+          <td>ngFormLib/controls/formSelect/ template/FormSelectTemplate.html
+          <td>Template for the <a ahref=#formSelect>Form Select</a> control
+        
+        <tr>
+          <td>requiredMarker.template
+          <td>URL
+          <td>ngFormLib/controls/requiredMarker/ template/RequiredMarker.html
+          <td>Template for the <a ahref=#requiredMarker>Required Marker</a> control
+        
+      
+    </table>
+  </div>
+</div>

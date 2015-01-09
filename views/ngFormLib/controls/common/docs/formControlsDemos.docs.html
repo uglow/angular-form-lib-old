@@ -1,0 +1,168 @@
+<div class=bs-docs-section ng-controller="FormControlsDemosController as ctrl">
+
+  <div class=page-header>
+    <h1 id=formDemos>Demos</h1>
+  </div>
+
+  <h2 id=formDemo1>Standard form</h2>
+  <div class=bs-example style="padding-bottom: 24px" append-source>
+
+    <form name=formDemo1 class=form novalidate form-submit="">
+      <fieldset>
+        <div class=form-group>
+          <label class=control-label for=formDemo1_fldTitle>Title</label>
+          <div class=control-row>
+            <select id=formDemo1_fldTitle name=formDemo1_fldTitle ng-model=ctrl.formDemo1.title ng-options="item.label for item in ctrl.titleData track by item.label" class=form-control ng-required=false field-error-controller></select>
+          </div>
+          <div error-container field-name=formDemo1_fldTitle field-errors="{required: 'Please select a title'}"></div>
+        </div>
+
+        
+        <div form-input uid=formDemo1_fldName name=formDemo1_fldName label=Name label-suffix="(40 chars)" required=true input-type=text ff-ng-model=ctrl.formDemo1.name ff-maxlength=40 ff-ng-pattern="/^[a-zA-Z0-9 \-.']+$/" field-errors="{required: 'FIELD_ERROR.TEMPLATE.REQUIRED', pattern: 'Please enter a valid last name'}"></div>
+
+        <div form-checkbox uid=formDemo1_fld3 name=formDemo1_fld3 required=true ff-ng-model=ctrl.formDemo1.fld1_3 field-errors="{required: 'You must agree'}">You are required to agree to this</div>
+
+        <fieldset form-group>
+          <div ng-repeat="item in ctrl.titleData">
+            <div form-radio-button uid=formDemo1_fld{{$index}} name=formDemo1_group1 ff-ng-model=ctrl.formDemo1.group1 ff-ng-value=$index required=true>{{item.label}}</div>
+          </div>
+          <div error-container field-name=formDemo1_group1 field-errors="{required: 'Please select one of the above options'}"></div>
+        </fieldset>
+
+        <button type=submit class="btn btn-primary">Submit</button>
+        <button type=button class=btn form-reset=ctrl.formDemo1>Reset</button>
+      </fieldset>
+    </form>
+  </div>
+
+  <h2 id=formDemo2>Horizontal Form</h2>
+
+  <p>This form takes advantage of the default control-templates' HTML structure to render the controls inside a form with <code>class="form-horizontal"</code>
+    as expected within Bootstrap. See the <a href=/css/sampleFormStyle.06e88538.css target=_blank>sample style sheet</a> to see how to do this.</p>
+
+  <div class=bs-example style="padding-bottom: 24px" append-source>
+    <form name=formDemo2 class="form form-horizontal" novalidate form-submit="">
+      <fieldset>
+
+        <div form-input uid=formDemo2_fld1 name=formDemo2_fld1 label="Nick Name" required=true input-type=text ff-ng-model=ctrl.formDemo2.name ff-maxlength=40 ff-ng-pattern="/^[a-zA-Z0-9 \-.']+$/" field-errors="{required: 'Last name is required', pattern: 'Please enter a valid last name'}"></div>
+
+        <div form-select uid=formDemo2_fld2 name=formDemo2_fld2 label="Common field" required=true ff-ng-model=ctrl.formDemo2.fld2 ff-ng-options="item.label for item in ctrl.titleData track by item.label" field-errors="{required: 'Title is required'}"></div>
+
+        <div form-checkbox uid=formDemo2_fld3 name=formDemo2_fld3 required=true ff-ng-model=ctrl.formDemo2.fld2_3 field-errors="{required: 'You must agree'}">You are required to agree to this</div>
+
+        <fieldset form-group>
+          <div ng-repeat="item in ctrl.titleData">
+            <div form-radio-button uid=formDemo2_fld{{$index}} name=formDemo2_group1 ff-ng-model=ctrl.formDemo2.group1 ff-ng-value=$index required=true hide-required-indicator=true>{{item.label}}</div>
+          </div>
+          <div error-container field-name=formDemo2_group1 field-errors="{required: 'Please select one of the above options'}"></div>
+        </fieldset>
+
+        <div class=button-row>
+          <button type=submit class="btn btn-primary">Submit</button>
+          <button type=button class=btn form-reset=ctrl.formDemo2>Reset</button>
+        </div>
+      </fieldset>
+    </form>
+  </div>
+
+  <h2 id=formDemo3>Inline Form</h2>
+  <p>This form takes advantage of the default control-templates' HTML structure to render the controls inside a form with <code>class="form-inline"</code>
+    as expected within Bootstrap. See the <a href=/css/sampleFormStyle.06e88538.css target=_blank>sample style sheet</a> to see how to do this.</p>
+
+  <div class=bs-example style="padding-bottom: 24px" append-source>
+    <form name=formDemo3 class="form form-inline" novalidate form-submit="">
+      <fieldset>
+
+        <div form-input uid=formDemo3_fld1 name=formDemo3_fld1 label="Nick Name" hide-label=true required=true input-type=text ff-ng-model=ctrl.formDemo3.fld1 ff-maxlength=40 ff-ng-pattern="/^[a-zA-Z0-9 \-.']+$/" ff-placeholder="Enter Nick Name" field-errors="{required: 'Last name is required', pattern: 'Please enter a valid last name'}"></div>
+
+        <div form-select uid=formDemo3_fld2 name=formDemo3_fld2 label="Common field" hide-label=true required=true ff-ng-model=ctrl.formDemo3.fld2 ff-ng-options="item.label for item in ctrl.titleData track by item.label" placeholder="Enter Title" field-errors="{required: 'Title is required'}"></div>
+
+        <div form-checkbox uid=formDemo3_fld3 name=formDemo3_fld3 required=true ff-ng-model=ctrl.formDemo3.fld3 hide-required-indicator=true field-errors="{required: 'You must agree'}">I agree</div>
+
+        <fieldset form-group>
+          <span ng-repeat="item in ctrl.titleData">
+            <div form-radio-button uid=formDemo3_fld{{$index}} name=formDemo3_group1 ff-ng-model=ctrl.formDemo3.group1 ff-ng-value=$index required=true hide-required-indicator=true>{{item.label}}</div>
+          </span>
+          <div error-container field-name=formDemo3_group1 field-errors="{required: 'Please select one of the above options'}"></div>
+        </fieldset>
+
+        <button type=submit class="btn btn-primary">Submit</button>
+        <button type=button class=btn form-reset=ctrl.formDemo3>Reset</button>
+      </fieldset>
+    </form>
+  </div>
+
+  <h2 id=formDemo4>Form with repeating sections</h2>
+
+  <p>This is probably as complex as it gets - a horizontal-form with a repeating inline-form.</p>
+
+  <div class=bs-example style="padding-bottom: 24px" append-source>
+    <style>/* Special styling for the form-inline inside of the horizontal form */
+    [name="formDemo4"] .form-inline .form-group {
+      margin-right: 0;
+    }
+    [name="formDemo4"] .form-inline .control-label {
+      display: none;
+    }
+
+    [name="formDemo4"] .form-inline .control-row {
+      width: auto;
+      padding: 0;
+      margin-left: 15px;
+    }
+
+    [name="formDemo4"] .form-inline [form-group] {
+      margin-left: 0;
+      width: auto;
+      float: none;
+    }
+
+    [name="formDemo4"] .form-inline .btn {
+      margin-bottom: 15px;
+    }
+
+    </style>
+    <form name=formDemo4 class="form form-horizontal" novalidate form-submit="">
+      <fieldset>
+
+        <div form-input uid=formDemo4_fld1 name=formDemo4_fld1 label="Last Name" required=true input-type=text ff-ng-model=ctrl.formDemo4.name ff-maxlength=40 field-errors="{required: 'Last name is required'}"></div>
+
+        <div form-select uid=formDemo4_fld2 name=formDemo4_fld2 label=Type required=true placeholder="Select Title" ff-ng-model=ctrl.formDemo4.title ff-ng-options="item.label for item in ctrl.titleData track by item.label" field-errors="{required: 'Title is required'}"></div>
+
+        <div class=form-group>
+          <label class=control-label>Education History</label>
+
+          <div class=control-row>
+            <div ng-repeat="school in ctrl.formDemo4.education" class="form form-inline" ng-init="schoolIndex = $index">
+              <div ng-form=formDemo4_subform>
+                <div form-input uid=formDemo4_subform{{$index}}_fld1 name=formDemo4_subform_fld1 label=School hide-label=true required=true input-type=text ff-placeholder="School Name" ff-ng-model=school.name ff-maxlength=30 field-errors="{required: 'School name is required'}"></div>
+
+                <div form-select uid=formDemo4_subform{{$index}}_fld2 name=formDemo4_subform_fld2 label=Type hide-label=true required=true placeholder="School Type" ff-ng-model=school.type ff-ng-options="item.label for item in ctrl.schoolData track by item.label" field-errors="{required: 'Type is required'}"></div>
+
+                <div form-checkbox uid=formDemo4_subform{{$index}}_fld3 name=formDemo4_subform_fld3 required=true ff-ng-model=school.isCoEd field-errors="{required: 'Uniforms are required'}">Uniform</div>
+
+
+                <fieldset form-group>
+                  <span ng-repeat="item in ctrl.titleData">
+                    <div form-radio-button uid=formDemo4_subform{{schoolIndex}}_fld4_{{$index}} name=formDemo4_subform_group{{schoolIndex}} ff-ng-model=school.title ff-ng-value=$index required=true hide-required-indicator=true>{{item.label}}</div>
+                  </span>
+                  <div error-container field-name=formDemo4_subform_group1 field-errors="{required: 'Please select an option'}"></div>
+                </fieldset>
+
+                <button type=button class="btn btn-success" ng-click=ctrl.addSchool() ng-if=$last>+</button>
+
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <div class=button-row>
+          <button type=submit class="btn btn-primary">Submit</button>
+          <button type=button class=btn form-reset=ctrl.formDemo4>Reset</button>
+        </div>
+      </fieldset>
+    </form>
+  </div>
+
+</div>

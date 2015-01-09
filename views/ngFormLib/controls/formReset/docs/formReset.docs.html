@@ -1,0 +1,73 @@
+<div class=bs-docs-section ng-controller="FormResetDemoController as ctrl">
+
+  <div class=page-header>
+    <h1 id=formReset>Form Reset <a class=small href={{mainCtrl.REPO}}src/modules/ngFormLib/controls/formReset/FormReset.js target=_blank>FormReset.js</a>
+    </h1>
+    <code>ngFormLib.controls.formReset</code>
+  </div>
+
+  <p>Form Reset is a directive which resets each form-field to it's initial state, by copying the initial state of the form's data-model.<br>
+    This requires every form controls' <code>ng-model</code> expression to refer to a common scope-object.
+  </p>
+
+  <h2 id=formResetExamples>Examples</h2>
+  <p>Add <code>form-reset</code> directive to any <code>button</code> element inside a form.</p>
+
+  <h3>Live demo</h3>
+
+  <div class=bs-example style="padding-bottom: 24px" append-source>
+
+    <form name=formReset class=form novalidate form-submit=ctrl.callWhenValid()>
+
+      <div form-input uid=formReset_fldName name=formReset_fldName label=Name required=true input-type=text ff-ng-model=ctrl.data.name ff-maxlength=40 ff-ng-pattern="/^[a-zA-Z0-9 \-.']+$/" field-errors="{required: 'Last name is required', pattern: 'Please enter a valid last name'}"></div>
+
+      <div form-input uid=formReset_fldNickName name=formReset_fldNickName label="Nick Name" required=true input-type=text ff-ng-model=ctrl.data.nickName ff-maxlength=40 ff-ng-pattern="/^[a-zA-Z0-9 \-.']+$/" field-errors="{required: 'Nick name is required', pattern: 'Please enter a valid last name'}"></div>
+
+      <div form-select uid=formReset_fldTitle name=formReset_fldTitle label="Title with default value" required=true ff-ng-model=ctrl.data.title ff-ng-options="item.label for item in ctrl.titleData track by item.label" field-errors="{required: 'Title is required'}"></div>
+
+      <div form-select uid=formReset_fldTitle2 name=formReset_fldTitle2 label="Title with no default value" required=true ff-ng-model=ctrl.data.title2 ff-ng-options="item.label for item in ctrl.titleData track by item.label" field-errors="{required: 'Title is required'}"></div>
+
+      <div form-select uid=formReset_fldTitle3 name=formReset_fldTitle3 label="Title with placeholder" required=true placeholder="Select title" ff-ng-model=ctrl.data.title3 ff-ng-options="item.label for item in ctrl.titleData track by item.label" field-errors="{required: 'Title is required'}"></div>
+
+      <button type=submit class="btn btn-primary">Submit button</button>
+      <button type=button class=btn form-reset=ctrl.data>Reset</button>
+    </form>
+
+  </div>
+
+  <div class="callout callout-danger">
+    <h4>ngOptions <strong>must</strong> use 'track by'</h4>
+    <p>Due to the way <code>form-reset</code> works (copying the data-object used by the controls, then changing the data-object back to the original value),
+    <code>select</code> elements which use <code>ng-options</code> <strong>MUST</strong> use the <code>ng-options="... track by ..."</code> variant
+    of the syntax, if the <code>select</code> element has an initial value. See the example above.</p>
+  </div>
+
+  <h2 id=formResetUsage>Usage</h2>
+  <p>Add the <code>form-reset</code> directive to a <code>button</code> element.</p>
+
+  <h3>Options</h3>
+  <p>Options can be passed via attributes on the directive.</p>
+  <div class=table-responsive>
+    <table class="table table-bordered table-striped">
+      <thead>
+      <tr>
+        <th style="width: 100px">Name
+        <th style="width: 100px">Type
+        <th style="width: 50px">Default
+        <th>Description
+      
+      
+      <tbody>
+      <tr>
+        <td>form-reset
+        <td>expression
+        <td>
+        <td><strong>Required</strong>This expression should represent the parent scope-model-object that the form controls bind to.
+          For example, a Customer Profile form should have a set of form controls that bind to 'myObject.&lt;name|age|birthDate|...&gt;'.
+          In this example, use <code>form-reset="myObject"</code>.
+      
+      
+    </table>
+  </div>
+
+</div>
