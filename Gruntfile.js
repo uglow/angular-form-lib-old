@@ -77,7 +77,7 @@ module.exports = function (grunt) {
     },
     'gh-pages': {
       options: {
-        tag: 'v<%= PKG.version %>',
+        tag: 'DOC v<%= PKG.version %>',
         message: 'docs(v<%= PKG.version %>): Update documentation',
         base: 'dist',
         push: true,
