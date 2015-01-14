@@ -1,3 +1,12 @@
+<a name="0.2.0"></a>
+## 0.2.0 (2015-01-14)
+
+
+#### Bug Fixes
+
+* **formGroup:** Directive controller should not return an object (it IS a CONTROLLER) Fix for An ([ca135ebc](http://github.com/uglow/angular-form-lib/commit/ca135ebcc166a368a5922b9455d17ef4ae2c3ed7))
+
+
 <a name="0.1.7"></a>
 ### 0.1.7 (2015-01-09)
 
