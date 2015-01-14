@@ -129,6 +129,7 @@ describe('Utility', function () {
       }
     }));
 
+
     it('should be able to call getToday() and get a valid response', inject(function (DateUtil) {
       // For testing purposes, we can pass in the optional date object
       var formattedDate = DateUtil.getToday(new Date(2014, 7, 1, 0));
@@ -136,6 +137,16 @@ describe('Utility', function () {
 
       formattedDate = DateUtil.getToday();
       expect(formattedDate).toMatch(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/);
+    }));
+
+
+    it('should be able to call formatDay() and get a valid response', inject(function (DateUtil) {
+      // For testing purposes, we can pass in the optional date object
+      var formattedDate = DateUtil.formatDay(new Date(2014, 7, 1, 0));
+      expect(formattedDate).toEqual('01/08/2014');
+
+      formattedDate = DateUtil.formatDay(1, 2, 3);
+      expect(formattedDate).toEqual('01/02/3');
     }));
 
 
@@ -176,10 +187,19 @@ describe('Utility', function () {
 
 
     it('should be able to call toArray() on an object and get a valid response', inject(function (ObjectUtil) {
+      function ColoredTriangle() {
+        this.color = 'red';
+      }
+
+      ColoredTriangle.prototype = {a: 1, b: 'two'};
+
+      var myObj = new ColoredTriangle();
+
       var testData = [
         {input: {key: 'val'}, expectedOutput: [{key: 'key', value: 'val'}]},
         {input: {some: 12, thing: {orOther: true}}, expectedOutput: [{key: 'some', value: 12}, {key: 'thing', value: {orOther: true}}]},
-        {input: {}, expectedOutput: []}
+        {input: {}, expectedOutput: []},
+        {input: myObj, expectedOutput: [{key: 'color', value: 'red'}]}
       ];
 
       for (var i = 0; i < testData.length; i++) {
