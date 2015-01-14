@@ -93,13 +93,10 @@
 
 
   mod.directive('formGroup', [function () {
-
     return {
       restrict: 'AC',
       controller: ['$scope', '$element', function($scope, $element) {
-        return {
-          '$element': $element
-        };
+        this.$element = $element;
       }]
     };
   }]);
