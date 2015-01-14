@@ -29,26 +29,24 @@
       // Swap the year and day parts around
       return parts[2] + newSep + parts[1] + newSep + parts[0];
     },
-    formatDay: function(day, month, year) {
-      return ((day < 10) ? '0' + day : day) + '/' + ((month < 10) ? '0' + month : month) + '/' + year;
+    formatDay: function(dayOrDate, month, year) {
+      var dd = dayOrDate, mm = month, yyyy = year;
+      if (dayOrDate.getUTCDay) {
+        dd = dayOrDate.getDate();
+        mm = dayOrDate.getMonth() + 1;//January is 0!`
+        yyyy = dayOrDate.getFullYear();
+      }
+      return ((dd < 10) ? '0' + dd : dd) + '/' + ((mm < 10) ? '0' + mm : mm) + '/' + yyyy;
     },
     dateAdd: function (dateStr, numDays) {
       // Return a modified date in ISO format
       var myDate = this.getDate(dateStr);
       myDate.setDate(myDate.getDate() + numDays);
 
-      var month = myDate.getMonth() + 1,
-        day = myDate.getDate();
-
-      return this.formatDay(day, month, myDate.getFullYear());
+      return this.formatDay(myDate);
     },
     getToday: function(optionalDate) {
-      var today = optionalDate || new Date();
-      var dd = today.getDate();
-      var mm = today.getMonth() + 1;//January is 0!`
-
-      var yyyy = today.getFullYear();
-      return this.formatDay(dd, mm, yyyy);
+      return this.formatDay(optionalDate || new Date());
     },
     isISODate: function (dateStr) {
       return (typeof dateStr === 'string' && dateStr.indexOf('-') > 0);
@@ -97,7 +95,9 @@
     toArray: function (obj) {
       var arr = [];
       for (var i in obj) {
-        arr[arr.length] = {key: i, value: obj[i]};
+        if (obj.hasOwnProperty(i)) {
+          arr[arr.length] = {key: i, value: obj[i]};
+        }
       }
       arr.sort(function compare(a, b) {
         return a.key < b.key;
@@ -355,13 +355,12 @@
             if (a.indexOf('ff') === 0) {    // Don't search for 'ff-' as the '-' has been replaced with camel case now
               var origAttrName = attr.$attr[a].substr(3);
 
-              // Special case for type property. It *must* be read-only.
-              // See http://stackoverflow.com/questions/8378563/why-cant-i-change-the-type-of-an-input-element-to-submit
-              if (origAttrName === 'type') {
-                //inputElem.prop(origAttrName, attr[a]); // Do nothing, need to specify your own template
-              } else if (origAttrName === 'class') {
+              if (origAttrName === 'class') {
                 inputElem.addClass(attr[a]);
-              } else {
+
+              // Special case for type property. It *must* be read-only. Therefore, don't write it to the element
+              // See http://stackoverflow.com/questions/8378563/why-cant-i-change-the-type-of-an-input-element-to-submit
+              } else if (origAttrName !== 'type') {
                 inputElem.attr(origAttrName, attr[a]);
               }
 
@@ -557,13 +556,10 @@
 
 
   mod.directive('formGroup', [function () {
-
     return {
       restrict: 'AC',
       controller: ['$scope', '$element', function($scope, $element) {
-        return {
-          '$element': $element
-        };
+        this.$element = $element;
       }]
     };
   }]);
@@ -602,7 +598,9 @@
         refreshErrorText: function () {
           var str = '', i = 0;
           for (var type in errors) {
-            str += 'Error ' + (++i) + ', ' + errors[type] + ',';
+            if (errors.hasOwnProperty(type)) {
+              str += 'Error ' + (++i) + ', ' + errors[type] + ',';
+            }
           }
 
           if (i === 1) {
@@ -704,8 +702,10 @@
           errorController = new ErrorController(ariaElement);   // new? Maybe make this the directive's controller instead
 
         for (var error in fieldErrors) {
-          var errorShowCondition = formField + '.fieldState === "error" && ' + formField + '.$error.' + error;
-          toggleErrorVisibilityOnError(errorController, formController, scope, element, errorShowCondition, error, fieldErrors[error], fieldLabel);
+          if (fieldErrors.hasOwnProperty(error)) {
+            var errorShowCondition = formField + '.fieldState === "error" && ' + formField + '.$error.' + error;
+            toggleErrorVisibilityOnError(errorController, formController, scope, element, errorShowCondition, error, fieldErrors[error], fieldLabel);
+          }
         }
 
         // Watch formController[fieldName] - it may not have loaded yet. When it loads, call the main function.
@@ -719,7 +719,9 @@
 
               // Do the actual thing you planned to do...
               for (var item in textErrors) {
-                toggleErrorVisibilityForTextError(errorController, formController, formController[fieldName], scope, element, textErrors[item], fieldLabel);
+                if (textErrors.hasOwnProperty(item)) {
+                  toggleErrorVisibilityForTextError(errorController, formController, formController[fieldName], scope, element, textErrors[item], fieldLabel);
+                }
               }
             }
           });
@@ -998,10 +1000,12 @@ angular.module('ngFormLib/controls/formRadioButton/template/FormRadioButtonTempl
     function resetFieldState(controlMap) {
     // Loops through the controlMap and reset's each field's state
       for (var item in controlMap) {
-        var controlList = controlMap[item];
-        for (var j = 0, jLen = controlList.length; j < jLen; j++) {
-          var control = controlList[j].controller;
-          control.fieldState = '';
+        if (controlMap.hasOwnProperty(item)) {
+          var controlList = controlMap[item];
+          for (var j = 0, jLen = controlList.length; j < jLen; j++) {
+            var control = controlList[j].controller;
+            control.fieldState = '';
+          }
         }
       }
     }
@@ -1483,7 +1487,9 @@ angular.module('ngFormLib/controls/requiredMarker/template/RequiredMarkerTemplat
   function watchForErrorChanges(scope, stateDefinitions, ngModelController) {
     // Set up a watch for each state definition... expensive?
     for (var stateName in stateDefinitions) {
-      createWatch(scope, ngModelController, stateName, stateDefinitions[stateName]);
+      if (stateDefinitions.hasOwnProperty(stateName)) {
+        createWatch(scope, ngModelController, stateName, stateDefinitions[stateName]);
+      }
     }
   }
 
