@@ -88,7 +88,9 @@
     toArray: function (obj) {
       var arr = [];
       for (var i in obj) {
-        arr[arr.length] = {key: i, value: obj[i]};
+        if (obj.hasOwnProperty(i)) {
+          arr[arr.length] = {key: i, value: obj[i]};
+        }
       }
       arr.sort(function compare(a, b) {
         return a.key < b.key;

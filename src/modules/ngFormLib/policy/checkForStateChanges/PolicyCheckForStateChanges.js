@@ -45,7 +45,9 @@
   function watchForErrorChanges(scope, stateDefinitions, ngModelController) {
     // Set up a watch for each state definition... expensive?
     for (var stateName in stateDefinitions) {
-      createWatch(scope, ngModelController, stateName, stateDefinitions[stateName]);
+      if (stateDefinitions.hasOwnProperty(stateName)) {
+        createWatch(scope, ngModelController, stateName, stateDefinitions[stateName]);
+      }
     }
   }
 

@@ -9,10 +9,12 @@
     function resetFieldState(controlMap) {
     // Loops through the controlMap and reset's each field's state
       for (var item in controlMap) {
-        var controlList = controlMap[item];
-        for (var j = 0, jLen = controlList.length; j < jLen; j++) {
-          var control = controlList[j].controller;
-          control.fieldState = '';
+        if (controlMap.hasOwnProperty(item)) {
+          var controlList = controlMap[item];
+          for (var j = 0, jLen = controlList.length; j < jLen; j++) {
+            var control = controlList[j].controller;
+            control.fieldState = '';
+          }
         }
       }
     }

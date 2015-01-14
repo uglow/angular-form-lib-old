@@ -1,19 +1,21 @@
-'use strict';
+(function (angular) {
+  'use strict';
 
-angular.module('ngFormLibDocs')
+  angular.module('ngFormLibDocs')
 
-  .controller('FormPolicyDemoCtrl', ['formPolicyCheckForStateChangesLibrary', function(formPolicyCheckForStateChangesLibrary) {
+    .controller('FormPolicyDemoCtrl', ['formPolicyCheckForStateChangesLibrary', function (formPolicyCheckForStateChangesLibrary) {
 
-    var vm = this;
+      var vm = this;
 
-    vm.titleData = [
-      {label: 'Dr'},
-      {label: 'Mr'},
-      {label: 'Ms'}
-    ];
+      vm.titleData = [
+        {label: 'Dr'},
+        {label: 'Mr'},
+        {label: 'Ms'}
+      ];
 
-    vm.myCustomPolicy = {
-      checkForStateChanges: formPolicyCheckForStateChangesLibrary.onChange
-    };
+      vm.myCustomPolicy = {
+        checkForStateChanges: formPolicyCheckForStateChangesLibrary.onChange
+      };
 
-  }]);
+    }]);
+})(window.angular);
