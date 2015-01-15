@@ -1,3 +1,12 @@
+<a name="0.2.1"></a>
+### 0.2.1 (2015-01-16)
+
+
+#### Features
+
+* **build:** Use latest grunt-modular-project to get server compression and JS uglification ([2bab0b1b](http://github.com/uglow/angular-form-lib/commit/2bab0b1b389125f79c40756609f2e851e72a56df))
+
+
 <a name="0.2.0"></a>
 ## 0.2.0 (2015-01-14)
 
