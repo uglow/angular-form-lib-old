@@ -47,7 +47,7 @@
     return {restrict: 'E', terminal: true};
   })
 
-    .directive('appendSource', function($window, $compile, indent) {
+    .directive('appendSource', ['$window', '$compile', 'indent', function($window, $compile, indent) {
 
       return {
         compile: function(element, attr) {
@@ -73,9 +73,9 @@
         }
       };
 
-    })
+    }])
 
-    .directive('highlightBlock', function($window, indent) {
+    .directive('highlightBlock', ['$window', 'indent', function($window, indent) {
 
       return {
         compile: function(element) {
@@ -85,9 +85,7 @@
           };
         }
       };
-
-
-    })
+    }])
 
     .value('indent', function(text, spaces) {
 
@@ -123,6 +121,7 @@
       return lines.join('\n');
 
     });
+
 
   // Anchor directive
   // Add anchor-like behaviour to any element, and take advantage of smooth scrolling
