@@ -1,3 +1,12 @@
+<a name="0.2.3"></a>
+### 0.2.3 (2015-02-08)
+
+
+#### Bug Fixes
+
+* **formFieldDirective:** When input/select element is $compile()d, ignore it if it isn't part of a form y ([f1d28f8c](http://github.com/uglow/angular-form-lib/commit/f1d28f8c68ff842081d45beace44bc540521f8a6))
+
+
 <a name="0.2.2"></a>
 ### 0.2.2 (2015-01-21)
 
