@@ -7,8 +7,8 @@
   var mod = angular.module('ngFormLib.policy', []);
 
 
-  // This is a service - make it configurable and call it FormPolicyService
-  // It should contain the _default_ values for form policies (and later html-templates)
+  // This is a configurable service
+  // It should contain the _default_ values for form policies
 
   mod.provider('formPolicyService', function () {
     var self = this,
@@ -136,7 +136,7 @@
     mod.directive(inputElem, function () {
 
       function hookupElementToNameToElementMap(formController, element, fieldName, fieldController) {
-        // Each element in the map is an array -> many different elements can have the same name
+        // Each element in the map is an array, because form elements *can have the same name*!
         var map = formController._controls;
         if (!map[fieldName]) {
           map[fieldName] = [];
@@ -163,6 +163,10 @@
         require: ['?^form', '?ngModel'],
         link: {
           pre: function (scope, element, attr, controllers) {
+            if (!controllers[0]) {
+              return;
+            }
+
             var rootFormController = controllers[0]._parentController || controllers[0],
                 fieldController = controllers[1],
                 name = attr.name;

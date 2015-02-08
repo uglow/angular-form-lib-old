@@ -1,5 +1,5 @@
 /* jshint maxstatements:30 */
-// See http://pivotal.github.io/jasmine/ for list of matchers (e.g .toEqual(), toMatch())
+// See http://jasmine.github.io/1.3/introduction.html for list of matchers (e.g .toEqual(), toMatch())
 describe('Form Policy Service', function () {
   'use strict';
 
@@ -7,48 +7,65 @@ describe('Form Policy Service', function () {
    * We are actually testing quite a few directives, as they work together to create the behaviour we want
    */
 
-  var $compile, scope;
-  var PATTERN_ERROR = 'Pattern error', REQUIRED_ERROR = 'Required error',
-    VALID_DATA = '1234', INVALID_DATA = '123';
+  var compileElement, scope, elem;
 
-  var elementText = '<form name="frm" form-submit="returnFalse()">' +
-      '<input name="fld" type="text" ng-model="postcode" field-error-controller ng-required="true" ng-pattern="/^\\d{4}$/">' +
-      '<error-container field-name="fld" ' +
-        'field-errors="{required: \'' + REQUIRED_ERROR + '\', pattern: \'' + PATTERN_ERROR + '\'}" ' +
-        'text-errors="[\'someData\']" ' +
-      '></error-container>' +
-    '</form>';
-  var elem, errorDiv, inputElem = 'An error occurred';
+  beforeEach(function() {
+    angular.mock.module('ngFormLib.controls');
+    angular.mock.module('ngFormLib.policy.checkForStateChanges');
+    angular.mock.module('ngFormLib.policy.stateDefinitions');
+    angular.mock.module('ngFormLib', ['$sceProvider', function ($sceProvider) {
+      $sceProvider.enabled(false);
+    }]);
 
-  function compile($c, $r) {
-    $compile = $c;
-    scope = $r.$new();
+    inject(function(_$compile_, $rootScope) {
+      scope = $rootScope.$new();
+      compileElement = function(html) {
+        return _$compile_(html)(scope);
+      };
+    });
+  });
 
-    scope.returnFalse = function () { return false; };
-
-    elem = angular.element(elementText);
-    $compile(elem)(scope);
-    scope.$digest();
-
-    errorDiv = elem.find('div').eq(0);
-    inputElem = elem.find('input');
-  }
-
-  beforeEach(angular.mock.module('ngFormLib.controls'));
 
   describe('Form Policy 5 - show errors on blur but once form submitted, show them immediately', function () {
 
+    var $compile, scope;
+    var PATTERN_ERROR = 'Pattern error', REQUIRED_ERROR = 'Required error',
+      VALID_DATA = '1234', INVALID_DATA = '123';
+
+    var elementText = '<form name="frm" form-submit="returnFalse()">' +
+      '<input name="fld" type="text" ng-model="postcode" field-error-controller ng-required="true" ng-pattern="/^\\d{4}$/">' +
+      '<error-container field-name="fld" ' +
+      'field-errors="{required: \'' + REQUIRED_ERROR + '\', pattern: \'' + PATTERN_ERROR + '\'}" ' +
+      'text-errors="[\'someData\']" ' +
+      '></error-container>' +
+      '</form>';
+    var elem, errorDiv, inputElem = 'An error occurred';
+
+
+    function compileFieldTemplate($c, $r, htmlStr) {
+      $compile = $c;
+      scope = $r.$new();
+
+      scope.returnFalse = function () { return false; };
+
+      elem = angular.element(htmlStr);
+      $compile(elem)(scope);
+      scope.$digest();
+
+      errorDiv = elem.find('div').eq(0);
+      inputElem = elem.find('input');
+    }
+
     // beforeEach(angular.mock.module('form.controls.forminput.template'));
-    beforeEach(angular.mock.module('ngFormLib.policy.checkForStateChanges'));
-    beforeEach(angular.mock.module('ngFormLib.policy.stateDefinitions'));
+    beforeEach(function() {
 
-    beforeEach(angular.mock.module('ngFormLib', ['$sceProvider', function ($sceProvider) {
-      $sceProvider.enabled(false);
-    }]));
 
-    beforeEach(inject(['$compile', '$rootScope', function ($c, $r) {
-      compile($c, $r);
-    }]));
+      inject(function($compile, $rootScope) {
+        compileFieldTemplate($compile, $rootScope, elementText);
+      });
+    });
+
+
 
     it('should show errors when the field loses focus, but after the form is submitted, it should show the errors immediately', function () {
       // Initially, there are no errors
@@ -118,5 +135,18 @@ describe('Form Policy Service', function () {
       expect(errorDiv.find('div').length).toEqual(1);
       expect(errorDiv.find('div').find('span').text()).toEqual(REQUIRED_ERROR);
     });
+  });
+
+
+  describe('Form Field elements', function() {
+
+    it('should not throw an error when the element does not have a FORM parent (with a form-controller)', function() {
+      function shouldWork() {
+        elem = compileElement('<input type="text">');
+      }
+      expect(shouldWork).not.toThrow();
+    });
+
+    // We should check what happens when: multiple form elements with the same name, destroying form element...
   });
 });
