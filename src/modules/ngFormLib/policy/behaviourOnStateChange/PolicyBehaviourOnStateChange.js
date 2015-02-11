@@ -50,7 +50,7 @@
               // Set the focus to the field if there is an error showing and a form-submit has been attempted
               if (fieldState === 'error' && formSubmitAttempted) {
                 // ...and if the focusErrorElement is blank...
-                if (!focusController._focusErrorElement && setFocusOnField($document, $timeout, duScrollDuration, fieldElem, formController._policy.scrollOffset)) {
+                if (!focusController._focusErrorElement && setFocusOnField($document, $timeout, duScrollDuration, fieldElem, formController._policy.fieldFocusScrollOffset)) {
                   focusController._focusErrorElement = fieldElem;
                 }
               }

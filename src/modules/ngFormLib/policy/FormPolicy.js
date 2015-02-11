@@ -30,7 +30,7 @@
       behaviourOnStateChange: null,    // Previously called focusBehavior
       checkForStateChanges: null,
       stateDefinitions: null,
-      scrollOffset: 0
+      fieldFocusScrollOffset: 0
     };
 
     this.$get = ['$injector', function ($injector) {
