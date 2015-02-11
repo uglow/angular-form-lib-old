@@ -1,3 +1,12 @@
+<a name="0.2.4"></a>
+### 0.2.4 (2015-02-11)
+
+
+#### Features
+
+* **scrollOffset:** Added configurable option for scroll offset when focussing on field error ([462b58ba](http://github.com/uglow/angular-form-lib/commit/462b58ba68dff594aac8c12a8ddab2f34473f9ba))
+
+
 <a name="0.2.3"></a>
 ### 0.2.3 (2015-02-08)
 
