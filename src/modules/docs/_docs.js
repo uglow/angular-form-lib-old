@@ -26,6 +26,10 @@
       suffix: '.json'
     });
     $translateProvider.preferredLanguage('enAU');
+  }])
+    // Set the field-error-focus-scroll-position, to allow for the website's fixed header
+  .config(['formPolicyServiceProvider', function(formPolicyServiceProvider) {
+    formPolicyServiceProvider.defaults.fieldFocusScrollOffset = 80;
   }]);
 
 
