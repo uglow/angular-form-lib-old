@@ -1,17 +1,17 @@
-(function (angular) {
+(function(angular) {
   'use strict';
 
   angular.module('common.utility', []);
   angular.module('common', ['common.utility']);
 })(window.angular);
 
-(function (angular) {
+(function(angular) {
   'use strict';
 
   var mod = angular.module('common.utility', []);
 
   mod.constant('DateUtil', {
-    convertDate: function (dateStr, newSep) {
+    convertDate: function(dateStr, newSep) {
       // Converts a date between dd/mm/yyyy and yyyy-mm-dd
       if (!dateStr || !newSep || !(newSep === '/' || newSep === '-')) {
         return dateStr;
@@ -38,7 +38,7 @@
       }
       return ((dd < 10) ? '0' + dd : dd) + '/' + ((mm < 10) ? '0' + mm : mm) + '/' + yyyy;
     },
-    dateAdd: function (dateStr, numDays) {
+    dateAdd: function(dateStr, numDays) {
       // Return a modified date in ISO format
       var myDate = this.getDate(dateStr);
       myDate.setDate(myDate.getDate() + numDays);
@@ -48,10 +48,10 @@
     getToday: function(optionalDate) {
       return this.formatDay(optionalDate || new Date());
     },
-    isISODate: function (dateStr) {
+    isISODate: function(dateStr) {
       return (typeof dateStr === 'string' && dateStr.indexOf('-') > 0);
     },
-    getDate: function (dateStr) {
+    getDate: function(dateStr) {
       if (!this.isISODate(dateStr)) {
         dateStr = this.convertDate(dateStr, '-');
       }
@@ -63,11 +63,11 @@
   });
 
 
-  mod.constant('StringUtil', (function () {
+  mod.constant('StringUtil', (function() {
     var trimRegExp = /^\s+|\s+$/g;
 
     return {
-      trim: function (text) {
+      trim: function(text) {
         if (typeof text === 'string') {
           return text.replace(trimRegExp, '');
         }
@@ -77,11 +77,11 @@
   })());
 
 
-  mod.constant('NumberUtil', (function () {
+  mod.constant('NumberUtil', (function() {
     var isDigitsRegExp = /^\d+$/;
 
     return {
-      isDigits: function (text) {
+      isDigits: function(text) {
         return isDigitsRegExp.test(text);
       }
     };
@@ -89,10 +89,10 @@
 
 
   mod.constant('ObjectUtil', {
-    getUniqueId: function () {
+    getUniqueId: function() {
       return ('' + (new Date()).getTime() + Math.random()).replace(/\./, '');
     },
-    toArray: function (obj) {
+    toArray: function(obj) {
       var arr = [];
       for (var i in obj) {
         if (obj.hasOwnProperty(i)) {
@@ -108,7 +108,7 @@
 
 })(window.angular);
 
-(function (angular) {
+(function(angular) {
   'use strict';
 
   // Define modules
@@ -123,7 +123,7 @@
 
 })(window.angular);
 
-(function (angular) {
+(function(angular) {
   'use strict';
 
   // We need the utility module for the DateUtil.getDate() method for the formDateFormat directive, and StringUtil.trim() in controls.common
@@ -140,7 +140,7 @@
 
 })(window.angular);
 
-(function (angular) {
+(function(angular) {
   'use strict';
 
   var mod = angular.module('ngFormLib.controls.common', [
@@ -189,7 +189,7 @@
 
 
   // Shared code for the accessible controls
-  mod.provider('formControlService', function () {
+  mod.provider('formControlService', function() {
     var self = this,
         counter = 0;    // Private variable
 
@@ -218,7 +218,7 @@
       }
     };
 
-    this.$get = ['StringUtil', '$interpolate', function (StringUtil) {
+    this.$get = ['StringUtil', '$interpolate', function(StringUtil) {
 
       var service = {
         defaults: self.defaults,
@@ -228,7 +228,7 @@
             restrict: 'AE',
             replace: true,
             transclude: true,
-            compile: function (tElement, tAttr) {
+            compile: function(tElement, tAttr) {
 
               service.validateComponentStructure(params.controlName, tElement, params.expectedTemplateElements, tAttr, params.expectedAttributes);
 
@@ -262,7 +262,7 @@
           return directive;
         },
 
-        getUniqueFieldId: function () {
+        getUniqueFieldId: function() {
           return '' + self.defaults.idPrefix + counter++;
         },
 
@@ -286,13 +286,13 @@
           return result;
         },
 
-        addToAttribute: function (element, attributeName, value) {
+        addToAttribute: function(element, attributeName, value) {
           var existingVal = element.attr(attributeName);
           element.attr(attributeName, ((existingVal) ? existingVal + ' ' : '') + value);
         },
 
 
-        removeFromAttribute: function (element, attributeName, value) {
+        removeFromAttribute: function(element, attributeName, value) {
           // Borrowed this statement from Angular.js
           var newValue = StringUtil.trim(
             (' ' + (element.attr(attributeName) || '') + ' ')
@@ -309,7 +309,7 @@
         },
 
 
-        getRequiredAttribute: function (required) {
+        getRequiredAttribute: function(required) {
           var result = required || 'false';
 
           // When we set required="true" on a parent directive (like on-off-button), inputElem.attr('required', 'true')
@@ -321,7 +321,7 @@
         },
 
 
-        decorateLabel: function (labelElem, required, id, labelClass, hideLabelExpr, hideRequiredIndicator, labelSuffix) {
+        decorateLabel: function(labelElem, required, id, labelClass, hideLabelExpr, hideRequiredIndicator, labelSuffix) {
           if (id) {
             labelElem.attr('for', id);
           }
@@ -343,7 +343,7 @@
 
 
 
-        decorateInputField: function (inputElem, hostElement, attr, id, name, required) {
+        decorateInputField: function(inputElem, hostElement, attr, id, name, required) {
           inputElem.attr('id', id);
 
           // Allow the name to be interpolated
@@ -374,7 +374,7 @@
         },
 
 
-        createErrorFeatures: function (parentElement, inputElement, name, fieldLabel, fieldErrors, textErrors) {
+        createErrorFeatures: function(parentElement, inputElement, name, fieldLabel, fieldErrors, textErrors) {
           if (fieldErrors || textErrors) {
             // Add an fieldErrorControllers attribute to the element, to hook-up the error features
             inputElement.attr('field-error-controller', '');
@@ -391,7 +391,7 @@
           }
         },
 
-        createFieldHint: function (hostElement, inputElement, fieldHint, fieldHintId, fieldHintDisplay) {
+        createFieldHint: function(hostElement, inputElement, fieldHint, fieldHintId, fieldHintDisplay) {
           var hintElement;
 
           if (fieldHint) {
@@ -461,7 +461,7 @@
   });
 })(window.angular);
 
-(function (angular) {
+(function(angular) {
   'use strict';
 
   var mod = angular.module('ngFormLib.controls.common');
@@ -483,7 +483,7 @@
   //  <input ... aria-invalid="false/true" aria-describedby="fieldId-errors">
 
 
-  mod.directive('fieldErrorController', ['formControlService', '$timeout', function (formControlService, $timeout) {
+  mod.directive('fieldErrorController', ['formControlService', '$timeout', function(formControlService, $timeout) {
 
     function updateAriaFeatures(fieldState, element, formName, fieldName) {
       element.attr('aria-invalid', fieldState === 'error');
@@ -517,7 +517,7 @@
       restrict: 'AE',
       require: ['?ngModel', '?^form', '?^formGroup'],  // Require the formController controller somewhere in the parent hierarchy
       replace: true,
-      link: function (scope, element, attr, controllers) {
+      link: function(scope, element, attr, controllers) {
         // Tried to use a template string, but the model was not binding properly. Using $compile() works :)
         var ngModelController = controllers[0],
           formController = controllers[1],
@@ -534,7 +534,7 @@
           }
 
           // When the error-showing flag changes, update the field style
-          scope.$watch(formName + '.' + name + '.fieldState', function (fieldState) {
+          scope.$watch(formName + '.' + name + '.fieldState', function(fieldState) {
             updateAriaFeatures(fieldState, element, formName, name);
             updateElementStyle(fieldState, formGroupElement, formController._policy);
 
@@ -543,9 +543,9 @@
           });
 
           // Listen to form-submit events, to determine what to focus on too
-          scope.$on('event:FormSubmitAttempted', function () {
+          scope.$on('event:FormSubmitAttempted', function() {
             // Make sure that the field-level watchers have a chance to fire first, so use a timeout
-            $timeout(function () {
+            $timeout(function() {
               errorBehaviour.applyBehaviour(element, ngModelController.fieldState, true);
             }, 1);
           });
@@ -555,7 +555,7 @@
   }]);
 
 
-  mod.directive('formGroup', [function () {
+  mod.directive('formGroup', [function() {
     return {
       restrict: 'AC',
       controller: ['$scope', '$element', function($scope, $element) {
@@ -566,7 +566,7 @@
 
 })(window.angular);
 
-(function (angular) {
+(function(angular) {
   'use strict';
 
   angular.module('ngFormLib.controls.errorMessageContainer', ['pascalprecht.translate'])
@@ -575,7 +575,7 @@
    * This directive is really a FIELD error message container - it is designed to work with fields exclusively
    */
 
-  .directive('errorContainer', ['$compile', '$filter', function ($compile, $filter) {
+  .directive('errorContainer', ['$compile', '$filter', function($compile, $filter) {
 
     function translateError(errorMessage, fieldLabel) {
       var firstLetterIsAVowel = fieldLabel ? ('aeiou'.indexOf(fieldLabel[0].toLowerCase()) !== -1) : undefined;
@@ -587,15 +587,15 @@
         ariaElement = element;
 
       return {
-        addError: function (errorType, errorMessage, fieldLabel) {
+        addError: function(errorType, errorMessage, fieldLabel) {
           errors[errorType] = translateError(errorMessage, fieldLabel);
         },
 
-        removeError: function (errorType) {
+        removeError: function(errorType) {
           delete errors[errorType];
         },
 
-        refreshErrorText: function () {
+        refreshErrorText: function() {
           var str = '', i = 0;
           for (var type in errors) {
             if (errors.hasOwnProperty(type)) {
@@ -622,7 +622,7 @@
      */
     function toggleErrorVisibilityOnError(controller, formController, scope, element, watchExpr, errorType, errorText, fieldLabel) {
       //console.log('watchExpr = ' + watchExpr);
-      scope.$watch(watchExpr, function (newValue) {
+      scope.$watch(watchExpr, function(newValue) {
         if (newValue) {
           // The error text could contain an interpolation string, so we need to compile it
           var val = $compile(generateErrorTag(errorType, errorText, fieldLabel))(scope);
@@ -642,7 +642,7 @@
     function toggleErrorVisibilityForTextError(errorController, formController, fieldController, scope, element, watchExpr, fieldLabel) {
       //console.log('Watching error: ' + watchExpr);
 
-      scope.$watch(watchExpr, function (newValue) {
+      scope.$watch(watchExpr, function(newValue) {
         // Update the validity of the field's "watchExpr" error-key to match the value of the errorText
         fieldController.$setValidity(watchExpr, !newValue);
 
@@ -661,7 +661,7 @@
       });
 
       // When the field changes, clear the errorText value
-      fieldController.$viewChangeListeners.push(function () {
+      fieldController.$viewChangeListeners.push(function() {
         if (scope.$eval(watchExpr)) {
           scope.$eval(watchExpr + ' = null');
         }
@@ -685,7 +685,7 @@
       require: ['^form'], // Require the formController controller somewhere in the parent hierarchy (mandatory for field-errors)
       template: '<div class="container-error"></div>',
       replace: true,
-      link: function (scope, element, attr, controllers) {
+      link: function(scope, element, attr, controllers) {
 
         var fieldName = attr.fieldName,
           fieldLabel = attr.fieldLabel || '',
@@ -711,9 +711,9 @@
         // Watch formController[fieldName] - it may not have loaded yet. When it loads, call the main function.
         if (textErrors) {
           //console.log('textErrors: ' + textErrors + ', fieldName = ' + fieldName);
-          var fieldWatcher = scope.$watch(function () {
+          var fieldWatcher = scope.$watch(function() {
             return formController[fieldName];
-          }, function (newValue) {
+          }, function(newValue) {
             if (newValue) {
               fieldWatcher(); // Cancel the watcher
 
@@ -733,7 +733,7 @@
   }]);
 })(window.angular);
 
-(function (angular) {
+(function(angular) {
   'use strict';
 
   var mod = angular.module('ngFormLib.controls.formCheckbox', [
@@ -752,7 +752,7 @@
   // OUTPUT:
 
 
-  mod.directive('formCheckbox', ['formControlService', function (formControlService) {
+  mod.directive('formCheckbox', ['formControlService', function(formControlService) {
 
     return formControlService.buildDirective({
       controlName: 'formCheckbox',
@@ -783,7 +783,7 @@ angular.module('ngFormLib/controls/formCheckbox/template/FormCheckboxTemplate.ht
 }]);
 
 /*jshint maxstatements:30 */
-(function (angular) {
+(function(angular) {
   'use strict';
 
   var mod = angular.module('ngFormLib.controls.formDate', [
@@ -802,7 +802,7 @@ angular.module('ngFormLib/controls/formCheckbox/template/FormCheckboxTemplate.ht
 //    </div>
 
 
-  mod.directive('formDate', ['formControlService', function (formControlService) {
+  mod.directive('formDate', ['formControlService', function(formControlService) {
 
     return formControlService.buildDirective({
       controlName: 'formDate',
@@ -819,7 +819,7 @@ angular.module('ngFormLib/controls/formCheckbox/template/FormCheckboxTemplate.ht
     });
   }]);
 
-  mod.directive('formDateFormat', ['DateUtil', function (DateUtil) {
+  mod.directive('formDateFormat', ['DateUtil', function(DateUtil) {
     // All dates greater than AD 0 and less than AD 10000 in dd/mm/yyyy format
     // RegEx behaves oddly if /g is uses in Regexp.test() situations
     var dateRegEx = /^(((0[1-9]|[12][0-9]|3[01])([\/])(0[13578]|10|12)([\/])(\d{4}))|(([0][1-9]|[12][0-9]|30)([\/])(0[469]|11)([\/])(\d{4}))|((0[1-9]|1[0-9]|2[0-8])([\/])(02)([\/])(\d{4}))|((29)(\/)(02)([\/])([02468][048]00))|((29)([\/])(02)([\/])([13579][26]00))|((29)([\/])(02)([\/])([0-9][0-9][0][48]))|((29)([\/])(02)([\/])([0-9][0-9][2468][048]))|((29)([\/])(02)([\/])([0-9][0-9][13579][26])))$/;
@@ -827,10 +827,10 @@ angular.module('ngFormLib/controls/formCheckbox/template/FormCheckboxTemplate.ht
     return {
       require: 'ngModel',
       priority: 150,    // Higher priority than ui-mask (100), so the postLink function runs last
-      link: function (scope, elem, attrs, ctrl) {
+      link: function(scope, elem, attrs, ctrl) {
 
 
-        ctrl.$parsers.unshift(function (viewValue) {
+        ctrl.$parsers.unshift(function(viewValue) {
 
 
           // If viewValue is undefined or null, jump out
@@ -883,7 +883,7 @@ angular.module('ngFormLib/controls/formCheckbox/template/FormCheckboxTemplate.ht
           return viewValue;
         });
 
-        ctrl.$viewChangeListeners.push(function () {
+        ctrl.$viewChangeListeners.push(function() {
           // If there is a date-change attribute, execute it when the control is valid
           if (attrs.dateChange && ctrl.$valid) {
             scope.$eval(attrs.dateChange);
@@ -904,7 +904,7 @@ angular.module('ngFormLib/controls/formDate/template/FormDateInputTemplate.html'
 
 }]);
 
-(function (angular) {
+(function(angular) {
   'use strict';
 
   var mod = angular.module('ngFormLib.controls.formInput', [
@@ -925,7 +925,7 @@ angular.module('ngFormLib/controls/formDate/template/FormDateInputTemplate.html'
   // OUTPUT:
 
 
-  mod.directive('formInput', ['formControlService', function (formControlService) {
+  mod.directive('formInput', ['formControlService', function(formControlService) {
 
     return formControlService.buildDirective({
       controlName: 'formInput',
@@ -942,7 +942,7 @@ angular.module('ngFormLib/controls/formDate/template/FormDateInputTemplate.html'
   }]);
 })(window.angular);
 
-(function (angular) {
+(function(angular) {
   'use strict';
 
   var mod = angular.module('ngFormLib.controls.formRadioButton', [
@@ -959,7 +959,7 @@ angular.module('ngFormLib/controls/formDate/template/FormDateInputTemplate.html'
   // OUTPUT:
 
 
-  mod.directive('formRadioButton', ['formControlService', function (formControlService) {
+  mod.directive('formRadioButton', ['formControlService', function(formControlService) {
 
     return formControlService.buildDirective({
       controlName: 'formRadioButton',
@@ -989,13 +989,13 @@ angular.module('ngFormLib/controls/formRadioButton/template/FormRadioButtonTempl
 
 }]);
 
-(function (angular) {
+(function(angular) {
 
   'use strict';
 
   var mod = angular.module('ngFormLib.controls.formReset', []);
 
-  mod.directive('formReset', ['$parse', function ($parse) {
+  mod.directive('formReset', ['$parse', function($parse) {
 
     function resetFieldState(controlMap) {
     // Loops through the controlMap and reset's each field's state
@@ -1025,7 +1025,7 @@ angular.module('ngFormLib/controls/formRadioButton/template/FormRadioButtonTempl
         // Get a copy of the data as soon as the directive is created, which is after the scope/controller has been initialised (safe)
         var originalData = angular.copy(ngModelGet(scope));
 
-        element.on('click', function () {
+        element.on('click', function() {
           if (typeof controller.setSubmitted === 'function') {
             controller.setSubmitted(false);
           }
@@ -1042,7 +1042,7 @@ angular.module('ngFormLib/controls/formRadioButton/template/FormRadioButtonTempl
   }]);
 })(window.angular);
 
-(function (angular) {
+(function(angular) {
   'use strict';
 
   var mod = angular.module('ngFormLib.controls.formSelect', [
@@ -1061,7 +1061,7 @@ angular.module('ngFormLib/controls/formRadioButton/template/FormRadioButtonTempl
 
 
 
-  mod.directive('formSelect', ['formControlService', function (formControlService) {
+  mod.directive('formSelect', ['formControlService', function(formControlService) {
 
     function addPlaceholder(selectElem, placeholderText) {
       if (placeholderText) {
@@ -1096,7 +1096,7 @@ angular.module('ngFormLib/controls/formSelect/template/FormSelectTemplate.html',
 
 }]);
 
-(function (angular) {
+(function(angular) {
 
   'use strict';
 
@@ -1108,28 +1108,28 @@ angular.module('ngFormLib/controls/formSelect/template/FormSelectTemplate.html',
    *  It can be applied to either the form element or to a button.
    *
    */
-  mod.directive('formSubmit', ['$parse', function ($parse) {
+  mod.directive('formSubmit', ['$parse', function($parse) {
     return {
       restrict: 'A',
       require: ['^form'],   // Get the form controller
-      link: function (scope, element, attr, controller) {
+      link: function(scope, element, attr, controller) {
 
         var fn = $parse(attr.formSubmit) || angular.noop,
           isForm = element[0].tagName === 'FORM',
           formController = controller[0];
 
-        element.bind(isForm ? 'submit' : 'click', function (event) {
+        element.bind(isForm ? 'submit' : 'click', function(event) {
 
           formController.setSubmitted(true);
 
-          scope.$apply(function () {
+          scope.$apply(function() {
             //scope.$emit('event:FormSubmitAttempted');
 
             if (formController.$valid) {
               if (fn(scope, {$event: event}) !== false) {
                 // Needed by the tracking tool as it clears the input data after a submission.
                 // Potentially, form field validation to be done here, but unnecessary at the moment.
-                // The reset behaviour can be over-ridden by returning false from the called function (maybe prevent default aswell?)
+                // The reset behaviour can be over-ridden by returning false from the called function(maybe prevent default aswell?)
                 formController.setSubmitted(false);
                 formController.$setPristine();
               }
@@ -1144,7 +1144,7 @@ angular.module('ngFormLib/controls/formSelect/template/FormSelectTemplate.html',
   }]);
 })(window.angular);
 
-(function (angular) {
+(function(angular) {
   'use strict';
 
   var mod = angular.module('ngFormLib.controls.requiredMarker', [
@@ -1162,7 +1162,7 @@ angular.module('ngFormLib/controls/formSelect/template/FormSelectTemplate.html',
   //  <span class="required" aria-hidden="true" ng-class="{\'ng-hide\': hide}" ng-transclude=""></span>
   //  <span class="required" aria-hidden="true" ng-class="{\'ng-hide\': hide}" ng-transclude="" hide="isNotRequired">Some Text</span>
 
-  mod.directive('requiredMarker', ['formControlService', function (formControlService) {
+  mod.directive('requiredMarker', ['formControlService', function(formControlService) {
 
     return {
       restrict: 'AE',
@@ -1187,7 +1187,7 @@ angular.module('ngFormLib/controls/requiredMarker/template/RequiredMarkerTemplat
 
 }]);
 
-(function (angular) {
+(function(angular) {
   'use strict';
 
   // The form policy intentionally has no hard dependencies.
@@ -1199,16 +1199,16 @@ angular.module('ngFormLib/controls/requiredMarker/template/RequiredMarkerTemplat
   // This is a configurable service
   // It should contain the _default_ values for form policies
 
-  mod.provider('formPolicyService', function () {
+  mod.provider('formPolicyService', function() {
     var self = this,
       noop = angular.noop,
-      nullBehaviourOnStateChange = function () {
+      nullBehaviourOnStateChange = function() {
         return {
           applyBehaviour: noop,
           resetBehaviour: noop
         };
       },
-      nullStateChanges = function () {
+      nullStateChanges = function() {
         return {};
       };
 
@@ -1222,7 +1222,7 @@ angular.module('ngFormLib/controls/requiredMarker/template/RequiredMarkerTemplat
       fieldFocusScrollOffset: 0
     };
 
-    this.$get = ['$injector', function ($injector) {
+    this.$get = ['$injector', function($injector) {
 
       function getService(name) {
         try {
@@ -1238,7 +1238,7 @@ angular.module('ngFormLib/controls/requiredMarker/template/RequiredMarkerTemplat
       self.defaults.stateDefinitions = self.defaults.stateDefinitions || getService('formPolicyStateDefinitions') || nullStateChanges;
 
       var policyService = {
-        getCurrentPolicy: function () {
+        getCurrentPolicy: function() {
           return angular.copy(self.defaults);
         }
       };
@@ -1265,7 +1265,7 @@ angular.module('ngFormLib/controls/requiredMarker/template/RequiredMarkerTemplat
         tElement.data('formElementClasses', tAttr.class);
 
         return {
-          pre: function (scope, element, attr, controller) {
+          pre: function(scope, element, attr, controller) {
             // We want to extend the FormController by adding a form policy
             var formController = controller[0];
             formController._policy = angular.extend(formPolicyService.getCurrentPolicy(), scope.formPolicy());
@@ -1282,7 +1282,7 @@ angular.module('ngFormLib/controls/requiredMarker/template/RequiredMarkerTemplat
             formController._applyFormBehaviourOnStateChangePolicy = formController._policy.behaviourOnStateChange(formController);
 
             // Add/remove a class onto the form based on the value of the formSubmitted variable
-            formController.setSubmitted = function (value, tellNoOne) {
+            formController.setSubmitted = function(value, tellNoOne) {
               element[value ? 'addClass' : 'removeClass'](formController._policy.formSubmitAttemptedClass);
               formController._formSubmitAttempted = value;
               formController._applyFormBehaviourOnStateChangePolicy.resetBehaviour();
@@ -1322,8 +1322,8 @@ angular.module('ngFormLib/controls/requiredMarker/template/RequiredMarkerTemplat
 
   var inputElements = ['input', 'select'];
 
-  angular.forEach(inputElements, function (inputElem) {
-    mod.directive(inputElem, function () {
+  angular.forEach(inputElements, function(inputElem) {
+    mod.directive(inputElem, function() {
 
       function hookupElementToNameToElementMap(formController, element, fieldName, fieldController) {
         // Each element in the map is an array, because form elements *can have the same name*!
@@ -1335,7 +1335,7 @@ angular.module('ngFormLib/controls/requiredMarker/template/RequiredMarkerTemplat
         map[fieldName][map[fieldName].length] = {'element': element, 'controller': fieldController};
 
 
-        element.on('$destroy', function () {
+        element.on('$destroy', function() {
           // Delete just this element from the map of controls
           var map = formController._controls[element.attr('name')];
           var elementId = element.attr('id');
@@ -1352,7 +1352,7 @@ angular.module('ngFormLib/controls/requiredMarker/template/RequiredMarkerTemplat
         restrict: 'E',
         require: ['?^form', '?ngModel'],
         link: {
-          pre: function (scope, element, attr, controllers) {
+          pre: function(scope, element, attr, controllers) {
             if (!controllers[0]) {
               return;
             }
@@ -1372,7 +1372,7 @@ angular.module('ngFormLib/controls/requiredMarker/template/RequiredMarkerTemplat
 
 })(window.angular);
 
-(function (win, angular) {
+(function(win, angular) {
   'use strict';
 
   // Helper functions
@@ -1410,7 +1410,7 @@ angular.module('ngFormLib/controls/requiredMarker/template/RequiredMarkerTemplat
    */
   angular.module('ngFormLib.policy.behaviourOnStateChange', ['duScroll'])
     .service('formPolicyBehaviourOnStateChangeLibrary', ['$document', '$timeout', 'duScrollDuration',
-      function ($document, $timeout, duScrollDuration) {
+      function($document, $timeout, duScrollDuration) {
 
         // Policy implementation functions
         function behaviourOnErrorFocusFirstField(formController) {
@@ -1420,7 +1420,7 @@ angular.module('ngFormLib/controls/requiredMarker/template/RequiredMarkerTemplat
 
           return {
             // This function is called by the fieldErrorController when the fieldState changes and when the form is submitted
-            applyBehaviour: function (fieldElem, fieldState, formSubmitAttempted) {
+            applyBehaviour: function(fieldElem, fieldState, formSubmitAttempted) {
               // Set the focus to the field if there is an error showing and a form-submit has been attempted
               if (fieldState === 'error' && formSubmitAttempted) {
                 // ...and if the focusErrorElement is blank...
@@ -1445,14 +1445,14 @@ angular.module('ngFormLib/controls/requiredMarker/template/RequiredMarkerTemplat
     }]);
 })(window, window.angular);
 
-(function (angular) {
+(function(angular) {
   'use strict';
 
   // Policy implementation functions
   function checkForStateChangesOnBlurUntilSubmitThenOnChange(scope, element, name, stateDefinitions, ngModelController) {
     var errorWatch;
 
-    scope.$on('event:FormSubmitAttempted', function () {
+    scope.$on('event:FormSubmitAttempted', function() {
       (errorWatch || angular.noop)(); // Remove the error watcher, which may-or-may-not be present
       errorWatch = watchForErrorChanges(scope, stateDefinitions, ngModelController);
       //console.log('heard formSubmitAttempted');
@@ -1460,7 +1460,7 @@ angular.module('ngFormLib/controls/requiredMarker/template/RequiredMarkerTemplat
 
 
     // Listen for the form reset event and cancel the submit-watcher
-    scope.$on('event:FormReset', function () {
+    scope.$on('event:FormReset', function() {
       (errorWatch || angular.noop)(); // Remove the error watcher, which may-or-may-not be present
       //console.log('heard formReset');
     });
@@ -1481,7 +1481,7 @@ angular.module('ngFormLib/controls/requiredMarker/template/RequiredMarkerTemplat
 
   // Helper methods
   function createWatch(scope, ngModelController, stateName, stateCondition) {
-    scope.$watch(stateCondition, function (value) {
+    scope.$watch(stateCondition, function(value) {
       if (value === true) {
         ngModelController.fieldState = stateName;       // THIS IS THE KEY FLAG
         //console.log('A: ' + stateCondition + ' = ' + value);
@@ -1520,7 +1520,7 @@ angular.module('ngFormLib/controls/requiredMarker/template/RequiredMarkerTemplat
 
   // Define the different display trigger implementations available
   angular.module('ngFormLib.policy.checkForStateChanges', [])
-    .constant('formPolicyCheckForStateChangesLibrary', (function () {
+    .constant('formPolicyCheckForStateChangesLibrary', (function() {
       return {
         onChange: checkForStateChangesOnChange,
         onBlur: checkForStateChangesOnBlur,
@@ -1535,7 +1535,7 @@ angular.module('ngFormLib/controls/requiredMarker/template/RequiredMarkerTemplat
 
 })(window.angular);
 
-(function (angular) {
+(function(angular) {
   'use strict';
 
   // Define the different display trigger implementations available
@@ -1563,7 +1563,7 @@ angular.module('ngFormLib/controls/requiredMarker/template/RequiredMarkerTemplat
     return '(' + formName + '._formSubmitAttempted || ' + fieldName + '.$dirty) && ' + fieldName + '.$invalid';
   }
 
-  mod.value('formPolicyErrorDefinitionLibrary', (function () {
+  mod.value('formPolicyErrorDefinitionLibrary', (function() {
     return {
       onSubmit: errorOnSubmit,
       onDirty: errorOnDirty,
@@ -1595,7 +1595,7 @@ angular.module('ngFormLib/controls/requiredMarker/template/RequiredMarkerTemplat
     return '(' + formName + '._formSubmitAttempted || ' + fieldName + '.$dirty) && ' + fieldName + '.$valid';
   }
 
-  mod.value('formPolicySuccessDefinitionLibrary', (function () {
+  mod.value('formPolicySuccessDefinitionLibrary', (function() {
     return {
       onSubmit: successOnSubmit,
       onDirty: successOnDirty,
