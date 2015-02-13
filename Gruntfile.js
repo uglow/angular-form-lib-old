@@ -94,13 +94,10 @@ module.exports = function(grunt) {
     includereplace: 'grunt-include-replace',
     coverage: 'grunt-istanbul-coverage',
     usebanner: 'grunt-banner',
-    'bump-only': 'grunt-bump',
-    'dev': 'grunt-modular-project',
-    'test': 'grunt-modular-project',
-    'verify': 'grunt-modular-project',
-    'build': 'grunt-modular-project',
-    'mpBuildJS': 'grunt-modular-project',
-    'release': 'grunt-modular-project'
+    'bump-only': 'grunt-bump'
   });
+
+  // Load this module explicitly, to avoid jit-grunt issues.
+  grunt.loadNpmTasks('grunt-modular-project');
 
 };
