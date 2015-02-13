@@ -1,3 +1,16 @@
+### 0.2.5 (2015-02-13)
+
+
+#### Bug Fixes
+
+* **jasmine2.2:** Fix tests that broke due to Jasmine 2.2 syntax ([9f3d8a6e](http://github.com/uglow/angular-form-lib/commit/9f3d8a6e523d1e32c84cd4239eb9f6783e2f83e4))
+
+
+#### Features
+
+* **gruntModularProject:** Upgrade to Jasmine 2.2, latest Karma, dev dependencies ([e241848d](http://github.com/uglow/angular-form-lib/commit/e241848dce81e4115d9edc56283c818c72872b1b))
+
+
 <a name="0.2.4"></a>
 ### 0.2.4 (2015-02-11)
 
