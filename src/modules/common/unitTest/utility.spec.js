@@ -1,17 +1,17 @@
 'use strict';
 
-describe('Utility', function () {
+describe('Utility', function() {
 
   beforeEach(angular.mock.module('common.utility'));
 
-  describe('StringUtil', function () {
+  describe('StringUtil', function() {
 
-    it('should be able to see the StringUtil constant', inject(function (StringUtil) {
+    it('should be able to see the StringUtil constant', inject(function(StringUtil) {
       expect(StringUtil).not.toEqual(null);
     }));
 
 
-    it('should be able to call trim() and get a valid response', inject(function (StringUtil) {
+    it('should be able to call trim() and get a valid response', inject(function(StringUtil) {
       var testData = [
         {input: '    ab c  ',    expectedOutput: 'ab c'},
         {input: '_88 ',        expectedOutput: '_88'},
@@ -25,8 +25,8 @@ describe('Utility', function () {
     }));
   });
 
-  describe('NumberUtil', function () {
-    it('should be able to call isDigits() and get a valid response', inject(function (NumberUtil) {
+  describe('NumberUtil', function() {
+    it('should be able to call isDigits() and get a valid response', inject(function(NumberUtil) {
       var testData = [
         {input: 8,              expectedOutput: true},
         {input: '0',            expectedOutput: true},
@@ -47,8 +47,8 @@ describe('Utility', function () {
     }));
   });
 
-  describe('DateUtil', function () {
-    it('should be able to call convertDate() and get a valid response', inject(function (DateUtil) {
+  describe('DateUtil', function() {
+    it('should be able to call convertDate() and get a valid response', inject(function(DateUtil) {
       var testData = [
         {input: '31/01/2012',  newSep: '-',  expectedOutput: '2012-01-31'},
         {input: '31/01/2012',  newSep: '/',  expectedOutput: '31/01/2012'},
@@ -67,7 +67,7 @@ describe('Utility', function () {
     }));
 
 
-    it('should be able to call isISODate() and get a valid response', inject(function (DateUtil) {
+    it('should be able to call isISODate() and get a valid response', inject(function(DateUtil) {
       // This is a pretty lazy function - just checks if there is a '-' in the string
       var testData = [
         {input: '31/01/2012',  expectedOutput: false},
@@ -86,7 +86,7 @@ describe('Utility', function () {
     }));
 
 
-    it('should be able to call getDate() and get a valid response', inject(function (DateUtil) {
+    it('should be able to call getDate() and get a valid response', inject(function(DateUtil) {
       // This is a pretty lazy function - just checks if there is a '-' in the string
       var testData = [
         {input: '31/01/2012',  expectedOutput: 31},
@@ -108,7 +108,7 @@ describe('Utility', function () {
     }));
 
 
-    it('should be able to call dateAdd() and get a valid response', inject(function (DateUtil) {
+    it('should be able to call dateAdd() and get a valid response', inject(function(DateUtil) {
       // This is a pretty lazy function - just checks if there is a '-' in the string
       var testData = [
         {input: '31/01/2012',  daysToAdd: 1,    expectedOutput: '01/02/2012'},
@@ -130,7 +130,7 @@ describe('Utility', function () {
     }));
 
 
-    it('should be able to call getToday() and get a valid response', inject(function (DateUtil) {
+    it('should be able to call getToday() and get a valid response', inject(function(DateUtil) {
       // For testing purposes, we can pass in the optional date object
       var formattedDate = DateUtil.getToday(new Date(2014, 7, 1, 0));
       expect(formattedDate).toEqual('01/08/2014');
@@ -140,7 +140,7 @@ describe('Utility', function () {
     }));
 
 
-    it('should be able to call formatDay() and get a valid response', inject(function (DateUtil) {
+    it('should be able to call formatDay() and get a valid response', inject(function(DateUtil) {
       // For testing purposes, we can pass in the optional date object
       var formattedDate = DateUtil.formatDay(new Date(2014, 7, 1, 0));
       expect(formattedDate).toEqual('01/08/2014');
@@ -150,7 +150,7 @@ describe('Utility', function () {
     }));
 
 
-    it('should be able to call monthsBetween() and get a valid response', inject(function (DateUtil) {
+    it('should be able to call monthsBetween() and get a valid response', inject(function(DateUtil) {
       var testData = [
         {input: '2015-01-31', input2: '2015-02-01', expectedOutput: 1},
         {input: '2014-01-31', input2: '2015-01-01', expectedOutput: 12},
@@ -174,8 +174,8 @@ describe('Utility', function () {
   });
 
 
-  describe('ObjectUtil', function () {
-    it('should be able to call getUniqueId() and get a valid response', inject(function (ObjectUtil) {
+  describe('ObjectUtil', function() {
+    it('should be able to call getUniqueId() and get a valid response', inject(function(ObjectUtil) {
       var id = ObjectUtil.getUniqueId();
 
       expect(id).not.toContain('.');
@@ -186,7 +186,7 @@ describe('Utility', function () {
     }));
 
 
-    it('should be able to call toArray() on an object and get a valid response', inject(function (ObjectUtil) {
+    it('should be able to call toArray() on an object and get a valid response', inject(function(ObjectUtil) {
       function ColoredTriangle() {
         this.color = 'red';
       }

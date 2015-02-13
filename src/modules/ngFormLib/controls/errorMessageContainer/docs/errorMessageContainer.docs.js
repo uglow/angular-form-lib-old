@@ -1,9 +1,9 @@
-(function (window, angular) {
+(function(window, angular) {
   'use strict';
 
   var mod = angular.module('ngFormLibDocs');
 
-  mod.controller('ErrorMessageContainerDemoController', function () {
+  mod.controller('ErrorMessageContainerDemoController', function() {
     var vm = this;
 
     vm.titleData = [

@@ -1,5 +1,5 @@
 // See http://pivotal.github.io/jasmine/ for list of matchers (e.g .toEqual(), toMatch())
-describe('Form controls common library', function () {
+describe('Form controls common library', function() {
   'use strict';
 
   var formControlService;
@@ -7,22 +7,22 @@ describe('Form controls common library', function () {
   beforeEach(function() {
     angular.mock.module('ngFormLib.controls.common');
 
-    inject(function (_formControlService_) {
+    inject(function(_formControlService_) {
       formControlService = _formControlService_;
     });
 
   });
 
-  describe('should have an addToAttribute() method', function () {
+  describe('should have an addToAttribute() method', function() {
 
-    it('which adds a new attribute if the attribute did not exist', function () {
+    it('which adds a new attribute if the attribute did not exist', function() {
       var elem = angular.element('<div></div>');
 
       formControlService.addToAttribute(elem, 'some-attribute', '777');
       expect(elem[0].outerHTML).toEqual('<div some-attribute="777"></div>');
     });
 
-    it('which adds to an existing attribute if the attribute already exists', function () {
+    it('which adds to an existing attribute if the attribute already exists', function() {
       var elem = angular.element('<div existing-attribute="Brett"></div>');
 
       formControlService.addToAttribute(elem, 'existing-attribute', 'Uglow');
@@ -34,9 +34,9 @@ describe('Form controls common library', function () {
   });
 
 
-  describe('should have a removeAttribute() method', function () {
+  describe('should have a removeAttribute() method', function() {
 
-    it('which removes a value from the attribute if the value existed', function () {
+    it('which removes a value from the attribute if the value existed', function() {
       var elem = angular.element('<div names="a Waltzing Matilda"></div>');
 
       // In-exact value match, so no change
@@ -49,7 +49,7 @@ describe('Form controls common library', function () {
     });
 
 
-    it('which removes a value from the attribute and the attribute as well if it is empty', function () {
+    it('which removes a value from the attribute and the attribute as well if it is empty', function() {
       var elem = angular.element('<div country="Malaysia"></div>');
 
       // In-exact value match, so no change
@@ -59,9 +59,9 @@ describe('Form controls common library', function () {
   });
 
 
-  describe('should have a getRequiredAttribute() method', function () {
+  describe('should have a getRequiredAttribute() method', function() {
 
-    it('which gets the required attribute as the string "true" when it is "required"', function () {
+    it('which gets the required attribute as the string "true" when it is "required"', function() {
       var testData = [
         {input: 'required', expectedOutput: 'true'},
         {input: 'true', expectedOutput: 'true'},
@@ -81,9 +81,9 @@ describe('Form controls common library', function () {
   });
 
 
-  describe('should have a decorateLabel() method', function () {
+  describe('should have a decorateLabel() method', function() {
 
-    it('which doesn\'t decorate the label when it doesn\'t need to', function () {
+    it('which doesn\'t decorate the label when it doesn\'t need to', function() {
       var elem = angular.element('<label></label>');
 
       // Minimal decorations to the label - last param: hide required label
@@ -92,7 +92,7 @@ describe('Form controls common library', function () {
     });
 
 
-    it('which decorates the label when it needs to', function () {
+    it('which decorates the label when it needs to', function() {
       var elem = angular.element('<frankfurt></frankfurt>');
 
       // Minimal decorations to the label - last param: hide required label
@@ -103,9 +103,9 @@ describe('Form controls common library', function () {
   });
 
 
-  describe('should have a decorateInputField() method', function () {
+  describe('should have a decorateInputField() method', function() {
 
-    it('which adds an id, label and required attribute as the bare minimum', function () {
+    it('which adds an id, label and required attribute as the bare minimum', function() {
       var elem = angular.element('<input>');
       var attr = {
         '$attr': {'noFfAttributes': 'no-ff-attributes', 'soNothingWillBeCopiedFromHere': 'so-nothing-will-be-copied-from-here'},
@@ -122,7 +122,7 @@ describe('Form controls common library', function () {
     });
 
 
-    it('which preserves existing content and adds new attributes to the target element, EXCEPT the type attribute which is ignored', function () {
+    it('which preserves existing content and adds new attributes to the target element, EXCEPT the type attribute which is ignored', function() {
       var hostElem = angular.element('<div ff-type="checkbox" class="row" ff-ng-pattern="[0-9]{4}"></div>');
       var elem = angular.element('<input class="inline"><span>some text</span></input>');
       // All of the attributes that start with "ff" will be copied from the hostElem(ent) to the (input) elem(ent)
@@ -140,9 +140,9 @@ describe('Form controls common library', function () {
   });
 
 
-  describe('should have a createErrorFeatures() method', function () {
+  describe('should have a createErrorFeatures() method', function() {
 
-    it('which does not create any error features when the element has no error messages to show', function () {
+    it('which does not create any error features when the element has no error messages to show', function() {
       var elem = angular.element('<input>');
       var hostElem = angular.element('<div></div>');
 
@@ -152,7 +152,7 @@ describe('Form controls common library', function () {
     });
 
 
-    it('which creates some error features when the element has field error messages to show', function () {
+    it('which creates some error features when the element has field error messages to show', function() {
       var elem = angular.element('<input>');
       var hostElem = angular.element('<div></div>');
 
@@ -163,7 +163,7 @@ describe('Form controls common library', function () {
     });
 
 
-    it('which creates some error features when the element has text error messages to show', function () {
+    it('which creates some error features when the element has text error messages to show', function() {
       var elem = angular.element('<input>');
       var hostElem = angular.element('<div></div>');
       // Text errors
@@ -173,7 +173,7 @@ describe('Form controls common library', function () {
     });
 
 
-    it('which creates some error features when the element has field and text error messages to show', function () {
+    it('which creates some error features when the element has field and text error messages to show', function() {
       var elem = angular.element('<input>');
       var hostElem = angular.element('<div></div>');
       // Text errors
@@ -184,9 +184,9 @@ describe('Form controls common library', function () {
   });
 
 
-  describe('should have a createFieldHint() method', function () {
+  describe('should have a createFieldHint() method', function() {
 
-    it('which doesn\'t create a field hint when it doesn\'t need to', function () {
+    it('which doesn\'t create a field hint when it doesn\'t need to', function() {
       var elem = angular.element('<anything></anything>');
       var hostElem = angular.element('<youlike></youlike>');
 
@@ -196,7 +196,7 @@ describe('Form controls common library', function () {
     });
 
 
-    it('which creates a field hint the label when it needs to', function () {
+    it('which creates a field hint the label when it needs to', function() {
       var elem = angular.element('<anything></anything>');
       var hostElem = angular.element('<youlike></youlike>');
 

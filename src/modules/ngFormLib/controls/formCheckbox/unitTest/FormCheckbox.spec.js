@@ -1,6 +1,6 @@
 'use strict';
 
-describe('when I use the Form Checkbox button it', function () {
+describe('when I use the Form Checkbox button it', function() {
   var compileElement, scope, elem;
 
   beforeEach(function() {
@@ -15,7 +15,7 @@ describe('when I use the Form Checkbox button it', function () {
   });
 
 
-  it('should create a checkbox with the minimum markup', function () {
+  it('should create a checkbox with the minimum markup', function() {
     elem = compileElement('<form-checkbox uid="fld" name="btn">My label</form-checkbox>');
     scope.$digest();
     expect(elem.find('input')[0].outerHTML).toEqual('<input type="checkbox" field-error-controller="" id="fld" name="btn" ng-required="false" aria-required="false">');
@@ -23,7 +23,7 @@ describe('when I use the Form Checkbox button it', function () {
   });
 
 
-  it('should create a checkbox with a uid + name + change() + required', function () {
+  it('should create a checkbox with a uid + name + change() + required', function() {
     elem = compileElement('<form-checkbox uid="fld" name="btn" ff-ng-model="state" ff-ng-checked="true" label-class="Amy" ff-aria-label="My label" ff-ng-change="testChange()" required="true"></form-checkbox>');
     scope.$digest();
 

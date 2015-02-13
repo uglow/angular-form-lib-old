@@ -1,10 +1,10 @@
-(function (angular) {
+(function(angular) {
   'use strict';
 
   var mod = angular.module('common.utility', []);
 
   mod.constant('DateUtil', {
-    convertDate: function (dateStr, newSep) {
+    convertDate: function(dateStr, newSep) {
       // Converts a date between dd/mm/yyyy and yyyy-mm-dd
       if (!dateStr || !newSep || !(newSep === '/' || newSep === '-')) {
         return dateStr;
@@ -31,7 +31,7 @@
       }
       return ((dd < 10) ? '0' + dd : dd) + '/' + ((mm < 10) ? '0' + mm : mm) + '/' + yyyy;
     },
-    dateAdd: function (dateStr, numDays) {
+    dateAdd: function(dateStr, numDays) {
       // Return a modified date in ISO format
       var myDate = this.getDate(dateStr);
       myDate.setDate(myDate.getDate() + numDays);
@@ -41,10 +41,10 @@
     getToday: function(optionalDate) {
       return this.formatDay(optionalDate || new Date());
     },
-    isISODate: function (dateStr) {
+    isISODate: function(dateStr) {
       return (typeof dateStr === 'string' && dateStr.indexOf('-') > 0);
     },
-    getDate: function (dateStr) {
+    getDate: function(dateStr) {
       if (!this.isISODate(dateStr)) {
         dateStr = this.convertDate(dateStr, '-');
       }
@@ -56,11 +56,11 @@
   });
 
 
-  mod.constant('StringUtil', (function () {
+  mod.constant('StringUtil', (function() {
     var trimRegExp = /^\s+|\s+$/g;
 
     return {
-      trim: function (text) {
+      trim: function(text) {
         if (typeof text === 'string') {
           return text.replace(trimRegExp, '');
         }
@@ -70,11 +70,11 @@
   })());
 
 
-  mod.constant('NumberUtil', (function () {
+  mod.constant('NumberUtil', (function() {
     var isDigitsRegExp = /^\d+$/;
 
     return {
-      isDigits: function (text) {
+      isDigits: function(text) {
         return isDigitsRegExp.test(text);
       }
     };
@@ -82,10 +82,10 @@
 
 
   mod.constant('ObjectUtil', {
-    getUniqueId: function () {
+    getUniqueId: function() {
       return ('' + (new Date()).getTime() + Math.random()).replace(/\./, '');
     },
-    toArray: function (obj) {
+    toArray: function(obj) {
       var arr = [];
       for (var i in obj) {
         if (obj.hasOwnProperty(i)) {

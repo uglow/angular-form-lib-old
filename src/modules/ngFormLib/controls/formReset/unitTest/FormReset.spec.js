@@ -1,11 +1,11 @@
-describe('FormReset', function () {
+describe('FormReset', function() {
   'use strict';
 
   var compileElement, scope, elem;
 
 
 
-  describe('with ngFormLib', function () {
+  describe('with ngFormLib', function() {
 
     beforeEach(function() {
       angular.mock.module('ngFormLib.controls.formReset');
@@ -19,7 +19,7 @@ describe('FormReset', function () {
       });
     });
 
-    it('should reset the form and clear any values when using a proper model-domain-object expression', function () {
+    it('should reset the form and clear any values when using a proper model-domain-object expression', function() {
       scope.myModel = {
         testValue2: 'initialValue'
       };
@@ -55,7 +55,7 @@ describe('FormReset', function () {
     });
 
 
-    it('should throw an error when form-reset is used without a model-domain-object expression', function () {
+    it('should throw an error when form-reset is used without a model-domain-object expression', function() {
       scope.testVal = 'someVal';
 
       var comp = function() {
@@ -69,21 +69,21 @@ describe('FormReset', function () {
     });
   });
 
-  describe('withOUT ngFormLib', function () {
+  describe('withOUT ngFormLib', function() {
 
-    beforeEach(function () {
+    beforeEach(function() {
       angular.mock.module('ngFormLib.controls.formReset');
 
-      inject(function (_$compile_, $rootScope) {
+      inject(function(_$compile_, $rootScope) {
         scope = $rootScope.$new();
-        compileElement = function (html) {
+        compileElement = function(html) {
           return _$compile_(html)(scope);
         };
       });
     });
 
 
-    it('should reset the form and clear any values when using a proper model-domain-object expression', function () {
+    it('should reset the form and clear any values when using a proper model-domain-object expression', function() {
       scope.myModel = {
         testValue2: 'initialValue'
       };

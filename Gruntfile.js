@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = function (grunt) {
+module.exports = function(grunt) {
 
   // Time how long tasks take. Can help when optimizing build times
   require('time-grunt')(grunt);
@@ -87,7 +87,19 @@ module.exports = function (grunt) {
     }
   });
 
-  // Load grunt tasks automatically
-  require('load-grunt-tasks')(grunt);
+
+  // jit-grunt saves about 3 seconds per cycle now - valuable!
+  require('jit-grunt')(grunt, {
+    ngtemplates: 'grunt-angular-templates',
+    includereplace: 'grunt-include-replace',
+    coverage: 'grunt-istanbul-coverage',
+    usebanner: 'grunt-banner',
+    'bump-only': 'grunt-bump',
+    'dev': 'grunt-modular-project',
+    'test': 'grunt-modular-project',
+    'verify': 'grunt-modular-project',
+    'build': 'grunt-modular-project',
+    'release': 'grunt-modular-project'
+  });
 
 };

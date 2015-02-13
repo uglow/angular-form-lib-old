@@ -1,6 +1,6 @@
 'use strict';
 
-describe('Form Input Directive', function () {
+describe('Form Input Directive', function() {
 
   var compileElement, scope, elem;
 
@@ -16,7 +16,7 @@ describe('Form Input Directive', function () {
   });
 
 
-  it('should create a form input element with the minimum markup', function () {
+  it('should create a form input element with the minimum markup', function() {
     elem = compileElement('<form name="frm"><form-input uid="fld" name="fldName" label="hi" input-type="text"></form>');
     scope.$digest();
 
@@ -27,7 +27,7 @@ describe('Form Input Directive', function () {
   });
 
 
-  it('should allow the required field to be dynamic', function () {
+  it('should allow the required field to be dynamic', function() {
     // Create a falsy value for the scope, then we will change it later
     scope.some = {value: ''};
 
@@ -55,7 +55,7 @@ describe('Form Input Directive', function () {
   });
 
 
-  it('should hide the label if the label should not be shown', function () {
+  it('should hide the label if the label should not be shown', function() {
     elem = compileElement('<form name="frm"><form-input uid="fld" name="fldName" label="hi" hide-label="true" input-type="text" required="some.value"></form>');
     scope.$digest();
 
@@ -64,7 +64,7 @@ describe('Form Input Directive', function () {
   });
 
 
-  it('should create a form input element and apply all ff- prefixed attributes to the <input element (except for the type attribute, which is read-only and must come from the template)', function () {
+  it('should create a form input element and apply all ff- prefixed attributes to the <input element (except for the type attribute, which is read-only and must come from the template)', function() {
     elem = compileElement('<form-input uid="fld" name="name" label="Some field" input-type="text" ff-a="1" ff-b="true" ff-maxlength="8" ff-class="newClass">');
     scope.$digest();
 
@@ -92,9 +92,9 @@ describe('Form Input Directive', function () {
 
 
 
-  // it('should show errors related to the field AKA fieldErrors', function () {
+  // it('should show errors related to the field AKA fieldErrors', function() {
   //   // The form policy indicates that we want errors to appear when the form is submitted (or the field is dirty)
-  //   scope.returnFalse = function () { return false; };
+  //   scope.returnFalse = function() { return false; };
 
   //   // The field MUST have an ng-model attribute for errors to show up
   //   elem = angular.element('<form name="frm" form-policy="policy" form-submit="returnFalse()">' +
@@ -116,9 +116,9 @@ describe('Form Input Directive', function () {
 
 
 
-  describe(', when inside a repeater,', function () {
+  describe(', when inside a repeater,', function() {
 
-    it('should generate valid IDs and names using $index', function () {
+    it('should generate valid IDs and names using $index', function() {
       scope.items = ['a', 'b', 'c'];
       elem = compileElement('<form name="frm"><div ng-repeat="item in items"><form-input uid="fld{{$index + item}}" name="fldName{{$index}}" label="hi {{item}}" input-type="text"></div></form>');
       scope.$digest();

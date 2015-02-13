@@ -1,4 +1,4 @@
-(function (angular) {
+(function(angular) {
   'use strict';
 
   var mod = angular.module('ngFormLib.controls.requiredMarker', [
@@ -16,7 +16,7 @@
   //  <span class="required" aria-hidden="true" ng-class="{\'ng-hide\': hide}" ng-transclude=""></span>
   //  <span class="required" aria-hidden="true" ng-class="{\'ng-hide\': hide}" ng-transclude="" hide="isNotRequired">Some Text</span>
 
-  mod.directive('requiredMarker', ['formControlService', function (formControlService) {
+  mod.directive('requiredMarker', ['formControlService', function(formControlService) {
 
     return {
       restrict: 'AE',

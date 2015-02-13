@@ -1,10 +1,10 @@
-(function (angular) {
+(function(angular) {
 
   'use strict';
 
   var mod = angular.module('ngFormLib.controls.formReset', []);
 
-  mod.directive('formReset', ['$parse', function ($parse) {
+  mod.directive('formReset', ['$parse', function($parse) {
 
     function resetFieldState(controlMap) {
     // Loops through the controlMap and reset's each field's state
@@ -34,7 +34,7 @@
         // Get a copy of the data as soon as the directive is created, which is after the scope/controller has been initialised (safe)
         var originalData = angular.copy(ngModelGet(scope));
 
-        element.on('click', function () {
+        element.on('click', function() {
           if (typeof controller.setSubmitted === 'function') {
             controller.setSubmitted(false);
           }

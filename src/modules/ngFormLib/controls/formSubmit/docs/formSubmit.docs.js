@@ -1,12 +1,12 @@
-(function (window, angular) {
+(function(window, angular) {
   'use strict';
 
   var mod = angular.module('ngFormLibDocs');
 
-  mod.controller('FormSubmitDemoController', function () {
+  mod.controller('FormSubmitDemoController', function() {
     var vm = this;
 
-    vm.callWhenValid = function () {
+    vm.callWhenValid = function() {
       window.alert('Form is valid');
     };
   });

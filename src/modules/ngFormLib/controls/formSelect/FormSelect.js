@@ -1,4 +1,4 @@
-(function (angular) {
+(function(angular) {
   'use strict';
 
   var mod = angular.module('ngFormLib.controls.formSelect', [
@@ -17,7 +17,7 @@
 
 
 
-  mod.directive('formSelect', ['formControlService', function (formControlService) {
+  mod.directive('formSelect', ['formControlService', function(formControlService) {
 
     function addPlaceholder(selectElem, placeholderText) {
       if (placeholderText) {

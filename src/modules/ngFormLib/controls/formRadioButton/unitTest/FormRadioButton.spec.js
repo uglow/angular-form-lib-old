@@ -1,4 +1,4 @@
-describe('when I use the Form Radio Button it', function () {
+describe('when I use the Form Radio Button it', function() {
   'use strict';
   var compileElement, scope, elem;
 
@@ -14,7 +14,7 @@ describe('when I use the Form Radio Button it', function () {
   });
 
 
-  it('should create a radio button with the minimum markup', function () {
+  it('should create a radio button with the minimum markup', function() {
     elem = compileElement('<form-radio-button uid="fld" name="btn">My label</form-radio-button>');
     scope.$digest();
 
@@ -24,7 +24,7 @@ describe('when I use the Form Radio Button it', function () {
   });
 
 
-  it('should create a radio button with a uid + name + change() + required', function () {
+  it('should create a radio button with a uid + name + change() + required', function() {
     elem = compileElement('<form-radio-button uid="fld" name="btn" ff-ng-model="state" ff-ng-checked="true" ff-value="puppy" label-class="Amy" ff-aria-label="My label" ff-ng-change="testChange()" required="true"></form-radio-button>');
     scope.$digest();
 

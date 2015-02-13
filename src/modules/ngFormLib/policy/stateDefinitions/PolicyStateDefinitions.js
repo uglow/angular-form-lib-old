@@ -1,4 +1,4 @@
-(function (angular) {
+(function(angular) {
   'use strict';
 
   // Define the different display trigger implementations available
@@ -26,7 +26,7 @@
     return '(' + formName + '._formSubmitAttempted || ' + fieldName + '.$dirty) && ' + fieldName + '.$invalid';
   }
 
-  mod.value('formPolicyErrorDefinitionLibrary', (function () {
+  mod.value('formPolicyErrorDefinitionLibrary', (function() {
     return {
       onSubmit: errorOnSubmit,
       onDirty: errorOnDirty,
@@ -58,7 +58,7 @@
     return '(' + formName + '._formSubmitAttempted || ' + fieldName + '.$dirty) && ' + fieldName + '.$valid';
   }
 
-  mod.value('formPolicySuccessDefinitionLibrary', (function () {
+  mod.value('formPolicySuccessDefinitionLibrary', (function() {
     return {
       onSubmit: successOnSubmit,
       onDirty: successOnDirty,

@@ -1,5 +1,5 @@
 // See http://pivotal.github.io/jasmine/ for list of matchers (e.g .toEqual(), toMatch())
-describe('Required Marker tag', function () {
+describe('Required Marker tag', function() {
   'use strict';
 
   var $compile, scope;
@@ -7,12 +7,12 @@ describe('Required Marker tag', function () {
 
   beforeEach(angular.mock.module('ngFormLib.controls.requiredMarker'));
 
-  beforeEach(inject(['$compile', '$rootScope', function ($c, $r) {
+  beforeEach(inject(['$compile', '$rootScope', function($c, $r) {
     $compile = $c;
     scope = $r.$new();
   }]));
 
-  it('should transform the required-marker element into accessible HTML, basic', function () {
+  it('should transform the required-marker element into accessible HTML, basic', function() {
     elem = angular.element('<div><span required-marker></span></div>');
     $compile(elem)(scope);
     scope.$digest();
@@ -21,7 +21,7 @@ describe('Required Marker tag', function () {
   });
 
 
-  it('should transform the required-marker element into accessible HTML, advanced', function () {
+  it('should transform the required-marker element into accessible HTML, advanced', function() {
     elem = angular.element('<div><span required-marker hide="isNotRequired">Hint text</span></div>');
     $compile(elem)(scope);
     scope.$digest();

@@ -1,11 +1,11 @@
-describe('Form Policy Service configuration', function () {
+describe('Form Policy Service configuration', function() {
   'use strict';
 
   describe('has default settings', function() {
     var defaultFormSettings = {}, formPolicyService;
 
     beforeEach(function() {
-      angular.mock.module('ngFormLib', ['formPolicyServiceProvider', function (formPolicyServiceProvider) {
+      angular.mock.module('ngFormLib', ['formPolicyServiceProvider', function(formPolicyServiceProvider) {
         defaultFormSettings = formPolicyServiceProvider.defaults;
       }]);
 
@@ -40,7 +40,7 @@ describe('Form Policy Service configuration', function () {
 
     // Set the defaults using the provider method
     beforeEach(function() {
-      angular.mock.module('ngFormLib', ['formPolicyServiceProvider', function (formPolicyServiceProvider) {
+      angular.mock.module('ngFormLib', ['formPolicyServiceProvider', function(formPolicyServiceProvider) {
         formPolicyServiceProvider.defaults = mockDefaults;
       }]);
 

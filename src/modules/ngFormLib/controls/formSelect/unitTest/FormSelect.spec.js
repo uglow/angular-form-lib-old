@@ -1,4 +1,4 @@
-describe('when I use the form select it', function () {
+describe('when I use the form select it', function() {
   'use strict';
 
   var compileElement, scope, elem;
@@ -15,7 +15,7 @@ describe('when I use the form select it', function () {
   });
 
 
-  it('should create a select dropdown with the minimum markup', function () {
+  it('should create a select dropdown with the minimum markup', function() {
     elem = compileElement('<form-select label="sel" uid="sel" name="select"></form-select>');
     scope.$digest();
 
@@ -24,7 +24,7 @@ describe('when I use the form select it', function () {
   });
 
 
-  it('should create a select dropdown with a placeholder, if the placeholder attribute is specified', function () {
+  it('should create a select dropdown with a placeholder, if the placeholder attribute is specified', function() {
     elem = compileElement('<form-select label="sel" uid="sel" name="select" placeholder="Select an item"></form-select>');
     scope.$digest();
 

@@ -1,4 +1,4 @@
-(function (angular) {
+(function(angular) {
   'use strict';
 
   var mod = angular.module('ngFormLib.controls.common');
@@ -20,7 +20,7 @@
   //  <input ... aria-invalid="false/true" aria-describedby="fieldId-errors">
 
 
-  mod.directive('fieldErrorController', ['formControlService', '$timeout', function (formControlService, $timeout) {
+  mod.directive('fieldErrorController', ['formControlService', '$timeout', function(formControlService, $timeout) {
 
     function updateAriaFeatures(fieldState, element, formName, fieldName) {
       element.attr('aria-invalid', fieldState === 'error');
@@ -54,7 +54,7 @@
       restrict: 'AE',
       require: ['?ngModel', '?^form', '?^formGroup'],  // Require the formController controller somewhere in the parent hierarchy
       replace: true,
-      link: function (scope, element, attr, controllers) {
+      link: function(scope, element, attr, controllers) {
         // Tried to use a template string, but the model was not binding properly. Using $compile() works :)
         var ngModelController = controllers[0],
           formController = controllers[1],
@@ -71,7 +71,7 @@
           }
 
           // When the error-showing flag changes, update the field style
-          scope.$watch(formName + '.' + name + '.fieldState', function (fieldState) {
+          scope.$watch(formName + '.' + name + '.fieldState', function(fieldState) {
             updateAriaFeatures(fieldState, element, formName, name);
             updateElementStyle(fieldState, formGroupElement, formController._policy);
 
@@ -80,9 +80,9 @@
           });
 
           // Listen to form-submit events, to determine what to focus on too
-          scope.$on('event:FormSubmitAttempted', function () {
+          scope.$on('event:FormSubmitAttempted', function() {
             // Make sure that the field-level watchers have a chance to fire first, so use a timeout
-            $timeout(function () {
+            $timeout(function() {
               errorBehaviour.applyBehaviour(element, ngModelController.fieldState, true);
             }, 1);
           });
@@ -92,7 +92,7 @@
   }]);
 
 
-  mod.directive('formGroup', [function () {
+  mod.directive('formGroup', [function() {
     return {
       restrict: 'AC',
       controller: ['$scope', '$element', function($scope, $element) {

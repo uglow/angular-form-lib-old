@@ -1,4 +1,4 @@
-(function (angular) {
+(function(angular) {
   'use strict';
 
   var mod = angular.module('ngFormLib.controls.common', [
@@ -47,7 +47,7 @@
 
 
   // Shared code for the accessible controls
-  mod.provider('formControlService', function () {
+  mod.provider('formControlService', function() {
     var self = this,
         counter = 0;    // Private variable
 
@@ -76,7 +76,7 @@
       }
     };
 
-    this.$get = ['StringUtil', '$interpolate', function (StringUtil) {
+    this.$get = ['StringUtil', '$interpolate', function(StringUtil) {
 
       var service = {
         defaults: self.defaults,
@@ -86,7 +86,7 @@
             restrict: 'AE',
             replace: true,
             transclude: true,
-            compile: function (tElement, tAttr) {
+            compile: function(tElement, tAttr) {
 
               service.validateComponentStructure(params.controlName, tElement, params.expectedTemplateElements, tAttr, params.expectedAttributes);
 
@@ -120,7 +120,7 @@
           return directive;
         },
 
-        getUniqueFieldId: function () {
+        getUniqueFieldId: function() {
           return '' + self.defaults.idPrefix + counter++;
         },
 
@@ -144,13 +144,13 @@
           return result;
         },
 
-        addToAttribute: function (element, attributeName, value) {
+        addToAttribute: function(element, attributeName, value) {
           var existingVal = element.attr(attributeName);
           element.attr(attributeName, ((existingVal) ? existingVal + ' ' : '') + value);
         },
 
 
-        removeFromAttribute: function (element, attributeName, value) {
+        removeFromAttribute: function(element, attributeName, value) {
           // Borrowed this statement from Angular.js
           var newValue = StringUtil.trim(
             (' ' + (element.attr(attributeName) || '') + ' ')
@@ -167,7 +167,7 @@
         },
 
 
-        getRequiredAttribute: function (required) {
+        getRequiredAttribute: function(required) {
           var result = required || 'false';
 
           // When we set required="true" on a parent directive (like on-off-button), inputElem.attr('required', 'true')
@@ -179,7 +179,7 @@
         },
 
 
-        decorateLabel: function (labelElem, required, id, labelClass, hideLabelExpr, hideRequiredIndicator, labelSuffix) {
+        decorateLabel: function(labelElem, required, id, labelClass, hideLabelExpr, hideRequiredIndicator, labelSuffix) {
           if (id) {
             labelElem.attr('for', id);
           }
@@ -201,7 +201,7 @@
 
 
 
-        decorateInputField: function (inputElem, hostElement, attr, id, name, required) {
+        decorateInputField: function(inputElem, hostElement, attr, id, name, required) {
           inputElem.attr('id', id);
 
           // Allow the name to be interpolated
@@ -232,7 +232,7 @@
         },
 
 
-        createErrorFeatures: function (parentElement, inputElement, name, fieldLabel, fieldErrors, textErrors) {
+        createErrorFeatures: function(parentElement, inputElement, name, fieldLabel, fieldErrors, textErrors) {
           if (fieldErrors || textErrors) {
             // Add an fieldErrorControllers attribute to the element, to hook-up the error features
             inputElement.attr('field-error-controller', '');
@@ -249,7 +249,7 @@
           }
         },
 
-        createFieldHint: function (hostElement, inputElement, fieldHint, fieldHintId, fieldHintDisplay) {
+        createFieldHint: function(hostElement, inputElement, fieldHint, fieldHintId, fieldHintDisplay) {
           var hintElement;
 
           if (fieldHint) {

@@ -1,6 +1,6 @@
 'use strict';
 
-describe('Date Directives spec,', function () {
+describe('Date Directives spec,', function() {
 
   var compileElement, scope, elem, DateUtil;
 
@@ -16,7 +16,7 @@ describe('Date Directives spec,', function () {
     });
   });
 
-  describe('formDateFormat', function () {
+  describe('formDateFormat', function() {
 
     function testDate(element, testData) {
 
@@ -42,7 +42,7 @@ describe('Date Directives spec,', function () {
       }
     }
 
-    it('should validate an ordinary input field which must be a date, no other restrictions', function () {
+    it('should validate an ordinary input field which must be a date, no other restrictions', function() {
       var testData = [
         {input: '02',         output: '02',         expectedClasses: ['ng-invalid', 'ng-invalid-date'], desc: 'Partial date'},
         {input: '02/01/1900', output: '02/01/1900', expectedClasses: ['ng-valid'],                      desc: 'Old valid date'},
@@ -59,7 +59,7 @@ describe('Date Directives spec,', function () {
     });
 
 
-    it('should validate an ordinary input field which must be a date, with a min and max date restriction', function () {
+    it('should validate an ordinary input field which must be a date, with a min and max date restriction', function() {
       var testData = [
         {input: '02',         output: '02',         expectedClasses: ['ng-invalid', 'ng-invalid-date'],     desc: 'Partial date'},
         {input: '31/12/1999', output: '31/12/1999', expectedClasses: ['ng-invalid', 'ng-invalid-min-date'], desc: 'Date too small'},
@@ -75,7 +75,7 @@ describe('Date Directives spec,', function () {
     });
 
 
-    it('should validate an ordinary input field which must be a date, with max date restriction of "today"', function () {
+    it('should validate an ordinary input field which must be a date, with max date restriction of "today"', function() {
       var today = DateUtil.getToday();
       var tomorrow = DateUtil.dateAdd(today, 1);
       var yesterday = DateUtil.dateAdd(today, -1);
@@ -90,7 +90,7 @@ describe('Date Directives spec,', function () {
     });
 
 
-    it('should eval the dateChange attribute when the date is valid', function () {
+    it('should eval the dateChange attribute when the date is valid', function() {
       scope.callback = jasmine.createSpy('callback');
       elem = compileElement('<form name="frm"><input type="text" name="startDate" ng-model="startDate" date-change="callback()" form-date-format></form>');
 

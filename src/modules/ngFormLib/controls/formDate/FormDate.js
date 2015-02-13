@@ -1,5 +1,5 @@
 /*jshint maxstatements:30 */
-(function (angular) {
+(function(angular) {
   'use strict';
 
   var mod = angular.module('ngFormLib.controls.formDate', [
@@ -18,7 +18,7 @@
 //    </div>
 
 
-  mod.directive('formDate', ['formControlService', function (formControlService) {
+  mod.directive('formDate', ['formControlService', function(formControlService) {
 
     return formControlService.buildDirective({
       controlName: 'formDate',
@@ -35,7 +35,7 @@
     });
   }]);
 
-  mod.directive('formDateFormat', ['DateUtil', function (DateUtil) {
+  mod.directive('formDateFormat', ['DateUtil', function(DateUtil) {
     // All dates greater than AD 0 and less than AD 10000 in dd/mm/yyyy format
     // RegEx behaves oddly if /g is uses in Regexp.test() situations
     var dateRegEx = /^(((0[1-9]|[12][0-9]|3[01])([\/])(0[13578]|10|12)([\/])(\d{4}))|(([0][1-9]|[12][0-9]|30)([\/])(0[469]|11)([\/])(\d{4}))|((0[1-9]|1[0-9]|2[0-8])([\/])(02)([\/])(\d{4}))|((29)(\/)(02)([\/])([02468][048]00))|((29)([\/])(02)([\/])([13579][26]00))|((29)([\/])(02)([\/])([0-9][0-9][0][48]))|((29)([\/])(02)([\/])([0-9][0-9][2468][048]))|((29)([\/])(02)([\/])([0-9][0-9][13579][26])))$/;
@@ -43,10 +43,10 @@
     return {
       require: 'ngModel',
       priority: 150,    // Higher priority than ui-mask (100), so the postLink function runs last
-      link: function (scope, elem, attrs, ctrl) {
+      link: function(scope, elem, attrs, ctrl) {
 
 
-        ctrl.$parsers.unshift(function (viewValue) {
+        ctrl.$parsers.unshift(function(viewValue) {
 
 
           // If viewValue is undefined or null, jump out
@@ -99,7 +99,7 @@
           return viewValue;
         });
 
-        ctrl.$viewChangeListeners.push(function () {
+        ctrl.$viewChangeListeners.push(function() {
           // If there is a date-change attribute, execute it when the control is valid
           if (attrs.dateChange && ctrl.$valid) {
             scope.$eval(attrs.dateChange);

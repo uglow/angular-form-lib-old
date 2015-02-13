@@ -1,9 +1,9 @@
-(function (angular) {
+(function(angular) {
   'use strict';
 
   angular.module('ngFormLibDocs')
 
-    .controller('FormPolicyDemoCtrl', ['formPolicyCheckForStateChangesLibrary', function (formPolicyCheckForStateChangesLibrary) {
+    .controller('FormPolicyDemoCtrl', ['formPolicyCheckForStateChangesLibrary', function(formPolicyCheckForStateChangesLibrary) {
 
       var vm = this;
 

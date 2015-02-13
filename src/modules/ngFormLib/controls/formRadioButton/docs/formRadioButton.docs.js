@@ -1,9 +1,9 @@
-(function (window, angular) {
+(function(window, angular) {
   'use strict';
 
   var mod = angular.module('ngFormLibDocs');
 
-  mod.controller('FormRadioButtonDemoController', function () {
+  mod.controller('FormRadioButtonDemoController', function() {
     var vm = this;
 
     vm.titleData = [

@@ -1,6 +1,6 @@
 /* jshint maxstatements:30 */
 // See http://pivotal.github.io/jasmine/ for list of matchers (e.g .toEqual(), toMatch())
-describe('Error Message Container directive', function () {
+describe('Error Message Container directive', function() {
   'use strict';
   var compileElement, scope, elem;
 
@@ -14,7 +14,7 @@ describe('Error Message Container directive', function () {
     angular.mock.module('ngFormLib.policy.checkForStateChanges');
     angular.mock.module('ngFormLib.policy.stateDefinitions');
 
-    angular.mock.module('ngFormLib', ['$sceProvider', function ($sceProvider) {
+    angular.mock.module('ngFormLib', ['$sceProvider', function($sceProvider) {
       // Just in case the $sceProvider is enabled, we need to disable it for this test (I think?)
       $sceProvider.enabled(false);
     }]);
@@ -29,7 +29,7 @@ describe('Error Message Container directive', function () {
   });
 
 
-  it('should create an error message container with minimum markup', function () {
+  it('should create an error message container with minimum markup', function() {
     elem = compileElement('<form name="frm"><error-container field-name="someName"></error-container></form>');
     scope.$digest();
 
@@ -40,8 +40,8 @@ describe('Error Message Container directive', function () {
   });
 
 
-  it('should create error messages when supplied with a field-errors attribute', function () {
-    scope.returnFalse = function () { return false; };
+  it('should create error messages when supplied with a field-errors attribute', function() {
+    scope.returnFalse = function() { return false; };
 
     elem = compileElement('<form name="frm" form-submit="returnFalse()">' +
       '<div class="form-group">' +
@@ -76,7 +76,7 @@ describe('Error Message Container directive', function () {
   });
 
 
-  it('should create error messages when supplied with a text-errors attribute', function () {
+  it('should create error messages when supplied with a text-errors attribute', function() {
     elem = compileElement('<form name="frm">' +
                 '<form-input input-type="text" name="someName" uid="x" label="y" ff-ng-model="something"></form-input>' +
                 '<error-container field-name="someName" text-errors="[\'msg1\', \'msg2\']"></error-container>' +

@@ -1,9 +1,9 @@
-(function (window, angular) {
+(function(window, angular) {
   'use strict';
 
   var mod = angular.module('ngFormLibDocs');
 
-  mod.controller('FormResetDemoController', function () {
+  mod.controller('FormResetDemoController', function() {
     var vm = this;
 
     vm.titleData = [
