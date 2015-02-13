@@ -9,6 +9,14 @@
 bower install angular-form-lib --save
 ```
 
+## <a name="usage"></a> Usage
+
+See [https://github.com/uglow/angular-form-lib](https://github.com/uglow/angular-form-lib) for details.
+
+# Contributing
+
+Fork the repo and follow these intructions. Once you are up-and-running, submit a pull request.
+
 ## <a name="dependencies"></a> Dependencies
 - Git
 - [Node](http://nodejs.org)
