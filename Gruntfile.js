@@ -99,6 +99,7 @@ module.exports = function(grunt) {
     'test': 'grunt-modular-project',
     'verify': 'grunt-modular-project',
     'build': 'grunt-modular-project',
+    'mpBuildJS': 'grunt-modular-project',
     'release': 'grunt-modular-project'
   });
 

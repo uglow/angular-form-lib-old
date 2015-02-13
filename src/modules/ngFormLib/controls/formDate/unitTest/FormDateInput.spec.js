@@ -97,22 +97,22 @@ describe('Date Directives spec,', function() {
       scope.$digest();
       var inputElem = elem.find('input');
 
-      expect(scope.callback.calls.length).toEqual(0);
+      expect(scope.callback.calls.count()).toEqual(0);
 
       // We send a change event, so we should call the callback function
       inputElem.val('').triggerHandler('change');
       expect(inputElem.hasClass('ng-valid')).toEqual(true);
-      expect(scope.callback.calls.length).toEqual(1);
+      expect(scope.callback.calls.count()).toEqual(1);
 
       // Make the date invalid, should not trigger a call
       inputElem.val('xyz').triggerHandler('change');
       expect(inputElem.hasClass('ng-invalid')).toEqual(true);
-      expect(scope.callback.calls.length).toEqual(1);
+      expect(scope.callback.calls.count()).toEqual(1);
 
       // valid date should trigger callback
       inputElem.val('01/01/1976').triggerHandler('change');
       expect(inputElem.hasClass('ng-valid')).toEqual(true);
-      expect(scope.callback.calls.length).toEqual(2);
+      expect(scope.callback.calls.count()).toEqual(2);
     });
   });
 

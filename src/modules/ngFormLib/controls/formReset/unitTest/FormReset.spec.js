@@ -23,6 +23,7 @@ describe('FormReset', function() {
       scope.myModel = {
         testValue2: 'initialValue'
       };
+      expect(scope.myModel.testValue1).toEqual(undefined);
 
       elem = compileElement('<form name="frm1">' +
                   '<input type="text" name="testVal1" ng-model="myModel.testValue1" />' +
@@ -46,7 +47,7 @@ describe('FormReset', function() {
       elem.find('button').triggerHandler('click');
 
       expect(elem.hasClass('ng-pristine')).toEqual(true);
-      expect(scope.myModel.testValue1).toEqual(null);
+      expect(scope.myModel.testValue1).toEqual(undefined);
       expect(scope.myModel.testValue2).toEqual('initialValue');
       expect(inputElem1.val()).toEqual('');
       expect(inputElem2.val()).toEqual('initialValue');
@@ -65,7 +66,7 @@ describe('FormReset', function() {
           '</form>');
       };
 
-      expect(function() { comp(); }).toThrow('formReset requires an assignable scope-expression. "" is un-assignable.');
+      expect(function() { comp(); }).toThrowError('formReset requires an assignable scope-expression. "" is un-assignable.');
     });
   });
 
@@ -87,6 +88,7 @@ describe('FormReset', function() {
       scope.myModel = {
         testValue2: 'initialValue'
       };
+      expect(scope.myModel.testValue1).toEqual(undefined);
 
       elem = compileElement('<form name="frm1">' +
         '<input type="text" name="testVal1" ng-model="myModel.testValue1" />' +
@@ -110,7 +112,7 @@ describe('FormReset', function() {
       elem.find('button').triggerHandler('click');
 
       expect(elem.hasClass('ng-pristine')).toEqual(true);
-      expect(scope.myModel.testValue1).toEqual(null);
+      expect(scope.myModel.testValue1).toEqual(undefined);
       expect(scope.myModel.testValue2).toEqual('initialValue');
       expect(inputElem1.val()).toEqual('');
       expect(inputElem2.val()).toEqual('initialValue');
