@@ -146,7 +146,7 @@
                   <span ng-repeat="item in ctrl.titleData">
                     <div form-radio-button uid=formDemo4_subform{{schoolIndex}}_fld4_{{$index}} name=formDemo4_subform_group{{schoolIndex}} ff-ng-model=school.title ff-ng-value=$index required=true hide-required-indicator=true>{{item.label}}</div>
                   </span>
-                  <div error-container field-name=formDemo4_subform_group1 field-errors="{required: 'Please select an option'}"></div>
+                  <div error-container field-name=formDemo4_subform_group{{schoolIndex}} field-errors="{required: 'Please select an option'}"></div>
                 </fieldset>
 
                 <button type=button class="btn btn-success" ng-click=ctrl.addSchool() ng-if=$last>+</button>
