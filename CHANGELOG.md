@@ -1,3 +1,12 @@
+### 0.2.6 (2015-02-26)
+
+
+#### Bug Fixes
+
+* **IE8:** Stop using 'default' as a property name to support IE8. ([2ba4ee4d](http://github.com/uglow/angular-form-lib/commit/2ba4ee4d527ac0161c5e9fe42cebf6436c850c5a))
+* **docs:** Fixed documentation error in repeating inline horizontal form ([f82928be](http://github.com/uglow/angular-form-lib/commit/f82928be94c198395623a03c9e585b290b4f2852))
+
+
 ### 0.2.5 (2015-02-13)
 
 
