@@ -199,7 +199,7 @@
                          ff-ng-model="school.title" ff-ng-value="$index" required="true" hide-required-indicator="true"
                         >{{item.label}}</div>
                   </span>
-                  <div error-container field-name="formDemo4_subform_group1" field-errors="{required: 'Please select an option'}"></div>
+                  <div error-container field-name="formDemo4_subform_group{{schoolIndex}}" field-errors="{required: 'Please select an option'}"></div>
                 </fieldset>
 
                 <button type="button" class="btn btn-success" ng-click="ctrl.addSchool()" ng-if="$last">+</button>
