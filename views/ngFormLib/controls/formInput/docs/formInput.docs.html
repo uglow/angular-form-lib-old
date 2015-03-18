@@ -28,9 +28,9 @@
     
     <form name=formInput1 class=form novalidate form-submit>
 
-      <div form-input uid=formInput1_fld1 name=formInput1_fld1 label="Text type field" required=true input-type=text ff-ng-model=ctrl.formInput1.fld1 field-hint="{{'OTHER.HINT' | translate}}" field-errors="{required: 'Title is required'}"></div>
+      <div form-input uid=formInput1_fld1 name=formInput1_fld1 label="Text type field" required=true input-type=text ff-ng-model=ctrl.formInput1.fld1 field-hint="{{'OTHER.HINT' | translate}}" field-errors="{required: 'Title is required'}" placeholder="Placeholder text"></div>
 
-      <div form-input uid=formInput1_fld2 name=formInput1_fld2 label="Date type field" required=false input-type=date ff-ng-model=ctrl.formInput1.fld2 placeholder="Placeholder text"></div>
+      <div form-input uid=formInput1_fld2 name=formInput1_fld2 label="Date type field" required=false input-type=date ff-ng-model=ctrl.formInput1.fld2></div>
 
       
       <div form-input label="Generated id field" required=true input-type=text ff-ng-model=ctrl.formInput1.fld3 placeholder="This field has a generated name and id" field-errors="{required: 'FIELD_ERROR.TEMPLATE.REQUIRED'}"></div>
@@ -61,6 +61,12 @@
           <td>string
           <td>
           <td>Text that is related to the field but is not the field's label. Often used to provide additional information about the field.
+        
+        <tr>
+          <td>placeholder
+          <td>string
+          <td>
+          <td>Placeholder text that appears inside the input element when there is no existing value. Alias for <code>ff-placeholder</code>.
         
         <tr>
           <td>template

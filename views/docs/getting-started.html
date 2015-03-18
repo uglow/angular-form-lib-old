@@ -35,12 +35,26 @@
       </code>
     </pre>
   </div>
-  <p>Inject the
-    <code>ngFormLib</code>module into your application.</p>
+  <p>Inject the <code>ngFormLib</code>module into your application.</p>
   <div class=highlight>
     <pre>
       <code class=javascript highlight-block>
         angular.module('myApp', ['ngFormLib']);
+      </code>
+    </pre>
+  </div>
+
+  <p>Typically you would load both the module and the default policies into your application:</p>
+  <div class=highlight>
+    <pre>
+      <code class=javascript highlight-block>
+        angular.module('myApp', [
+          'ngFormLib',
+          'duScroll',   // Scrolling behaviour for when the state changes to an error and we wish to focus the field
+          'ngFormLib.policy.behaviourOnStateChange',
+          'ngFormLib.policy.checkForStateChanges',
+          'ngFormLib.policy.stateDefinitions'
+        ]);
       </code>
     </pre>
   </div>
@@ -57,7 +71,7 @@
 
   <div class="callout callout-info">
     <h4>Custom builds</h4>
-    <p>Angular Form Library provides independently built modules that can be loaded separately</p>
+    <p>Angular Form Library provides independently built modules that can be loaded separately:</p>
     <div class=highlight>
       <pre>
         <code class=javascript highlight-block>
