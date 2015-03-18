@@ -21,6 +21,12 @@
 
   mod.directive('formInput', ['formControlService', function(formControlService) {
 
+    function addPlaceholder(inputElem, placeholderText) {
+      if (placeholderText) {
+        inputElem.attr('placeholder', placeholderText);
+      }
+    }
+
     return formControlService.buildDirective({
       controlName: 'formInput',
       templateType: 'template',
@@ -28,6 +34,7 @@
       expectedAttributes: ['label', 'inputType'],
       configFn: function(tElement, tAttr, id, name, inputElem, labelElem) {
         labelElem.prepend(tAttr.label);
+        addPlaceholder(inputElem, tAttr.placeholder); // Do this to be API-compatible with the form-select control. ff-placeholder is still supported. Use one or the other.
 
         formControlService.createFieldHint(tElement, inputElem, tAttr.fieldHint, id + '-hint', tAttr.fieldHintDisplay);
         formControlService.createErrorFeatures(inputElem.parent(), inputElem, name, tAttr.label, tAttr.fieldErrors, tAttr.textErrors);
