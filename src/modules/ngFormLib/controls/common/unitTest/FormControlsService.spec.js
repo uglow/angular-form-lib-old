@@ -68,6 +68,7 @@ describe('Form controls common library', function() {
         {input: undefined, expectedOutput: 'false'},
         {input: 'false', expectedOutput: 'false'},
         {input: 'random', expectedOutput: 'random'},
+        {input: '', expectedOutput: 'true'},
         {input: true, expectedOutput: true},
         {input: false, expectedOutput: false},
         {input: 0, expectedOutput: 'false'},

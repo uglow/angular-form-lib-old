@@ -73,6 +73,22 @@ describe('Form Input Directive', function() {
   });
 
 
+  it('should allow the placeholder attribute to be specified as "placeholder" as well as via "ff-placeholder" attribute', function() {
+    elem = compileElement('<form-input uid="fld" input-type="text" label="label" placeholder="direct">');
+    scope.$digest();
+
+    // Added form directive bits HTML changes initially
+    expect(elem.find('input')[0].outerHTML).toEqual('<input type="text" class="form-control" id="fld" name="fld" ng-required="false" aria-required="false" placeholder="direct">');
+
+    // Now use ff-placeholder
+    elem = compileElement('<form-input uid="fld" input-type="text" label="label" ff-placeholder="indirect">');
+    scope.$digest();
+
+    // Added form directive bits HTML changes initially
+    expect(elem.find('input')[0].outerHTML).toEqual('<input type="text" class="form-control" id="fld" name="fld" placeholder="indirect" ng-required="false" aria-required="false">');
+  });
+
+
   it('should throw an error if any of the label, id and name attributes are missing', function() {
     var controlName = 'formInput', directiveName = 'form-input';
     var errorNoLabel = 'The ' + controlName + ' component requires a label attribute.';

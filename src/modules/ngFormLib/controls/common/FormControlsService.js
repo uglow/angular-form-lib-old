@@ -1,16 +1,7 @@
 (function(angular) {
   'use strict';
 
-  var mod = angular.module('ngFormLib.controls.common', [
-    'common.utility',
-    'ngFormLib.controls.requiredMarker',
-    // Template-modules (HTML that is converted into an Angular template)
-    'ngFormLib/controls/formCheckbox/template/FormCheckboxTemplate.html',
-    'ngFormLib/controls/formDate/template/FormDateInputTemplate.html',
-    'ngFormLib/controls/formRadioButton/template/FormRadioButtonTemplate.html',
-    'ngFormLib/controls/formSelect/template/FormSelectTemplate.html'
-  ]);
-
+  var mod = angular.module('ngFormLib.controls.common');
 
   // Workaround for bug #1404
   // https://github.com/angular/angular.js/issues/1404
@@ -168,14 +159,15 @@
 
 
         getRequiredAttribute: function(required) {
-          var result = required || 'false';
-
           // When we set required="true" on a parent directive (like on-off-button), inputElem.attr('required', 'true')
           // becomes <input required="required" due to browser interference. So detect this case, and replace it with "true"
-          if (required === 'required') {
-            result = 'true';
+          // In v1.3, required="true" becomes required="".
+          if (required === 'required' || required === '' || required === 'true') {
+            return 'true';
+          } else if (required === undefined) {
+            return 'false';
           }
-          return result;
+          return required;
         },
 
 

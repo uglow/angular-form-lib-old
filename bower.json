@@ -28,14 +28,14 @@
     "/src/**"
   ],
   "dependencies": {
-    "angular": "1.2.x",
-    "angular-translate": "~2.2.0",
-    "angular-translate-loader-static-files": "~2.2.0"
+    "angular": ">=1.2",
+    "angular-animate": ">=1.2",
+    "angular-scroll": "*",
+    "angular-translate": "2.x",
+    "angular-translate-loader-static-files": "2.x"
   },
   "devDependencies": {
-    "angular-animate": "1.2.x",
     "angular-mocks": "1.2.x",
-    "angular-scroll": "~0.6.2",
     "angular-strap": "~2.1.4",
     "bootstrap-stylus": "~3.3.1",
     "highlightjs": "~8.3.0"

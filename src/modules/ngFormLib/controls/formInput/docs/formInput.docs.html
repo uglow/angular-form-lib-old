@@ -30,11 +30,11 @@
 
       <div form-input uid="formInput1_fld1" name="formInput1_fld1" label="Text type field" required="true"
         input-type="text" ff-ng-model="ctrl.formInput1.fld1" field-hint="{{'OTHER.HINT' | translate}}"
-        field-errors="{required: 'Title is required'}"
+        field-errors="{required: 'Title is required'}" placeholder="Placeholder text"
         ></div>
 
       <div form-input uid="formInput1_fld2" name="formInput1_fld2" label="Date type field" required="false"
-         input-type="date" ff-ng-model="ctrl.formInput1.fld2" placeholder="Placeholder text"
+         input-type="date" ff-ng-model="ctrl.formInput1.fld2"
         ></div>
 
       <!-- Use generated ids -->
@@ -69,6 +69,12 @@
           <td>string</td>
           <td></td>
           <td>Text that is related to the field but is not the field's label. Often used to provide additional information about the field.</td>
+        </tr>
+        <tr>
+          <td>placeholder</td>
+          <td>string</td>
+          <td></td>
+          <td>Placeholder text that appears inside the input element when there is no existing value. Alias for <code>ff-placeholder</code>.</td>
         </tr>
         <tr>
           <td>template</td>
