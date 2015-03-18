@@ -1,3 +1,16 @@
+### 0.2.7 (2015-03-18)
+
+
+#### Bug Fixes
+
+* **angular1.3:** Fix behaviour of required attribute for Angular 1.3 ([04d3d658](http://github.com/uglow/angular-form-lib/commit/04d3d658d6b63dc0d3ba1bbdc91522885570e2c5))
+
+
+#### Features
+
+* **input:** Support `placeholder` attribute for `form-input` elements (alias to `ff-placehol ([77ec16bd](http://github.com/uglow/angular-form-lib/commit/77ec16bd53de8b5b08c74efc7954ddfdce6f9a20))
+
+
 ### 0.2.6 (2015-02-26)
 
 
