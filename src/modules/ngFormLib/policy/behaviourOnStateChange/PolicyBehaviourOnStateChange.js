@@ -8,7 +8,7 @@
     // If no offsetHeight then assume it's invisible and let the next error field take the scroll position
     // Safe because no element will ever have offsetTop of 0 due to our header
     if (element[0].offsetHeight) {
-//      //console.log('Error focus set to: ' + domElement.id);
+      //console.log('Error focus set to: ' + domElement.id);
       $timeout.cancel(timeoutPromise);
       $timeout.cancel(scrollPromise);   // This doesn't seem to make a difference on a Mac - user-generated scrolling does not get cancelled
       timeoutPromise = $timeout(function() { element[0].focus();}, duration);

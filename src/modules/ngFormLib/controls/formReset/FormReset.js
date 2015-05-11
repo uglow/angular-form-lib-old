@@ -7,7 +7,7 @@
   mod.directive('formReset', ['$parse', function($parse) {
 
     function resetFieldState(controlMap) {
-    // Loops through the controlMap and reset's each field's state
+      // Loops through the controlMap and reset's each field's state
       for (var item in controlMap) {
         if (controlMap.hasOwnProperty(item)) {
           var controlList = controlMap[item];
