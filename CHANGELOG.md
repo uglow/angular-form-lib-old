@@ -1,3 +1,11 @@
+## 0.3.0 (2015-05-11)
+
+
+#### Features
+
+* **IE8:** Make library work with IE8 ([b0bb1e34](http://github.com/uglow/angular-form-lib/commit/b0bb1e34acb96143e363efadef3a7afec13cb3b5))
+
+
 ### 0.2.7 (2015-03-18)
 
 
