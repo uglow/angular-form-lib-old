@@ -125,7 +125,7 @@ describe('Date Directives spec,', function() {
 
       expect(elem.html()).toEqual('<div class="form-group">' +
         '<label class="control-label" for="frm-date">frm-date<span class="required ng-isolate-scope ng-hide" aria-hidden="true" ng-class="{\'ng-hide\': hide}" ng-transclude="" required-marker="" hide="!(false)"></span></label>' +
-        '<div class="control-row"><input type="text" class="form-control ng-pristine ng-valid ng-valid-required" maxlength="10" placeholder="dd/mm/yyyy" bs-datepicker="" form-date-format="" mask-date-digits="" id="frm-date" name="frm-date" ng-model="scope.date" ng-required="false" aria-required="false"><span ng-transclude=""></span></div>' +
+        '<div class="control-row"><input type="text" class="form-control ng-pristine ng-untouched ng-valid ng-valid-maxlength ng-valid-required" maxlength="10" placeholder="dd/mm/yyyy" bs-datepicker="" form-date-format="" mask-date-digits="" id="frm-date" name="frm-date" ng-model="scope.date" ng-required="false" aria-required="false"><span ng-transclude=""></span></div>' +
         '</div>');
     });
 

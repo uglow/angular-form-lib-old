@@ -28,7 +28,7 @@ describe('when I use the Form Radio Button it', function() {
     elem = compileElement('<form-radio-button uid="fld" name="btn" ff-ng-model="state" ff-ng-checked="true" ff-value="puppy" label-class="Amy" ff-aria-label="My label" ff-ng-change="testChange()" required="true"></form-radio-button>');
     scope.$digest();
 
-    expect(elem.find('input')[0].outerHTML).toEqual('<input type="radio" field-error-controller="" id="fld" name="btn" ng-model="state" ng-checked="true" value="puppy" aria-label="My label" ng-change="testChange()" ng-required="true" aria-required="true" ng-class="{\'checked\': state === \'puppy\' || true}" class="ng-pristine ng-invalid ng-invalid-required checked" required="required" checked="checked">');
+    expect(elem.find('input')[0].outerHTML).toEqual('<input type="radio" field-error-controller="" id="fld" name="btn" ng-model="state" ng-checked="true" value="puppy" aria-label="My label" ng-change="testChange()" ng-required="true" aria-required="true" ng-class="{\'checked\': state === \'puppy\' || true}" class="ng-pristine ng-untouched ng-invalid ng-invalid-required checked" required="required" checked="checked">');
     expect(elem.find('label')[0].outerHTML).toEqual('<label for="fld" class="Amy"><span ng-transclude=""></span><span class="required ng-isolate-scope" aria-hidden="true" ng-class="{\'ng-hide\': hide}" ng-transclude="" required-marker="" hide="!(true)"></span></label>');
   });
 });

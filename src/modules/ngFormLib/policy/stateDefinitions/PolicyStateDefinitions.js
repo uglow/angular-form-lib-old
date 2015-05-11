@@ -68,7 +68,7 @@
     };
   })());
 
-    // This 'service' is the default implementation of the check-for-errors policy
+  // This 'service' is the default implementation of the check-for-errors policy
   mod.factory('formPolicyStateDefinitions', ['formPolicyErrorDefinitionLibrary', 'formPolicySuccessDefinitionLibrary',
     function(formPolicyErrorDefinitionLibrary, formPolicySuccessDefinitionLibrary) {
 
